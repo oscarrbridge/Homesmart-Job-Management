@@ -54,6 +54,7 @@ namespace Homesmart_Job_Management
             // 
             // btnSubmitNew
             // 
+            this.btnSubmitNew.Enabled = false;
             this.btnSubmitNew.Location = new System.Drawing.Point(292, 11);
             this.btnSubmitNew.Name = "btnSubmitNew";
             this.btnSubmitNew.Size = new System.Drawing.Size(115, 40);
@@ -77,6 +78,7 @@ namespace Homesmart_Job_Management
             this.boxCustomerAddress.Name = "boxCustomerAddress";
             this.boxCustomerAddress.Size = new System.Drawing.Size(171, 20);
             this.boxCustomerAddress.TabIndex = 2;
+            this.boxCustomerAddress.TextChanged += new System.EventHandler(this.boxCustomerAddress_TextChanged);
             // 
             // txtCustomerName
             // 
@@ -93,6 +95,7 @@ namespace Homesmart_Job_Management
             this.boxCustomerName.Name = "boxCustomerName";
             this.boxCustomerName.Size = new System.Drawing.Size(171, 20);
             this.boxCustomerName.TabIndex = 0;
+            this.boxCustomerName.TextChanged += new System.EventHandler(this.boxCustomerName_TextChanged);
             // 
             // pictureBox1
             // 

@@ -30,7 +30,6 @@ namespace Homesmart_Job_Management
         private void InitializeComponent()
         {
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -41,28 +40,16 @@ namespace Homesmart_Job_Management
             // pnlButtons
             // 
             this.pnlButtons.AutoSize = true;
-            this.pnlButtons.Controls.Add(this.btnEdit);
             this.pnlButtons.Controls.Add(this.btnSearch);
             this.pnlButtons.Controls.Add(this.btnNew);
-            this.pnlButtons.Location = new System.Drawing.Point(322, 145);
+            this.pnlButtons.Location = new System.Drawing.Point(321, 185);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(121, 138);
+            this.pnlButtons.Size = new System.Drawing.Size(121, 92);
             this.pnlButtons.TabIndex = 0;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.AutoSize = true;
-            this.btnEdit.Location = new System.Drawing.Point(3, 49);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(115, 40);
-            this.btnEdit.TabIndex = 2;
-            this.btnEdit.Text = "Edit Entry";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(3, 95);
+            this.btnSearch.Location = new System.Drawing.Point(3, 49);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(115, 40);
             this.btnSearch.TabIndex = 1;
@@ -84,7 +71,7 @@ namespace Homesmart_Job_Management
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Homesmart_Job_Management.Properties.Resources.logo_plaster_home_specialists_w_;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 17);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(298, 50);
             this.pictureBox1.TabIndex = 4;
@@ -110,7 +97,6 @@ namespace Homesmart_Job_Management
         #endregion
 
         private System.Windows.Forms.Panel pnlButtons;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.PictureBox pictureBox1;

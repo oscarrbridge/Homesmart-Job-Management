@@ -17,15 +17,10 @@ namespace Homesmart_Job_Management
             newjob.Show();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            frmSearch newSearch = new frmSearch();
+            newSearch.Show();
         }
 
 
