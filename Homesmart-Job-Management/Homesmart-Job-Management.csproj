@@ -99,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="connections.cs" />
+    <Compile Include="frmEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditEntry.Designer.cs">
+      <DependentUpon>frmEditEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmEditEntry.resx">
+      <DependentUpon>frmEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmHome.resx">
       <DependentUpon>frmHome.cs</DependentUpon>
     </EmbeddedResource>
