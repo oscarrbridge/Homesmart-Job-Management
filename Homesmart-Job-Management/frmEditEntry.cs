@@ -17,6 +17,8 @@ namespace Homesmart_Job_Management
 {
     public partial class frmEditEntry : Form
     {
+        public int JobID;
+
         public frmEditEntry(int JobID)
         {
             InitializeComponent();
@@ -32,38 +34,38 @@ namespace Homesmart_Job_Management
 
         private void getInfo(int JobID)
         {
-            DatabaseConnection dbConnection = new DatabaseConnection();
+                DatabaseConnection dbConnection = new DatabaseConnection();
 
-            if (dbConnection.OpenConnection() == true)
-            {
-                string query = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
-
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
-
-                cmd.Parameters.AddWithValue("@JobID", JobID);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                if (dbConnection.OpenConnection() == true)
                 {
-                    boxCustomerName.Text = reader["CustomerName"].ToString();
-                    boxCustomerAddress.Text = reader["CustomerAddress"].ToString();
-                    boxQuoteValue.Text = reader["QuoteValue"].ToString();
-                    boxTotalCost.Text = reader["TotalCost"].ToString();
-                    boxProfit.Text = reader["Profit"].ToString();
-                    boxMargin.Text = reader["Margin"].ToString();
-                }
+                    string query = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
 
-                reader.Close();
-                dbConnection.CloseConnection();
-            }
+                    MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
+
+                    cmd.Parameters.AddWithValue("@JobID", JobID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        boxCustomerName.Text = reader["CustomerName"].ToString();
+                        boxCustomerAddress.Text = reader["CustomerAddress"].ToString();
+                        boxQuoteValue.Text = reader["QuoteValue"].ToString();
+                        boxTotalCost.Text = reader["TotalCost"].ToString();
+                        boxProfit.Text = reader["Profit"].ToString();
+                        boxMargin.Text = reader["Margin"].ToString();
+                    }
+
+                    reader.Close();
+                    dbConnection.CloseConnection();
+                }
         }
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             TextBox source = (TextBox)sender;
             txtWarning.Visible = true;
-            btnSaveChanges.Enabled = true;
+            btnSaveCustomer.Enabled = true;
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
@@ -100,7 +102,7 @@ namespace Homesmart_Job_Management
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);
                     cmd.Parameters.AddWithValue("@Profit", profit);
                     cmd.Parameters.AddWithValue("@Margin", margin);
-                    cmd.Parameters.AddWithValue("@JobID", JobID); //fix
+                    cmd.Parameters.AddWithValue("@JobID", 1); //fix
 
                     cmd.ExecuteNonQuery();
 

@@ -134,8 +134,6 @@ namespace Homesmart_Job_Management
                     cmd.ExecuteNonQuery();
 
                     dbConnection.CloseConnection();
-
-                    Close();
                 }
             }
         }
