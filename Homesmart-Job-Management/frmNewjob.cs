@@ -31,7 +31,7 @@ namespace Homesmart_Job_Management
 
                 if (dbConnection.OpenConnection() == true)
                 {
-                    string query = "INSERT INTO Customer (CustomerName, CustomerAddress) VALUES (@customerName, @customerAddress)";
+                    string query = "INSERT INTO Job (CustomerName, CustomerAddress) VALUES (@customerName, @customerAddress)";
 
                     MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
 
@@ -41,6 +41,8 @@ namespace Homesmart_Job_Management
                     cmd.ExecuteNonQuery();
 
                     dbConnection.CloseConnection();
+
+                    Close();
                 }
             }
         }
