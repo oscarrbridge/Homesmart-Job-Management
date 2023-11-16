@@ -1,7 +1,7 @@
 ﻿using Connections;
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,15 +9,24 @@ namespace Homesmart_Job_Management
 {
     public partial class frmEditEntry : Form
     {
-        public int JobID;
+        private int uJobID;
 
         private int countQ = 0;
         private int countC = 0;
         private int countI = 0;
 
+        private int countQL = 0;
+        private int countCL = 0;
+        private int countIL = 0;
+
+        Dictionary<string, Control> QuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> ChargeControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> InvoiceControls = new Dictionary<string, Control>();
 
         public frmEditEntry(int JobID)
         {
+            uJobID = JobID;
+
             InitializeComponent();
             getInfo(JobID);
 
@@ -39,9 +48,9 @@ namespace Homesmart_Job_Management
                 int Charge = 0;
                 int Invoice = 0;
 
-                string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, Reference, QuoteValue FROM ExpenseQuote WHERE JobID = @JobID";
-                string ChargeQuery = $"SELECT Company, SupplerContractor, uValue FROM InternalCharge WHERE JobID = @JobID";
-                string InvoiceQuery = $"SELECT SupplerContractor, InvoiceDate, uReference, InvoiceNo, uValue FROM ExpenseInvoice WHERE JobID = @JobID";
+                string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, uReference, QuoteValue FROM ExpenseQuote WHERE JobID = @JobID";
+                string ChargeQuery = $"SELECT Company, SupplierContractor, uValue FROM InternalCharge WHERE JobID = @JobID";
+                string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue FROM ExpenseInvoice WHERE JobID = @JobID";
 
                 string QuoteCount = $"SELECT COUNT(*) FROM ExpenseQuote WHERE JobID = @JobID";
                 string ChargeCount = $"SELECT COUNT(*) FROM InternalCharge WHERE JobID = @JobID";
@@ -58,49 +67,87 @@ namespace Homesmart_Job_Management
                 MySqlDataReader reader = QuoteCountCmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Quote = reader.GetInt32(0) - 1;
+                    Quote = reader.GetInt32(0);
                 }
                 reader.Close();
 
                 reader = ChargeCountCmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Charge = reader.GetInt32(0) - 1;
+                    Charge = reader.GetInt32(0);
                 }
                 reader.Close();
 
                 reader = InvoiceCountCmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Invoice = reader.GetInt32(0) - 1;
+                    Invoice = reader.GetInt32(0);
                 }
                 reader.Close();
 
+                // Execute the QuoteQuery and use the result to set the value of the field
+                MySqlCommand QuoteQueryCmd = new MySqlCommand(QuoteQuery, dbConnection.GetConnection());
+                QuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                reader = QuoteQueryCmd.ExecuteReader();
                 for (int i = 0; i < Quote; i++)
                 {
-                    AddQuote();
-                    
-                    // Execute the QuoteQuery and use the result to set the value of the field
-                    MySqlCommand QuoteQueryCmd = new MySqlCommand(QuoteQuery, dbConnection.GetConnection());
-                    QuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
-                    MySqlDataReader quoteReader = QuoteQueryCmd.ExecuteReader();
-                    if (quoteReader.Read())
+                    if (reader.Read())
                     {
-                        QSupplier.Text = quoteReader["SupplierContractor"].ToString();
-                        QDate.Value = DateTime.Parse(quoteReader["QuoteDate"].ToString());
-                        QReference.Text = quoteReader["Reference"].ToString();
-                        QValue.Text = quoteReader["QuoteValue"].ToString();
+                        AddQuote();
+
+                        (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        try
+                        {
+                            (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value = DateTime.Parse(reader["QuoteDate"].ToString());
+                        }
+                        catch { }
+                        (QuoteControls["QReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
+                        (QuoteControls["QValue" + $"{i}"] as TextBox).Text = reader["QuoteValue"].ToString();
                     }
-                    quoteReader.Close();
                 }
+                reader.Close();
+
+                MySqlCommand ChargeQueryCmd = new MySqlCommand(ChargeQuery, dbConnection.GetConnection());
+                ChargeQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                reader = ChargeQueryCmd.ExecuteReader();
                 for (int i = 0; i < Charge; i++)
                 {
-                    AddCharge();
+                    if (reader.Read())
+                    {
+                        AddCharge();
+
+                        (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
+                        (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        (ChargeControls["CValue" + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                    }
                 }
+                reader.Close();
+
+
+                MySqlCommand InvoiceQueryCmd = new MySqlCommand(InvoiceQuery, dbConnection.GetConnection());
+                InvoiceQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                reader = InvoiceQueryCmd.ExecuteReader();
                 for (int i = 0; i < Invoice; i++)
                 {
-                    AddInv();
+                    if (reader.Read())
+                    {
+                        AddInv();
+
+                        (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        try
+                        {
+                            (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value = DateTime.Parse(reader["InvoiceDate"].ToString());
+                        }
+                        catch (Exception ex){}
+                        (InvoiceControls["IReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
+                        (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text = reader["InvoiceNo"].ToString();
+                        (InvoiceControls["IValue"     + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                    }
                 }
+                reader.Close();
 
                 string JobQuery = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
 
@@ -120,7 +167,7 @@ namespace Homesmart_Job_Management
                     boxMargin.Text = reader["Margin"].ToString();
                 }
                 reader.Close();
-                
+
                 dbConnection.CloseConnection();
             }
         }
@@ -131,7 +178,7 @@ namespace Homesmart_Job_Management
             txtWarning.Visible = true;
         }
 
-        private void btnSaveChanges_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show($"Is the information correct: " +
                 $"\nCustomer Name: {boxCustomerName.Text}" +
@@ -165,7 +212,7 @@ namespace Homesmart_Job_Management
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);
                     cmd.Parameters.AddWithValue("@Profit", profit);
                     cmd.Parameters.AddWithValue("@Margin", margin);
-                    cmd.Parameters.AddWithValue("@JobID", 1); //fix
+                    cmd.Parameters.AddWithValue("@JobID", uJobID);
 
                     cmd.ExecuteNonQuery();
 
@@ -179,7 +226,7 @@ namespace Homesmart_Job_Management
         private void AddQuote()
         {
             int startPosX = 18;
-            int startPosY = 216;
+            int startPosY = 183;
 
             // Create new TextBox and Button
             TextBox QSupplier = new TextBox();
@@ -189,25 +236,25 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            QSupplier.Name = "QSupplier" + countQ + 1;
+            QSupplier.Name = "QSupplier" + countQL;
             QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
 
-            QDate.Name = "QDate" + countQ + 1;
+            QDate.Name = "QDate" + countQL;
             QDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QDate.Size = new Size(80, 20);
             QDate.Format = DateTimePickerFormat.Short;
 
-            QReference.Name = "QReference" + countQ + 1;
+            QReference.Name = "QReference" + countQL;
             QReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QReference.Size = new Size(170, 20);
 
-            QValue.Name = "QValue" + countQ + 1;
+            QValue.Name = "QValue" + countQL;
             QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countQ + 1;
+            button.Name = "button" + countQL;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             button.Size = new Size(20, 20);
 
@@ -237,6 +284,8 @@ namespace Homesmart_Job_Management
                     countQ--;
                     countC--;
                     countI--;
+
+                    countQL--;
                 }
             };
 
@@ -248,6 +297,11 @@ namespace Homesmart_Job_Management
                     control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
+
+            QuoteControls.Add(QSupplier.Name, QSupplier);
+            QuoteControls.Add(QDate.Name, QDate);
+            QuoteControls.Add(QReference.Name, QReference);
+            QuoteControls.Add(QValue.Name, QValue);
 
             // Add the new controls to the form
             Controls.Add(QSupplier);
@@ -261,12 +315,14 @@ namespace Homesmart_Job_Management
             countQ++;
             countC++;
             countI++;
+
+            countQL++;
         }
 
         private void AddCharge()
         {
             int startPosX = 18;
-            int startPosY = 314;
+            int startPosY = 281;
 
             // Create new TextBox and Button
             TextBox CCompany = new TextBox();
@@ -275,20 +331,20 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            CCompany.Name = "CCompany" + countC + 1;
+            CCompany.Name = "CCompany" + countCL;
             CCompany.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CCompany.Size = new Size(170, 20);
 
-            CSupplier.Name = "CSupplier" + countC + 1;
+            CSupplier.Name = "CSupplier" + countCL;
             CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
 
-            CValue.Name = "CValue" + countC + 1;
+            CValue.Name = "CValue" + countCL;
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countC + 1;
+            button.Name = "button" + countCL;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             button.Size = new Size(20, 20);
 
@@ -318,6 +374,8 @@ namespace Homesmart_Job_Management
                     // Decrement the count
                     countC--;
                     countI--;
+
+                    countCL--;
                 }
             };
 
@@ -330,6 +388,10 @@ namespace Homesmart_Job_Management
                 }
             }
 
+            ChargeControls.Add(CCompany.Name, CCompany);
+            ChargeControls.Add(CSupplier.Name, CSupplier);
+            ChargeControls.Add(CValue.Name, CValue);
+
             // Add the new controls to the form
             Controls.Add(CCompany);
             Controls.Add(CSupplier);
@@ -340,12 +402,14 @@ namespace Homesmart_Job_Management
             // Increment the count
             countC++;
             countI++;
+
+            countCL++;
         }
 
         private void AddInv()
         {
             int startPosX = 18;
-            int startPosY = 426;
+            int startPosY = 393;
 
             // Create new TextBox and Button
             TextBox ISupplier = new TextBox();
@@ -356,29 +420,29 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            ISupplier.Name = "ISupplier" + countI + 1;
+            ISupplier.Name = "ISupplier" + countIL;
             ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             ISupplier.Size = new Size(170, 20);
 
-            IDate.Name = "IDate" + countI + 1;
+            IDate.Name = "IDate" + countIL;
             IDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IDate.Size = new Size(80, 20);
             IDate.Format = DateTimePickerFormat.Short;
 
-            IReference.Name = "IReference" + countI + 1;
+            IReference.Name = "IReference" + countIL;
             IReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IReference.Size = new Size(170, 20);
 
-            IInvNumber.Name = "IInvNumber" + countI + 1;
+            IInvNumber.Name = "IInvNumber" + countIL;
             IInvNumber.Location = new Point(startPosX + 443, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IInvNumber.Size = new Size(170, 20);
 
-            IValue.Name = "IValue" + countI + 1;
+            IValue.Name = "IValue" + countIL;
             IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countI + 1;
+            button.Name = "button" + countIL;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             button.Size = new Size(20, 20);
 
@@ -409,6 +473,8 @@ namespace Homesmart_Job_Management
 
                     // Decrement the count
                     countI--;
+
+                    countIL--;
                 }
             };
 
@@ -421,6 +487,12 @@ namespace Homesmart_Job_Management
                 }
             }
 
+            InvoiceControls.Add(ISupplier.Name, ISupplier);
+            InvoiceControls.Add(IDate.Name, IDate);
+            InvoiceControls.Add(IReference.Name, IReference);
+            InvoiceControls.Add(IInvNumber.Name, IInvNumber);
+            InvoiceControls.Add(IValue.Name, IValue);
+
             // Add the new controls to the form
             Controls.Add(ISupplier);
             Controls.Add(IDate);
@@ -432,20 +504,25 @@ namespace Homesmart_Job_Management
 
             // Increment the count
             countI++;
+
+            countIL++;
         }
 
         private void btnAddQuote_Click(object sender, EventArgs e)
         {
+            TextBox_TextChanged(null, null);
             AddQuote();
         }
 
         private void btnAddCharge_Click(object sender, EventArgs e)
         {
+            TextBox_TextChanged(null, null);
             AddCharge();
         }
 
         private void btnAddInv_Click(object sender, EventArgs e)
         {
+            TextBox_TextChanged(null, null);
             AddInv();
         }
     }

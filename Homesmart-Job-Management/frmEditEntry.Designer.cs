@@ -51,19 +51,11 @@
             this.txtSupplier = new System.Windows.Forms.Label();
             this.txtInvoiceDate = new System.Windows.Forms.Label();
             this.txtInvNum = new System.Windows.Forms.Label();
-            this.IReference1 = new System.Windows.Forms.TextBox();
-            this.IValue1 = new System.Windows.Forms.TextBox();
-            this.IDate1 = new System.Windows.Forms.DateTimePicker();
-            this.ISupplier1 = new System.Windows.Forms.TextBox();
-            this.IInvNumber = new System.Windows.Forms.TextBox();
             this.pnlInternalChargeLbl = new System.Windows.Forms.Panel();
             this.txtInternalTitle = new System.Windows.Forms.Label();
             this.txtCompanyName = new System.Windows.Forms.Label();
             this.txtItem = new System.Windows.Forms.Label();
             this.txtInternalValue = new System.Windows.Forms.Label();
-            this.CCompany1 = new System.Windows.Forms.TextBox();
-            this.CSupplier1 = new System.Windows.Forms.TextBox();
-            this.CValue1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlQuoteLbl = new System.Windows.Forms.Panel();
             this.txtReferenceQ = new System.Windows.Forms.Label();
@@ -71,10 +63,6 @@
             this.txtQuotes = new System.Windows.Forms.Label();
             this.txtSupplierQ = new System.Windows.Forms.Label();
             this.txtQuoteDateQ = new System.Windows.Forms.Label();
-            this.QReference1 = new System.Windows.Forms.TextBox();
-            this.QValue1 = new System.Windows.Forms.TextBox();
-            this.QDate1 = new System.Windows.Forms.DateTimePicker();
-            this.QSupplier1 = new System.Windows.Forms.TextBox();
             this.txtGST = new System.Windows.Forms.Label();
             this.PnlQuoteIn = new System.Windows.Forms.Panel();
             this.btnAddQuote = new System.Windows.Forms.Button();
@@ -82,15 +70,13 @@
             this.btnAddCharge = new System.Windows.Forms.Button();
             this.pnlInvoicesIn = new System.Windows.Forms.Panel();
             this.btnAddInv = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
             this.pnlInvoicesLbl.SuspendLayout();
             this.pnlInternalChargeLbl.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlQuoteLbl.SuspendLayout();
-            this.PnlQuoteIn.SuspendLayout();
-            this.pnlInternalChargeIn.SuspendLayout();
-            this.pnlInvoicesIn.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgLogo
@@ -308,45 +294,6 @@
             this.txtInvNum.TabIndex = 21;
             this.txtInvNum.Text = "Inv Number";
             // 
-            // IReference1
-            // 
-            this.IReference1.Location = new System.Drawing.Point(270, 3);
-            this.IReference1.MaxLength = 20;
-            this.IReference1.Name = "IReference1";
-            this.IReference1.Size = new System.Drawing.Size(170, 20);
-            this.IReference1.TabIndex = 35;
-            // 
-            // IValue1
-            // 
-            this.IValue1.Location = new System.Drawing.Point(630, 3);
-            this.IValue1.MaxLength = 7;
-            this.IValue1.Name = "IValue1";
-            this.IValue1.Size = new System.Drawing.Size(80, 20);
-            this.IValue1.TabIndex = 37;
-            // 
-            // IDate1
-            // 
-            this.IDate1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.IDate1.Location = new System.Drawing.Point(180, 3);
-            this.IDate1.Name = "IDate1";
-            this.IDate1.Size = new System.Drawing.Size(80, 20);
-            this.IDate1.TabIndex = 34;
-            // 
-            // ISupplier1
-            // 
-            this.ISupplier1.Location = new System.Drawing.Point(3, 3);
-            this.ISupplier1.Name = "ISupplier1";
-            this.ISupplier1.Size = new System.Drawing.Size(170, 20);
-            this.ISupplier1.TabIndex = 16;
-            // 
-            // IInvNumber
-            // 
-            this.IInvNumber.Location = new System.Drawing.Point(446, 3);
-            this.IInvNumber.MaxLength = 20;
-            this.IInvNumber.Name = "IInvNumber";
-            this.IInvNumber.Size = new System.Drawing.Size(170, 20);
-            this.IInvNumber.TabIndex = 20;
-            // 
             // pnlInternalChargeLbl
             // 
             this.pnlInternalChargeLbl.AutoSize = true;
@@ -395,28 +342,6 @@
             this.txtInternalValue.Size = new System.Drawing.Size(72, 13);
             this.txtInternalValue.TabIndex = 21;
             this.txtInternalValue.Text = "Internal Value";
-            // 
-            // CCompany1
-            // 
-            this.CCompany1.Location = new System.Drawing.Point(3, 3);
-            this.CCompany1.Name = "CCompany1";
-            this.CCompany1.Size = new System.Drawing.Size(170, 20);
-            this.CCompany1.TabIndex = 16;
-            // 
-            // CSupplier1
-            // 
-            this.CSupplier1.Location = new System.Drawing.Point(180, 3);
-            this.CSupplier1.Name = "CSupplier1";
-            this.CSupplier1.Size = new System.Drawing.Size(170, 20);
-            this.CSupplier1.TabIndex = 18;
-            // 
-            // CValue1
-            // 
-            this.CValue1.Location = new System.Drawing.Point(630, 3);
-            this.CValue1.MaxLength = 7;
-            this.CValue1.Name = "CValue1";
-            this.CValue1.Size = new System.Drawing.Size(80, 20);
-            this.CValue1.TabIndex = 20;
             // 
             // panel1
             // 
@@ -490,37 +415,6 @@
             this.txtQuoteDateQ.TabIndex = 19;
             this.txtQuoteDateQ.Text = "Quote Date";
             // 
-            // QReference1
-            // 
-            this.QReference1.Location = new System.Drawing.Point(270, 3);
-            this.QReference1.MaxLength = 20;
-            this.QReference1.Name = "QReference1";
-            this.QReference1.Size = new System.Drawing.Size(170, 20);
-            this.QReference1.TabIndex = 35;
-            // 
-            // QValue1
-            // 
-            this.QValue1.Location = new System.Drawing.Point(630, 3);
-            this.QValue1.MaxLength = 7;
-            this.QValue1.Name = "QValue1";
-            this.QValue1.Size = new System.Drawing.Size(80, 20);
-            this.QValue1.TabIndex = 37;
-            // 
-            // QDate1
-            // 
-            this.QDate1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.QDate1.Location = new System.Drawing.Point(180, 3);
-            this.QDate1.Name = "QDate1";
-            this.QDate1.Size = new System.Drawing.Size(80, 20);
-            this.QDate1.TabIndex = 34;
-            // 
-            // QSupplier1
-            // 
-            this.QSupplier1.Location = new System.Drawing.Point(3, 3);
-            this.QSupplier1.Name = "QSupplier1";
-            this.QSupplier1.Size = new System.Drawing.Size(170, 20);
-            this.QSupplier1.TabIndex = 16;
-            // 
             // txtGST
             // 
             this.txtGST.AutoSize = true;
@@ -535,19 +429,14 @@
             // PnlQuoteIn
             // 
             this.PnlQuoteIn.AutoSize = true;
-            this.PnlQuoteIn.Controls.Add(this.QSupplier1);
-            this.PnlQuoteIn.Controls.Add(this.QReference1);
-            this.PnlQuoteIn.Controls.Add(this.btnAddQuote);
-            this.PnlQuoteIn.Controls.Add(this.QDate1);
-            this.PnlQuoteIn.Controls.Add(this.QValue1);
             this.PnlQuoteIn.Location = new System.Drawing.Point(15, 183);
             this.PnlQuoteIn.Name = "PnlQuoteIn";
-            this.PnlQuoteIn.Size = new System.Drawing.Size(739, 26);
+            this.PnlQuoteIn.Size = new System.Drawing.Size(19, 26);
             this.PnlQuoteIn.TabIndex = 38;
             // 
             // btnAddQuote
             // 
-            this.btnAddQuote.Location = new System.Drawing.Point(716, 3);
+            this.btnAddQuote.Location = new System.Drawing.Point(731, 160);
             this.btnAddQuote.Name = "btnAddQuote";
             this.btnAddQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddQuote.TabIndex = 41;
@@ -558,18 +447,14 @@
             // pnlInternalChargeIn
             // 
             this.pnlInternalChargeIn.AutoSize = true;
-            this.pnlInternalChargeIn.Controls.Add(this.btnAddCharge);
-            this.pnlInternalChargeIn.Controls.Add(this.CCompany1);
-            this.pnlInternalChargeIn.Controls.Add(this.CValue1);
-            this.pnlInternalChargeIn.Controls.Add(this.CSupplier1);
             this.pnlInternalChargeIn.Location = new System.Drawing.Point(15, 281);
             this.pnlInternalChargeIn.Name = "pnlInternalChargeIn";
-            this.pnlInternalChargeIn.Size = new System.Drawing.Size(739, 26);
+            this.pnlInternalChargeIn.Size = new System.Drawing.Size(19, 26);
             this.pnlInternalChargeIn.TabIndex = 39;
             // 
             // btnAddCharge
             // 
-            this.btnAddCharge.Location = new System.Drawing.Point(716, 3);
+            this.btnAddCharge.Location = new System.Drawing.Point(731, 255);
             this.btnAddCharge.Name = "btnAddCharge";
             this.btnAddCharge.Size = new System.Drawing.Size(20, 20);
             this.btnAddCharge.TabIndex = 43;
@@ -580,20 +465,14 @@
             // pnlInvoicesIn
             // 
             this.pnlInvoicesIn.AutoSize = true;
-            this.pnlInvoicesIn.Controls.Add(this.btnAddInv);
-            this.pnlInvoicesIn.Controls.Add(this.ISupplier1);
-            this.pnlInvoicesIn.Controls.Add(this.IReference1);
-            this.pnlInvoicesIn.Controls.Add(this.IInvNumber);
-            this.pnlInvoicesIn.Controls.Add(this.IValue1);
-            this.pnlInvoicesIn.Controls.Add(this.IDate1);
             this.pnlInvoicesIn.Location = new System.Drawing.Point(15, 393);
             this.pnlInvoicesIn.Name = "pnlInvoicesIn";
-            this.pnlInvoicesIn.Size = new System.Drawing.Size(739, 26);
+            this.pnlInvoicesIn.Size = new System.Drawing.Size(19, 26);
             this.pnlInvoicesIn.TabIndex = 40;
             // 
             // btnAddInv
             // 
-            this.btnAddInv.Location = new System.Drawing.Point(716, 3);
+            this.btnAddInv.Location = new System.Drawing.Point(731, 367);
             this.btnAddInv.Name = "btnAddInv";
             this.btnAddInv.Size = new System.Drawing.Size(20, 20);
             this.btnAddInv.TabIndex = 42;
@@ -601,12 +480,26 @@
             this.btnAddInv.UseVisualStyleBackColor = true;
             this.btnAddInv.Click += new System.EventHandler(this.btnAddInv_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(507, 584);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(111, 23);
+            this.btnSave.TabIndex = 44;
+            this.btnSave.Text = "Save Changes";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(800, 905);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnAddInv);
+            this.Controls.Add(this.btnAddCharge);
+            this.Controls.Add(this.btnAddQuote);
             this.Controls.Add(this.pnlInvoicesIn);
             this.Controls.Add(this.pnlInternalChargeIn);
             this.Controls.Add(this.PnlQuoteIn);
@@ -619,7 +512,7 @@
             this.Controls.Add(this.txtWarning);
             this.Controls.Add(this.imgLogo);
             this.Name = "frmEditEntry";
-            this.Text = "A";
+            this.Text = "Edit Job";
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.pnlCustomerInfo.ResumeLayout(false);
             this.pnlCustomerInfo.PerformLayout();
@@ -631,12 +524,6 @@
             this.panel1.PerformLayout();
             this.pnlQuoteLbl.ResumeLayout(false);
             this.pnlQuoteLbl.PerformLayout();
-            this.PnlQuoteIn.ResumeLayout(false);
-            this.PnlQuoteIn.PerformLayout();
-            this.pnlInternalChargeIn.ResumeLayout(false);
-            this.pnlInternalChargeIn.PerformLayout();
-            this.pnlInvoicesIn.ResumeLayout(false);
-            this.pnlInvoicesIn.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -663,33 +550,21 @@
         private System.Windows.Forms.Panel pnlInvoicesLbl;
         private System.Windows.Forms.Label txtInvoiceTitle;
         private System.Windows.Forms.Label txtSupplier;
-        private System.Windows.Forms.TextBox ISupplier1;
         private System.Windows.Forms.Label txtInvoiceDate;
-        private System.Windows.Forms.TextBox IInvNumber;
         private System.Windows.Forms.Label txtInvNum;
         private System.Windows.Forms.Panel pnlInternalChargeLbl;
         private System.Windows.Forms.Label txtInternalTitle;
         private System.Windows.Forms.Label txtCompanyName;
-        private System.Windows.Forms.TextBox CCompany1;
-        private System.Windows.Forms.TextBox CSupplier1;
         private System.Windows.Forms.Label txtItem;
-        private System.Windows.Forms.TextBox CValue1;
         private System.Windows.Forms.Label txtInternalValue;
-        private System.Windows.Forms.DateTimePicker IDate1;
         private System.Windows.Forms.Label txtReference;
-        private System.Windows.Forms.TextBox IReference1;
-        private System.Windows.Forms.TextBox IValue1;
         private System.Windows.Forms.Label txtInvValue;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlQuoteLbl;
         private System.Windows.Forms.Label txtReferenceQ;
-        private System.Windows.Forms.TextBox QReference1;
-        private System.Windows.Forms.TextBox QValue1;
         private System.Windows.Forms.Label txtQuoteValueQ;
-        private System.Windows.Forms.DateTimePicker QDate1;
         private System.Windows.Forms.Label txtQuotes;
         private System.Windows.Forms.Label txtSupplierQ;
-        private System.Windows.Forms.TextBox QSupplier1;
         private System.Windows.Forms.Label txtQuoteDateQ;
         private System.Windows.Forms.Label txtGST;
         private System.Windows.Forms.Panel PnlQuoteIn;
@@ -698,5 +573,6 @@
         private System.Windows.Forms.Button btnAddQuote;
         private System.Windows.Forms.Button btnAddInv;
         private System.Windows.Forms.Button btnAddCharge;
+        private System.Windows.Forms.Button btnSave;
     }
 }
