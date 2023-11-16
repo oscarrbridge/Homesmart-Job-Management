@@ -51,6 +51,18 @@ namespace Homesmart_Job_Management
 
                 dataGrid.DataSource = dt;
             }
+            else
+            {
+                DialogResult result = MessageBox.Show("Server not found. Contact Admin", "Error", MessageBoxButtons.RetryCancel);
+                if (result == DialogResult.Retry)
+                {
+                    search();
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

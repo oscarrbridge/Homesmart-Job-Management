@@ -35,15 +35,82 @@ namespace Homesmart_Job_Management
 
             if (dbConnection.OpenConnection() == true)
             {
-                string query = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
+                int Quote = 0;
+                int Charge = 0;
+                int Invoice = 0;
 
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
+                string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, Reference, QuoteValue FROM ExpenseQuote WHERE JobID = @JobID";
+                string ChargeQuery = $"SELECT Company, SupplerContractor, uValue FROM InternalCharge WHERE JobID = @JobID";
+                string InvoiceQuery = $"SELECT SupplerContractor, InvoiceDate, uReference, InvoiceNo, uValue FROM ExpenseInvoice WHERE JobID = @JobID";
 
-                cmd.Parameters.AddWithValue("@JobID", JobID);
+                string QuoteCount = $"SELECT COUNT(*) FROM ExpenseQuote WHERE JobID = @JobID";
+                string ChargeCount = $"SELECT COUNT(*) FROM InternalCharge WHERE JobID = @JobID";
+                string InvoiceCount = $"SELECT COUNT(*) FROM ExpenseInvoice WHERE JobID = @JobID";
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand QuoteCountCmd = new MySqlCommand(QuoteCount, dbConnection.GetConnection());
+                MySqlCommand ChargeCountCmd = new MySqlCommand(ChargeCount, dbConnection.GetConnection());
+                MySqlCommand InvoiceCountCmd = new MySqlCommand(InvoiceCount, dbConnection.GetConnection());
 
-                if (reader.Read())
+                QuoteCountCmd.Parameters.AddWithValue("@JobID", JobID);
+                ChargeCountCmd.Parameters.AddWithValue("@JobID", JobID);
+                InvoiceCountCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                MySqlDataReader reader = QuoteCountCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Quote = reader.GetInt32(0) - 1;
+                }
+                reader.Close();
+
+                reader = ChargeCountCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Charge = reader.GetInt32(0) - 1;
+                }
+                reader.Close();
+
+                reader = InvoiceCountCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Invoice = reader.GetInt32(0) - 1;
+                }
+                reader.Close();
+
+                for (int i = 0; i < Quote; i++)
+                {
+                    AddQuote();
+                    
+                    // Execute the QuoteQuery and use the result to set the value of the field
+                    MySqlCommand QuoteQueryCmd = new MySqlCommand(QuoteQuery, dbConnection.GetConnection());
+                    QuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+                    MySqlDataReader quoteReader = QuoteQueryCmd.ExecuteReader();
+                    if (quoteReader.Read())
+                    {
+                        QSupplier.Text = quoteReader["SupplierContractor"].ToString();
+                        QDate.Value = DateTime.Parse(quoteReader["QuoteDate"].ToString());
+                        QReference.Text = quoteReader["Reference"].ToString();
+                        QValue.Text = quoteReader["QuoteValue"].ToString();
+                    }
+                    quoteReader.Close();
+                }
+                for (int i = 0; i < Charge; i++)
+                {
+                    AddCharge();
+                }
+                for (int i = 0; i < Invoice; i++)
+                {
+                    AddInv();
+                }
+
+                string JobQuery = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
+
+                MySqlCommand JobQueryCmd = new MySqlCommand(JobQuery, dbConnection.GetConnection());
+
+                JobQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                reader = JobQueryCmd.ExecuteReader();
+
+                while (reader.Read())
                 {
                     boxCustomerName.Text = reader["CustomerName"].ToString();
                     boxCustomerAddress.Text = reader["CustomerAddress"].ToString();
@@ -52,8 +119,8 @@ namespace Homesmart_Job_Management
                     boxProfit.Text = reader["Profit"].ToString();
                     boxMargin.Text = reader["Margin"].ToString();
                 }
-
                 reader.Close();
+                
                 dbConnection.CloseConnection();
             }
         }
@@ -122,25 +189,25 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            QSupplier.Name = "QSupplier" + countQ;
+            QSupplier.Name = "QSupplier" + countQ + 1;
             QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
 
-            QDate.Name = "QDate" + countQ;
+            QDate.Name = "QDate" + countQ + 1;
             QDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QDate.Size = new Size(80, 20);
             QDate.Format = DateTimePickerFormat.Short;
 
-            QReference.Name = "QReference" + countQ;
+            QReference.Name = "QReference" + countQ + 1;
             QReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QReference.Size = new Size(170, 20);
 
-            QValue.Name = "QValue" + countQ;
+            QValue.Name = "QValue" + countQ + 1;
             QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countQ;
+            button.Name = "button" + countQ + 1;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             button.Size = new Size(20, 20);
 
@@ -208,20 +275,20 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            CCompany.Name = "CCompany" + countC;
+            CCompany.Name = "CCompany" + countC + 1;
             CCompany.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CCompany.Size = new Size(170, 20);
 
-            CSupplier.Name = "CSupplier" + countC;
+            CSupplier.Name = "CSupplier" + countC + 1;
             CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
 
-            CValue.Name = "CValue" + countC;
+            CValue.Name = "CValue" + countC + 1;
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countC;
+            button.Name = "button" + countC + 1;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             button.Size = new Size(20, 20);
 
@@ -289,29 +356,29 @@ namespace Homesmart_Job_Management
             Button button = new Button();
 
             // Set properties
-            ISupplier.Name = "ISupplier" + countI;
+            ISupplier.Name = "ISupplier" + countI + 1;
             ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             ISupplier.Size = new Size(170, 20);
 
-            IDate.Name = "QDate" + countI;
+            IDate.Name = "IDate" + countI + 1;
             IDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IDate.Size = new Size(80, 20);
             IDate.Format = DateTimePickerFormat.Short;
 
-            IReference.Name = "QReference" + countI;
+            IReference.Name = "IReference" + countI + 1;
             IReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IReference.Size = new Size(170, 20);
 
-            IInvNumber.Name = "QReference" + countI;
+            IInvNumber.Name = "IInvNumber" + countI + 1;
             IInvNumber.Location = new Point(startPosX + 443, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IInvNumber.Size = new Size(170, 20);
 
-            IValue.Name = "QValue" + countI;
+            IValue.Name = "IValue" + countI + 1;
             IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
 
             button.Text = "X";
-            button.Name = "button" + countI;
+            button.Name = "button" + countI + 1;
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             button.Size = new Size(20, 20);
 

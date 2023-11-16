@@ -51,19 +51,19 @@
             this.txtSupplier = new System.Windows.Forms.Label();
             this.txtInvoiceDate = new System.Windows.Forms.Label();
             this.txtInvNum = new System.Windows.Forms.Label();
-            this.boxReference = new System.Windows.Forms.TextBox();
-            this.boxInvValue = new System.Windows.Forms.TextBox();
-            this.dteInvoiceDate = new System.Windows.Forms.DateTimePicker();
-            this.boxSupplier = new System.Windows.Forms.TextBox();
-            this.boxInvNum = new System.Windows.Forms.TextBox();
+            this.IReference1 = new System.Windows.Forms.TextBox();
+            this.IValue1 = new System.Windows.Forms.TextBox();
+            this.IDate1 = new System.Windows.Forms.DateTimePicker();
+            this.ISupplier1 = new System.Windows.Forms.TextBox();
+            this.IInvNumber = new System.Windows.Forms.TextBox();
             this.pnlInternalChargeLbl = new System.Windows.Forms.Panel();
             this.txtInternalTitle = new System.Windows.Forms.Label();
             this.txtCompanyName = new System.Windows.Forms.Label();
             this.txtItem = new System.Windows.Forms.Label();
             this.txtInternalValue = new System.Windows.Forms.Label();
-            this.boxCompany = new System.Windows.Forms.TextBox();
-            this.boxSupplierI = new System.Windows.Forms.TextBox();
-            this.boxInternalValue = new System.Windows.Forms.TextBox();
+            this.CCompany1 = new System.Windows.Forms.TextBox();
+            this.CSupplier1 = new System.Windows.Forms.TextBox();
+            this.CValue1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlQuoteLbl = new System.Windows.Forms.Panel();
             this.txtReferenceQ = new System.Windows.Forms.Label();
@@ -71,10 +71,10 @@
             this.txtQuotes = new System.Windows.Forms.Label();
             this.txtSupplierQ = new System.Windows.Forms.Label();
             this.txtQuoteDateQ = new System.Windows.Forms.Label();
-            this.boxReferenceQ = new System.Windows.Forms.TextBox();
-            this.boxQuoteValueQ = new System.Windows.Forms.TextBox();
-            this.dteQuoteDate = new System.Windows.Forms.DateTimePicker();
-            this.boxSupplierQ = new System.Windows.Forms.TextBox();
+            this.QReference1 = new System.Windows.Forms.TextBox();
+            this.QValue1 = new System.Windows.Forms.TextBox();
+            this.QDate1 = new System.Windows.Forms.DateTimePicker();
+            this.QSupplier1 = new System.Windows.Forms.TextBox();
             this.txtGST = new System.Windows.Forms.Label();
             this.PnlQuoteIn = new System.Windows.Forms.Panel();
             this.btnAddQuote = new System.Windows.Forms.Button();
@@ -308,44 +308,44 @@
             this.txtInvNum.TabIndex = 21;
             this.txtInvNum.Text = "Inv Number";
             // 
-            // boxReference
+            // IReference1
             // 
-            this.boxReference.Location = new System.Drawing.Point(270, 3);
-            this.boxReference.MaxLength = 20;
-            this.boxReference.Name = "boxReference";
-            this.boxReference.Size = new System.Drawing.Size(170, 20);
-            this.boxReference.TabIndex = 35;
+            this.IReference1.Location = new System.Drawing.Point(270, 3);
+            this.IReference1.MaxLength = 20;
+            this.IReference1.Name = "IReference1";
+            this.IReference1.Size = new System.Drawing.Size(170, 20);
+            this.IReference1.TabIndex = 35;
             // 
-            // boxInvValue
+            // IValue1
             // 
-            this.boxInvValue.Location = new System.Drawing.Point(630, 3);
-            this.boxInvValue.MaxLength = 7;
-            this.boxInvValue.Name = "boxInvValue";
-            this.boxInvValue.Size = new System.Drawing.Size(80, 20);
-            this.boxInvValue.TabIndex = 37;
+            this.IValue1.Location = new System.Drawing.Point(630, 3);
+            this.IValue1.MaxLength = 7;
+            this.IValue1.Name = "IValue1";
+            this.IValue1.Size = new System.Drawing.Size(80, 20);
+            this.IValue1.TabIndex = 37;
             // 
-            // dteInvoiceDate
+            // IDate1
             // 
-            this.dteInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteInvoiceDate.Location = new System.Drawing.Point(180, 3);
-            this.dteInvoiceDate.Name = "dteInvoiceDate";
-            this.dteInvoiceDate.Size = new System.Drawing.Size(80, 20);
-            this.dteInvoiceDate.TabIndex = 34;
+            this.IDate1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.IDate1.Location = new System.Drawing.Point(180, 3);
+            this.IDate1.Name = "IDate1";
+            this.IDate1.Size = new System.Drawing.Size(80, 20);
+            this.IDate1.TabIndex = 34;
             // 
-            // boxSupplier
+            // ISupplier1
             // 
-            this.boxSupplier.Location = new System.Drawing.Point(3, 3);
-            this.boxSupplier.Name = "boxSupplier";
-            this.boxSupplier.Size = new System.Drawing.Size(170, 20);
-            this.boxSupplier.TabIndex = 16;
+            this.ISupplier1.Location = new System.Drawing.Point(3, 3);
+            this.ISupplier1.Name = "ISupplier1";
+            this.ISupplier1.Size = new System.Drawing.Size(170, 20);
+            this.ISupplier1.TabIndex = 16;
             // 
-            // boxInvNum
+            // IInvNumber
             // 
-            this.boxInvNum.Location = new System.Drawing.Point(446, 3);
-            this.boxInvNum.MaxLength = 20;
-            this.boxInvNum.Name = "boxInvNum";
-            this.boxInvNum.Size = new System.Drawing.Size(170, 20);
-            this.boxInvNum.TabIndex = 20;
+            this.IInvNumber.Location = new System.Drawing.Point(446, 3);
+            this.IInvNumber.MaxLength = 20;
+            this.IInvNumber.Name = "IInvNumber";
+            this.IInvNumber.Size = new System.Drawing.Size(170, 20);
+            this.IInvNumber.TabIndex = 20;
             // 
             // pnlInternalChargeLbl
             // 
@@ -396,27 +396,27 @@
             this.txtInternalValue.TabIndex = 21;
             this.txtInternalValue.Text = "Internal Value";
             // 
-            // boxCompany
+            // CCompany1
             // 
-            this.boxCompany.Location = new System.Drawing.Point(3, 3);
-            this.boxCompany.Name = "boxCompany";
-            this.boxCompany.Size = new System.Drawing.Size(170, 20);
-            this.boxCompany.TabIndex = 16;
+            this.CCompany1.Location = new System.Drawing.Point(3, 3);
+            this.CCompany1.Name = "CCompany1";
+            this.CCompany1.Size = new System.Drawing.Size(170, 20);
+            this.CCompany1.TabIndex = 16;
             // 
-            // boxSupplierI
+            // CSupplier1
             // 
-            this.boxSupplierI.Location = new System.Drawing.Point(180, 3);
-            this.boxSupplierI.Name = "boxSupplierI";
-            this.boxSupplierI.Size = new System.Drawing.Size(170, 20);
-            this.boxSupplierI.TabIndex = 18;
+            this.CSupplier1.Location = new System.Drawing.Point(180, 3);
+            this.CSupplier1.Name = "CSupplier1";
+            this.CSupplier1.Size = new System.Drawing.Size(170, 20);
+            this.CSupplier1.TabIndex = 18;
             // 
-            // boxInternalValue
+            // CValue1
             // 
-            this.boxInternalValue.Location = new System.Drawing.Point(630, 3);
-            this.boxInternalValue.MaxLength = 7;
-            this.boxInternalValue.Name = "boxInternalValue";
-            this.boxInternalValue.Size = new System.Drawing.Size(80, 20);
-            this.boxInternalValue.TabIndex = 20;
+            this.CValue1.Location = new System.Drawing.Point(630, 3);
+            this.CValue1.MaxLength = 7;
+            this.CValue1.Name = "CValue1";
+            this.CValue1.Size = new System.Drawing.Size(80, 20);
+            this.CValue1.TabIndex = 20;
             // 
             // panel1
             // 
@@ -490,36 +490,36 @@
             this.txtQuoteDateQ.TabIndex = 19;
             this.txtQuoteDateQ.Text = "Quote Date";
             // 
-            // boxReferenceQ
+            // QReference1
             // 
-            this.boxReferenceQ.Location = new System.Drawing.Point(270, 3);
-            this.boxReferenceQ.MaxLength = 20;
-            this.boxReferenceQ.Name = "boxReferenceQ";
-            this.boxReferenceQ.Size = new System.Drawing.Size(170, 20);
-            this.boxReferenceQ.TabIndex = 35;
+            this.QReference1.Location = new System.Drawing.Point(270, 3);
+            this.QReference1.MaxLength = 20;
+            this.QReference1.Name = "QReference1";
+            this.QReference1.Size = new System.Drawing.Size(170, 20);
+            this.QReference1.TabIndex = 35;
             // 
-            // boxQuoteValueQ
+            // QValue1
             // 
-            this.boxQuoteValueQ.Location = new System.Drawing.Point(630, 3);
-            this.boxQuoteValueQ.MaxLength = 7;
-            this.boxQuoteValueQ.Name = "boxQuoteValueQ";
-            this.boxQuoteValueQ.Size = new System.Drawing.Size(80, 20);
-            this.boxQuoteValueQ.TabIndex = 37;
+            this.QValue1.Location = new System.Drawing.Point(630, 3);
+            this.QValue1.MaxLength = 7;
+            this.QValue1.Name = "QValue1";
+            this.QValue1.Size = new System.Drawing.Size(80, 20);
+            this.QValue1.TabIndex = 37;
             // 
-            // dteQuoteDate
+            // QDate1
             // 
-            this.dteQuoteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteQuoteDate.Location = new System.Drawing.Point(180, 3);
-            this.dteQuoteDate.Name = "dteQuoteDate";
-            this.dteQuoteDate.Size = new System.Drawing.Size(80, 20);
-            this.dteQuoteDate.TabIndex = 34;
+            this.QDate1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.QDate1.Location = new System.Drawing.Point(180, 3);
+            this.QDate1.Name = "QDate1";
+            this.QDate1.Size = new System.Drawing.Size(80, 20);
+            this.QDate1.TabIndex = 34;
             // 
-            // boxSupplierQ
+            // QSupplier1
             // 
-            this.boxSupplierQ.Location = new System.Drawing.Point(3, 3);
-            this.boxSupplierQ.Name = "boxSupplierQ";
-            this.boxSupplierQ.Size = new System.Drawing.Size(170, 20);
-            this.boxSupplierQ.TabIndex = 16;
+            this.QSupplier1.Location = new System.Drawing.Point(3, 3);
+            this.QSupplier1.Name = "QSupplier1";
+            this.QSupplier1.Size = new System.Drawing.Size(170, 20);
+            this.QSupplier1.TabIndex = 16;
             // 
             // txtGST
             // 
@@ -535,11 +535,11 @@
             // PnlQuoteIn
             // 
             this.PnlQuoteIn.AutoSize = true;
-            this.PnlQuoteIn.Controls.Add(this.boxSupplierQ);
-            this.PnlQuoteIn.Controls.Add(this.boxReferenceQ);
+            this.PnlQuoteIn.Controls.Add(this.QSupplier1);
+            this.PnlQuoteIn.Controls.Add(this.QReference1);
             this.PnlQuoteIn.Controls.Add(this.btnAddQuote);
-            this.PnlQuoteIn.Controls.Add(this.dteQuoteDate);
-            this.PnlQuoteIn.Controls.Add(this.boxQuoteValueQ);
+            this.PnlQuoteIn.Controls.Add(this.QDate1);
+            this.PnlQuoteIn.Controls.Add(this.QValue1);
             this.PnlQuoteIn.Location = new System.Drawing.Point(15, 183);
             this.PnlQuoteIn.Name = "PnlQuoteIn";
             this.PnlQuoteIn.Size = new System.Drawing.Size(739, 26);
@@ -559,9 +559,9 @@
             // 
             this.pnlInternalChargeIn.AutoSize = true;
             this.pnlInternalChargeIn.Controls.Add(this.btnAddCharge);
-            this.pnlInternalChargeIn.Controls.Add(this.boxCompany);
-            this.pnlInternalChargeIn.Controls.Add(this.boxInternalValue);
-            this.pnlInternalChargeIn.Controls.Add(this.boxSupplierI);
+            this.pnlInternalChargeIn.Controls.Add(this.CCompany1);
+            this.pnlInternalChargeIn.Controls.Add(this.CValue1);
+            this.pnlInternalChargeIn.Controls.Add(this.CSupplier1);
             this.pnlInternalChargeIn.Location = new System.Drawing.Point(15, 281);
             this.pnlInternalChargeIn.Name = "pnlInternalChargeIn";
             this.pnlInternalChargeIn.Size = new System.Drawing.Size(739, 26);
@@ -581,11 +581,11 @@
             // 
             this.pnlInvoicesIn.AutoSize = true;
             this.pnlInvoicesIn.Controls.Add(this.btnAddInv);
-            this.pnlInvoicesIn.Controls.Add(this.boxSupplier);
-            this.pnlInvoicesIn.Controls.Add(this.boxReference);
-            this.pnlInvoicesIn.Controls.Add(this.boxInvNum);
-            this.pnlInvoicesIn.Controls.Add(this.boxInvValue);
-            this.pnlInvoicesIn.Controls.Add(this.dteInvoiceDate);
+            this.pnlInvoicesIn.Controls.Add(this.ISupplier1);
+            this.pnlInvoicesIn.Controls.Add(this.IReference1);
+            this.pnlInvoicesIn.Controls.Add(this.IInvNumber);
+            this.pnlInvoicesIn.Controls.Add(this.IValue1);
+            this.pnlInvoicesIn.Controls.Add(this.IDate1);
             this.pnlInvoicesIn.Location = new System.Drawing.Point(15, 393);
             this.pnlInvoicesIn.Name = "pnlInvoicesIn";
             this.pnlInvoicesIn.Size = new System.Drawing.Size(739, 26);
@@ -663,33 +663,33 @@
         private System.Windows.Forms.Panel pnlInvoicesLbl;
         private System.Windows.Forms.Label txtInvoiceTitle;
         private System.Windows.Forms.Label txtSupplier;
-        private System.Windows.Forms.TextBox boxSupplier;
+        private System.Windows.Forms.TextBox ISupplier1;
         private System.Windows.Forms.Label txtInvoiceDate;
-        private System.Windows.Forms.TextBox boxInvNum;
+        private System.Windows.Forms.TextBox IInvNumber;
         private System.Windows.Forms.Label txtInvNum;
         private System.Windows.Forms.Panel pnlInternalChargeLbl;
         private System.Windows.Forms.Label txtInternalTitle;
         private System.Windows.Forms.Label txtCompanyName;
-        private System.Windows.Forms.TextBox boxCompany;
-        private System.Windows.Forms.TextBox boxSupplierI;
+        private System.Windows.Forms.TextBox CCompany1;
+        private System.Windows.Forms.TextBox CSupplier1;
         private System.Windows.Forms.Label txtItem;
-        private System.Windows.Forms.TextBox boxInternalValue;
+        private System.Windows.Forms.TextBox CValue1;
         private System.Windows.Forms.Label txtInternalValue;
-        private System.Windows.Forms.DateTimePicker dteInvoiceDate;
+        private System.Windows.Forms.DateTimePicker IDate1;
         private System.Windows.Forms.Label txtReference;
-        private System.Windows.Forms.TextBox boxReference;
-        private System.Windows.Forms.TextBox boxInvValue;
+        private System.Windows.Forms.TextBox IReference1;
+        private System.Windows.Forms.TextBox IValue1;
         private System.Windows.Forms.Label txtInvValue;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlQuoteLbl;
         private System.Windows.Forms.Label txtReferenceQ;
-        private System.Windows.Forms.TextBox boxReferenceQ;
-        private System.Windows.Forms.TextBox boxQuoteValueQ;
+        private System.Windows.Forms.TextBox QReference1;
+        private System.Windows.Forms.TextBox QValue1;
         private System.Windows.Forms.Label txtQuoteValueQ;
-        private System.Windows.Forms.DateTimePicker dteQuoteDate;
+        private System.Windows.Forms.DateTimePicker QDate1;
         private System.Windows.Forms.Label txtQuotes;
         private System.Windows.Forms.Label txtSupplierQ;
-        private System.Windows.Forms.TextBox boxSupplierQ;
+        private System.Windows.Forms.TextBox QSupplier1;
         private System.Windows.Forms.Label txtQuoteDateQ;
         private System.Windows.Forms.Label txtGST;
         private System.Windows.Forms.Panel PnlQuoteIn;

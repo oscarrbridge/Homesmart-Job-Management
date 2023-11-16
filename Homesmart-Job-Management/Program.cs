@@ -13,7 +13,10 @@ namespace Homesmart_Job_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmHome());
+            try
+            {
+                Application.Run(new frmHome());
+            } catch (Exception ex) { }
         }
     }
 }
