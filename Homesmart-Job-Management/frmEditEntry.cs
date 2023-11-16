@@ -147,26 +147,30 @@ namespace Homesmart_Job_Management
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
-                // Remove the TextBox and Button
-                Controls.Remove(QSupplier);
-                Controls.Remove(QDate);
-                Controls.Remove(QReference);
-                Controls.Remove(QValue);
-                Controls.Remove(button);
-
-                // Move up all controls that are below the removed one
-                foreach (Control control in Controls)
+                DialogResult result = MessageBox.Show("Do you want to remove this item?", "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
                 {
-                    if (control.Location.Y > QSupplier.Location.Y)
-                    {
-                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
-                    }
-                }
+                    // Remove the TextBox and Button
+                    Controls.Remove(QSupplier);
+                    Controls.Remove(QDate);
+                    Controls.Remove(QReference);
+                    Controls.Remove(QValue);
+                    Controls.Remove(button);
 
-                // Decrement the count
-                countQ--;
-                countC--;
-                countI--;
+                    // Move up all controls that are below the removed one
+                    foreach (Control control in Controls)
+                    {
+                        if (control.Location.Y > QSupplier.Location.Y)
+                        {
+                            control.Location = new Point(control.Location.X, control.Location.Y - 30);
+                        }
+                    }
+
+                    // Decrement the count
+                    countQ--;
+                    countC--;
+                    countI--;
+                }
             };
 
             // Move down all existing controls that are below the new one
@@ -191,7 +195,6 @@ namespace Homesmart_Job_Management
             countC++;
             countI++;
         }
-
 
         private void btnAddCharge_Click(object sender, EventArgs e)
         {
@@ -226,25 +229,29 @@ namespace Homesmart_Job_Management
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
-                // Remove the TextBox and Button
-                Controls.Remove(CCompany);
-                Controls.Remove(CSupplier);
-                Controls.Remove(CValue);
-
-                Controls.Remove(button);
-
-                // Move up all controls that are below the removed one
-                foreach (Control control in Controls)
+                DialogResult result = MessageBox.Show("Do you want to remove this item?", "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
                 {
-                    if (control.Location.Y > CCompany.Location.Y)
-                    {
-                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
-                    }
-                }
+                    // Remove the TextBox and Button
+                    Controls.Remove(CCompany);
+                    Controls.Remove(CSupplier);
+                    Controls.Remove(CValue);
 
-                // Decrement the count
-                countC--;
-                countI--;
+                    Controls.Remove(button);
+
+                    // Move up all controls that are below the removed one
+                    foreach (Control control in Controls)
+                    {
+                        if (control.Location.Y > CCompany.Location.Y)
+                        {
+                            control.Location = new Point(control.Location.X, control.Location.Y - 30);
+                        }
+                    }
+
+                    // Decrement the count
+                    countC--;
+                    countI--;
+                }
             };
 
             // Move down all existing controls that are below the new one
@@ -311,26 +318,31 @@ namespace Homesmart_Job_Management
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
-                // Remove the TextBox and Button
-                Controls.Remove(ISupplier);
-                Controls.Remove(IDate);
-                Controls.Remove(IReference);
-                Controls.Remove(IInvNumber);
-                Controls.Remove(IValue);
-
-                Controls.Remove(button);
-
-                // Move up all controls that are below the removed one
-                foreach (Control control in Controls)
+                DialogResult result = MessageBox.Show("Do you want to remove this item?", "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
                 {
-                    if (control.Location.Y > ISupplier.Location.Y)
-                    {
-                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
-                    }
-                }
 
-                // Decrement the count
-                countI--;
+                    // Remove the TextBox and Button
+                    Controls.Remove(ISupplier);
+                    Controls.Remove(IDate);
+                    Controls.Remove(IReference);
+                    Controls.Remove(IInvNumber);
+                    Controls.Remove(IValue);
+
+                    Controls.Remove(button);
+
+                    // Move up all controls that are below the removed one
+                    foreach (Control control in Controls)
+                    {
+                        if (control.Location.Y > ISupplier.Location.Y)
+                        {
+                            control.Location = new Point(control.Location.X, control.Location.Y - 30);
+                        }
+                    }
+
+                    // Decrement the count
+                    countI--;
+                }
             };
 
             // Move down all existing controls that are below the new one
