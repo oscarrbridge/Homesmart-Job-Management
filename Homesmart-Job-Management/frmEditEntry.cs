@@ -1,9 +1,7 @@
 ﻿using Connections;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Homesmart_Job_Management
@@ -12,12 +10,9 @@ namespace Homesmart_Job_Management
     {
         public int JobID;
 
-        public int lastTextBoxBottomQ = 206;
-        public int lastTextBoxBottomC = 304;
-        public int lastTextBoxBottomI = 205;
-
-        List<Control> quoteControls = new List<Control>();
-        List<Control> internalChargeControls = new List<Control>();
+        private int countQ = 0;
+        private int countC = 0;
+        private int countI = 0;
 
 
         public frmEditEntry(int JobID)
@@ -115,155 +110,168 @@ namespace Homesmart_Job_Management
 
         private void btnAddQuote_Click(object sender, EventArgs e)
         {
-            // Create new input fields
-            TextBox newSupplierBox = new TextBox();
-            DateTimePicker newDateBox = new DateTimePicker();
-            TextBox newRefrenceBox = new TextBox();
-            TextBox newValueBox = new TextBox();
-            Button removeButton = new Button();
+            int startPosX = 18;
+            int startPosY = 216;
 
-            // Set properties for the new input fields
-            newSupplierBox.Location = new Point(18, lastTextBoxBottomQ + 10);
-            newSupplierBox.Size = new Size(170, 20);
+            // Create new TextBox and Button
+            TextBox textBox = new TextBox();
+            Button button = new Button();
 
-            newDateBox.Location = new Point(195, lastTextBoxBottomQ + 10);
-            newDateBox.Size = new Size(80, 20);
-            newDateBox.Format = DateTimePickerFormat.Short;
+            // Set properties
+            textBox.Name = "textBox" + countQ;
+            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            button.Text = "X";
+            button.Name = "button" + countQ;
+            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
 
-            newRefrenceBox.Location = new Point(285, lastTextBoxBottomQ + 10);
-            newRefrenceBox.Size = new Size(170, 20);
-
-            newValueBox.Location = new Point(645, lastTextBoxBottomQ + 10);
-            newValueBox.Size = new Size(80, 20);
-
-            removeButton.Location = new Point(730, lastTextBoxBottomQ + 10); // Adjust this based on your needs
-            removeButton.Size = new Size(20, 20); // Adjust this based on your needs
-            removeButton.Text = "X";
-            removeButton.Click += (s, ev) =>
+            // Add Click event to the Button
+            button.Click += (s, ev) =>
             {
-                // Remove the input fields and the button
-                this.Controls.Remove(newSupplierBox);
-                this.Controls.Remove(newDateBox);
-                this.Controls.Remove(newRefrenceBox);
-                this.Controls.Remove(newValueBox);
-                this.Controls.Remove(removeButton);
+                // Remove the TextBox and Button
+                Controls.Remove(textBox);
+                Controls.Remove(button);
 
-                // Move all controls that are below the removed fields up
-                foreach (Control control in this.Controls)
+                // Move up all controls that are below the removed one
+                foreach (Control control in Controls)
                 {
-                    if (control.Top > newSupplierBox.Top)
+                    if (control.Location.Y > textBox.Location.Y)
                     {
-                        control.Top -= newSupplierBox.Height + 10; // Adjust this based on your needs
+                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
                     }
                 }
 
-                if (this.Controls.OfType<TextBox>().Any())
-                {
-                    lastTextBoxBottomQ = this.Controls.OfType<TextBox>().Max(txt => txt.Bottom);
-                }
-                else
-                {
-                    lastTextBoxBottomQ = 206; // Reset to the bottom of your last static control
-                }
-
+                // Decrement the count
+                countQ--;
+                countC--;
+                countI--;
             };
 
-            // Add the new input fields and the button to the form
-            this.Controls.Add(newSupplierBox);
-            this.Controls.Add(newDateBox);
-            this.Controls.Add(newRefrenceBox);
-            this.Controls.Add(newValueBox);
-            this.Controls.Add(removeButton);
-
-            quoteControls.Add(newSupplierBox);
-            quoteControls.Add(newDateBox);
-            quoteControls.Add(newRefrenceBox);
-            quoteControls.Add(newValueBox);
-            quoteControls.Add(removeButton);
-
-            // Update the bottom position of the last TextBox and Label
-            lastTextBoxBottomQ = newSupplierBox.Bottom;
-
-            // Move all controls that are below the new fields down
-            foreach (Control control in this.Controls)
+            // Move down all existing controls that are below the new one
+            foreach (Control control in Controls)
             {
-                if (control.Top > lastTextBoxBottomQ)
+                if (control.Location.Y >= textBox.Location.Y)
                 {
-                    control.Top += newSupplierBox.Height + 10;
+                    control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
+
+            // Add the new controls to the form
+            Controls.Add(textBox);
+            Controls.Add(button);
+
+            // Increment the count
+            countQ++;
+            countC++;
+            countI++;
         }
+
 
         private void btnAddCharge_Click(object sender, EventArgs e)
         {
-            // Create new input fields
-            TextBox newCompanyBox = new TextBox();
-            TextBox newSupplierBoxQ = new TextBox();
-            TextBox newValueBoxQ = new TextBox();
-            Button removeButtonQ = new Button();
+            int startPosX = 18;
+            int startPosY = 314;
 
-            // Set properties for the new input fields
-            newCompanyBox.Location = new Point(18, lastTextBoxBottomC + 10);
-            newCompanyBox.Size = new Size(170, 20);
+            // Create new TextBox and Button
+            TextBox textBox = new TextBox();
+            Button button = new Button();
 
-            newSupplierBoxQ.Location = new Point(285, lastTextBoxBottomC + 10);
-            newSupplierBoxQ.Size = new Size(170, 20);
+            // Set properties
+            textBox.Name = "textBox" + countC;
+            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            button.Text = "X";
+            button.Name = "button" + countC;
+            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
 
-            newValueBoxQ.Location = new Point(645, lastTextBoxBottomC + 10);
-            newValueBoxQ.Size = new Size(80, 20);
-
-            removeButtonQ.Location = new Point(730, lastTextBoxBottomC + 10); // Adjust this based on your needs
-            removeButtonQ.Size = new Size(20, 20); // Adjust this based on your needs
-            removeButtonQ.Text = "X";
-            removeButtonQ.Click += (s, ev) =>
+            // Add Click event to the Button
+            button.Click += (s, ev) =>
             {
-                // Remove the input fields and the button
-                this.Controls.Remove(newCompanyBox);
-                this.Controls.Remove(newSupplierBoxQ);
-                this.Controls.Remove(newValueBoxQ);
-                this.Controls.Remove(removeButtonQ);
+                // Remove the TextBox and Button
+                Controls.Remove(textBox);
+                Controls.Remove(button);
 
-                // Move all controls that are below the removed fields up
-                foreach (Control control in this.Controls)
+                // Move up all controls that are below the removed one
+                foreach (Control control in Controls)
                 {
-                    if (control.Top > newCompanyBox.Top)
+                    if (control.Location.Y > textBox.Location.Y)
                     {
-                        control.Top -= newCompanyBox.Height + 10; // Adjust this based on your needs
+                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
                     }
                 }
 
-                if (this.Controls.OfType<TextBox>().Any())
-                {
-                    lastTextBoxBottomC = this.Controls.OfType<TextBox>().Max(txt => txt.Bottom);
-                }
-                else
-                {
-                    lastTextBoxBottomC = 304; // Reset to the bottom of your last static control
-                }
+                // Decrement the count
+                countC--;
+                countI--;
             };
 
-            // Add the new input fields and the button to the form
-            this.Controls.Add(newCompanyBox);
-            this.Controls.Add(newSupplierBoxQ);
-            this.Controls.Add(newValueBoxQ);
-            this.Controls.Add(removeButtonQ);
-
-            internalChargeControls.Add(newCompanyBox);
-            internalChargeControls.Add(newSupplierBoxQ);
-            internalChargeControls.Add(newValueBoxQ);
-            internalChargeControls.Add(removeButtonQ);
-
-            // Update the bottom position of the last TextBox and Label
-            lastTextBoxBottomC = newCompanyBox.Bottom;
-
-            // Move all controls that are below the new fields down
-            foreach (Control control in this.Controls)
+            // Move down all existing controls that are below the new one
+            foreach (Control control in Controls)
             {
-                if (control.Top > lastTextBoxBottomC)
+                if (control.Location.Y >= textBox.Location.Y)
                 {
-                    control.Top += newCompanyBox.Height + 10;
+                    control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
+
+            // Add the new controls to the form
+            Controls.Add(textBox);
+            Controls.Add(button);
+
+            // Increment the count
+            countC++;
+            countI++;
+        }
+
+        private void btnAddInv_Click(object sender, EventArgs e)
+        {
+            int startPosX = 18;
+            int startPosY = 426;
+
+            // Create new TextBox and Button
+            TextBox textBox = new TextBox();
+            Button button = new Button();
+
+            // Set properties
+            textBox.Name = "textBox" + countI;
+            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            button.Text = "X";
+            button.Name = "button" + countI;
+            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+
+            // Add Click event to the Button
+            button.Click += (s, ev) =>
+            {
+                // Remove the TextBox and Button
+                Controls.Remove(textBox);
+                Controls.Remove(button);
+
+                // Move up all controls that are below the removed one
+                foreach (Control control in Controls)
+                {
+                    if (control.Location.Y > textBox.Location.Y)
+                    {
+                        control.Location = new Point(control.Location.X, control.Location.Y - 30);
+                    }
+                }
+
+                // Decrement the count
+                countI--;
+            };
+
+            // Move down all existing controls that are below the new one
+            foreach (Control control in Controls)
+            {
+                if (control.Location.Y >= textBox.Location.Y)
+                {
+                    control.Location = new Point(control.Location.X, control.Location.Y + 30);
+                }
+            }
+
+            // Add the new controls to the form
+            Controls.Add(textBox);
+            Controls.Add(button);
+
+            // Increment the count
+            countI++;
         }
     }
 }

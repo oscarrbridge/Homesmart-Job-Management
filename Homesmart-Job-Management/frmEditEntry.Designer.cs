@@ -537,17 +537,16 @@
             this.PnlQuoteIn.AutoSize = true;
             this.PnlQuoteIn.Controls.Add(this.boxSupplierQ);
             this.PnlQuoteIn.Controls.Add(this.boxReferenceQ);
-            this.PnlQuoteIn.Controls.Add(this.btnAddQuote);
             this.PnlQuoteIn.Controls.Add(this.dteQuoteDate);
             this.PnlQuoteIn.Controls.Add(this.boxQuoteValueQ);
             this.PnlQuoteIn.Location = new System.Drawing.Point(15, 183);
             this.PnlQuoteIn.Name = "PnlQuoteIn";
-            this.PnlQuoteIn.Size = new System.Drawing.Size(739, 26);
+            this.PnlQuoteIn.Size = new System.Drawing.Size(713, 26);
             this.PnlQuoteIn.TabIndex = 38;
             // 
             // btnAddQuote
             // 
-            this.btnAddQuote.Location = new System.Drawing.Point(716, 3);
+            this.btnAddQuote.Location = new System.Drawing.Point(731, 188);
             this.btnAddQuote.Name = "btnAddQuote";
             this.btnAddQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddQuote.TabIndex = 41;
@@ -599,6 +598,7 @@
             this.btnAddInv.TabIndex = 42;
             this.btnAddInv.Text = "+";
             this.btnAddInv.UseVisualStyleBackColor = true;
+            this.btnAddInv.Click += new System.EventHandler(this.btnAddInv_Click);
             // 
             // frmEditEntry
             // 
@@ -608,6 +608,7 @@
             this.ClientSize = new System.Drawing.Size(800, 905);
             this.Controls.Add(this.pnlInvoicesIn);
             this.Controls.Add(this.pnlInternalChargeIn);
+            this.Controls.Add(this.btnAddQuote);
             this.Controls.Add(this.PnlQuoteIn);
             this.Controls.Add(this.txtGST);
             this.Controls.Add(this.pnlQuoteLbl);
