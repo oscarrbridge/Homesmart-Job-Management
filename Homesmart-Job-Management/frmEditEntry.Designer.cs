@@ -310,7 +310,7 @@
             // 
             // boxReference
             // 
-            this.boxReference.Location = new System.Drawing.Point(269, 3);
+            this.boxReference.Location = new System.Drawing.Point(270, 3);
             this.boxReference.MaxLength = 20;
             this.boxReference.Name = "boxReference";
             this.boxReference.Size = new System.Drawing.Size(170, 20);
@@ -327,14 +327,14 @@
             // dteInvoiceDate
             // 
             this.dteInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteInvoiceDate.Location = new System.Drawing.Point(177, 3);
+            this.dteInvoiceDate.Location = new System.Drawing.Point(180, 3);
             this.dteInvoiceDate.Name = "dteInvoiceDate";
             this.dteInvoiceDate.Size = new System.Drawing.Size(80, 20);
             this.dteInvoiceDate.TabIndex = 34;
             // 
             // boxSupplier
             // 
-            this.boxSupplier.Location = new System.Drawing.Point(0, 3);
+            this.boxSupplier.Location = new System.Drawing.Point(3, 3);
             this.boxSupplier.Name = "boxSupplier";
             this.boxSupplier.Size = new System.Drawing.Size(170, 20);
             this.boxSupplier.TabIndex = 16;
@@ -405,7 +405,7 @@
             // 
             // boxSupplierI
             // 
-            this.boxSupplierI.Location = new System.Drawing.Point(187, 3);
+            this.boxSupplierI.Location = new System.Drawing.Point(180, 3);
             this.boxSupplierI.Name = "boxSupplierI";
             this.boxSupplierI.Size = new System.Drawing.Size(170, 20);
             this.boxSupplierI.TabIndex = 18;
@@ -426,7 +426,7 @@
             this.panel1.Controls.Add(this.txtProfit);
             this.panel1.Controls.Add(this.boxMargin);
             this.panel1.Controls.Add(this.txtMargin);
-            this.panel1.Location = new System.Drawing.Point(495, 793);
+            this.panel1.Location = new System.Drawing.Point(507, 478);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 100);
             this.panel1.TabIndex = 34;
@@ -537,16 +537,17 @@
             this.PnlQuoteIn.AutoSize = true;
             this.PnlQuoteIn.Controls.Add(this.boxSupplierQ);
             this.PnlQuoteIn.Controls.Add(this.boxReferenceQ);
+            this.PnlQuoteIn.Controls.Add(this.btnAddQuote);
             this.PnlQuoteIn.Controls.Add(this.dteQuoteDate);
             this.PnlQuoteIn.Controls.Add(this.boxQuoteValueQ);
             this.PnlQuoteIn.Location = new System.Drawing.Point(15, 183);
             this.PnlQuoteIn.Name = "PnlQuoteIn";
-            this.PnlQuoteIn.Size = new System.Drawing.Size(713, 26);
+            this.PnlQuoteIn.Size = new System.Drawing.Size(739, 26);
             this.PnlQuoteIn.TabIndex = 38;
             // 
             // btnAddQuote
             // 
-            this.btnAddQuote.Location = new System.Drawing.Point(731, 188);
+            this.btnAddQuote.Location = new System.Drawing.Point(716, 3);
             this.btnAddQuote.Name = "btnAddQuote";
             this.btnAddQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddQuote.TabIndex = 41;
@@ -561,14 +562,14 @@
             this.pnlInternalChargeIn.Controls.Add(this.boxCompany);
             this.pnlInternalChargeIn.Controls.Add(this.boxInternalValue);
             this.pnlInternalChargeIn.Controls.Add(this.boxSupplierI);
-            this.pnlInternalChargeIn.Location = new System.Drawing.Point(12, 281);
+            this.pnlInternalChargeIn.Location = new System.Drawing.Point(15, 281);
             this.pnlInternalChargeIn.Name = "pnlInternalChargeIn";
-            this.pnlInternalChargeIn.Size = new System.Drawing.Size(742, 26);
+            this.pnlInternalChargeIn.Size = new System.Drawing.Size(739, 26);
             this.pnlInternalChargeIn.TabIndex = 39;
             // 
             // btnAddCharge
             // 
-            this.btnAddCharge.Location = new System.Drawing.Point(719, 3);
+            this.btnAddCharge.Location = new System.Drawing.Point(716, 3);
             this.btnAddCharge.Name = "btnAddCharge";
             this.btnAddCharge.Size = new System.Drawing.Size(20, 20);
             this.btnAddCharge.TabIndex = 43;
@@ -585,14 +586,14 @@
             this.pnlInvoicesIn.Controls.Add(this.boxInvNum);
             this.pnlInvoicesIn.Controls.Add(this.boxInvValue);
             this.pnlInvoicesIn.Controls.Add(this.dteInvoiceDate);
-            this.pnlInvoicesIn.Location = new System.Drawing.Point(12, 393);
+            this.pnlInvoicesIn.Location = new System.Drawing.Point(15, 393);
             this.pnlInvoicesIn.Name = "pnlInvoicesIn";
-            this.pnlInvoicesIn.Size = new System.Drawing.Size(742, 26);
+            this.pnlInvoicesIn.Size = new System.Drawing.Size(739, 26);
             this.pnlInvoicesIn.TabIndex = 40;
             // 
             // btnAddInv
             // 
-            this.btnAddInv.Location = new System.Drawing.Point(719, 3);
+            this.btnAddInv.Location = new System.Drawing.Point(716, 3);
             this.btnAddInv.Name = "btnAddInv";
             this.btnAddInv.Size = new System.Drawing.Size(20, 20);
             this.btnAddInv.TabIndex = 42;
@@ -608,7 +609,6 @@
             this.ClientSize = new System.Drawing.Size(800, 905);
             this.Controls.Add(this.pnlInvoicesIn);
             this.Controls.Add(this.pnlInternalChargeIn);
-            this.Controls.Add(this.btnAddQuote);
             this.Controls.Add(this.PnlQuoteIn);
             this.Controls.Add(this.txtGST);
             this.Controls.Add(this.pnlQuoteLbl);

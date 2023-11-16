@@ -1,4 +1,5 @@
 ﻿using Connections;
+using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using System;
 using System.Drawing;
@@ -114,27 +115,49 @@ namespace Homesmart_Job_Management
             int startPosY = 216;
 
             // Create new TextBox and Button
-            TextBox textBox = new TextBox();
+            TextBox QSupplier = new TextBox();
+            DateTimePicker QDate= new DateTimePicker();
+            TextBox QReference = new TextBox();
+            TextBox QValue = new TextBox();
             Button button = new Button();
 
             // Set properties
-            textBox.Name = "textBox" + countQ;
-            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QSupplier.Name = "QSupplier" + countQ;
+            QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QSupplier.Size = new Size(170, 20);
+
+            QDate.Name = "QDate" + countQ;
+            QDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QDate.Size = new Size(80, 20);
+            QDate.Format = DateTimePickerFormat.Short;
+
+            QReference.Name = "QReference" + countQ;
+            QReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QReference.Size = new Size(170, 20);
+
+            QValue.Name = "QValue" + countQ;
+            QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QValue.Size = new Size(80, 20);
+
             button.Text = "X";
             button.Name = "button" + countQ;
-            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            button.Size = new Size(20, 20);
 
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
                 // Remove the TextBox and Button
-                Controls.Remove(textBox);
+                Controls.Remove(QSupplier);
+                Controls.Remove(QDate);
+                Controls.Remove(QReference);
+                Controls.Remove(QValue);
                 Controls.Remove(button);
 
                 // Move up all controls that are below the removed one
                 foreach (Control control in Controls)
                 {
-                    if (control.Location.Y > textBox.Location.Y)
+                    if (control.Location.Y > QSupplier.Location.Y)
                     {
                         control.Location = new Point(control.Location.X, control.Location.Y - 30);
                     }
@@ -149,14 +172,18 @@ namespace Homesmart_Job_Management
             // Move down all existing controls that are below the new one
             foreach (Control control in Controls)
             {
-                if (control.Location.Y >= textBox.Location.Y)
+                if (control.Location.Y >= QSupplier.Location.Y)
                 {
                     control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
 
             // Add the new controls to the form
-            Controls.Add(textBox);
+            Controls.Add(QSupplier);
+            Controls.Add(QDate);
+            Controls.Add(QReference);
+            Controls.Add(QValue);
+
             Controls.Add(button);
 
             // Increment the count
@@ -172,27 +199,44 @@ namespace Homesmart_Job_Management
             int startPosY = 314;
 
             // Create new TextBox and Button
-            TextBox textBox = new TextBox();
+            TextBox CCompany = new TextBox();
+            TextBox CSupplier = new TextBox();
+            TextBox CValue = new TextBox();
             Button button = new Button();
 
             // Set properties
-            textBox.Name = "textBox" + countC;
-            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CCompany.Name = "CCompany" + countC;
+            CCompany.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CCompany.Size = new Size(170, 20);
+
+            CSupplier.Name = "CSupplier" + countC;
+            CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CSupplier.Size = new Size(170, 20);
+
+            CValue.Name = "CValue" + countC;
+            CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CValue.Size = new Size(80, 20);
+
             button.Text = "X";
             button.Name = "button" + countC;
-            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            button.Size = new Size(20, 20);
+
 
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
                 // Remove the TextBox and Button
-                Controls.Remove(textBox);
+                Controls.Remove(CCompany);
+                Controls.Remove(CSupplier);
+                Controls.Remove(CValue);
+
                 Controls.Remove(button);
 
                 // Move up all controls that are below the removed one
                 foreach (Control control in Controls)
                 {
-                    if (control.Location.Y > textBox.Location.Y)
+                    if (control.Location.Y > CCompany.Location.Y)
                     {
                         control.Location = new Point(control.Location.X, control.Location.Y - 30);
                     }
@@ -206,14 +250,17 @@ namespace Homesmart_Job_Management
             // Move down all existing controls that are below the new one
             foreach (Control control in Controls)
             {
-                if (control.Location.Y >= textBox.Location.Y)
+                if (control.Location.Y >= CCompany.Location.Y)
                 {
                     control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
 
             // Add the new controls to the form
-            Controls.Add(textBox);
+            Controls.Add(CCompany);
+            Controls.Add(CSupplier);
+            Controls.Add(CValue);
+
             Controls.Add(button);
 
             // Increment the count
@@ -227,27 +274,56 @@ namespace Homesmart_Job_Management
             int startPosY = 426;
 
             // Create new TextBox and Button
-            TextBox textBox = new TextBox();
+            TextBox ISupplier = new TextBox();
+            DateTimePicker IDate = new DateTimePicker();
+            TextBox IReference = new TextBox();
+            TextBox IInvNumber = new TextBox();
+            TextBox IValue = new TextBox();
             Button button = new Button();
 
             // Set properties
-            textBox.Name = "textBox" + countI;
-            textBox.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            ISupplier.Name = "ISupplier" + countI;
+            ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            ISupplier.Size = new Size(170, 20);
+
+            IDate.Name = "QDate" + countI;
+            IDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IDate.Size = new Size(80, 20);
+            IDate.Format = DateTimePickerFormat.Short;
+
+            IReference.Name = "QReference" + countI;
+            IReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IReference.Size = new Size(170, 20);
+
+            IInvNumber.Name = "QReference" + countI;
+            IInvNumber.Location = new Point(startPosX + 443, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IInvNumber.Size = new Size(170, 20);
+
+            IValue.Name = "QValue" + countI;
+            IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IValue.Size = new Size(80, 20);
+
             button.Text = "X";
             button.Name = "button" + countI;
-            button.Location = new Point(startPosX + 200, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            button.Size = new Size(20, 20);
 
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
                 // Remove the TextBox and Button
-                Controls.Remove(textBox);
+                Controls.Remove(ISupplier);
+                Controls.Remove(IDate);
+                Controls.Remove(IReference);
+                Controls.Remove(IInvNumber);
+                Controls.Remove(IValue);
+
                 Controls.Remove(button);
 
                 // Move up all controls that are below the removed one
                 foreach (Control control in Controls)
                 {
-                    if (control.Location.Y > textBox.Location.Y)
+                    if (control.Location.Y > ISupplier.Location.Y)
                     {
                         control.Location = new Point(control.Location.X, control.Location.Y - 30);
                     }
@@ -260,14 +336,19 @@ namespace Homesmart_Job_Management
             // Move down all existing controls that are below the new one
             foreach (Control control in Controls)
             {
-                if (control.Location.Y >= textBox.Location.Y)
+                if (control.Location.Y >= ISupplier.Location.Y)
                 {
                     control.Location = new Point(control.Location.X, control.Location.Y + 30);
                 }
             }
 
             // Add the new controls to the form
-            Controls.Add(textBox);
+            Controls.Add(ISupplier);
+            Controls.Add(IDate);
+            Controls.Add(IReference);
+            Controls.Add(IInvNumber);
+            Controls.Add(IValue);
+
             Controls.Add(button);
 
             // Increment the count
