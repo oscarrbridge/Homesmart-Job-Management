@@ -198,7 +198,6 @@
             this.txtWarning.Size = new System.Drawing.Size(250, 24);
             this.txtWarning.TabIndex = 28;
             this.txtWarning.Text = "*All changes must be saved*";
-            this.txtWarning.Visible = false;
             // 
             // txtCustomerTitle
             // 

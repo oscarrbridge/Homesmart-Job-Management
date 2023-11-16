@@ -175,6 +175,7 @@ namespace Homesmart_Job_Management
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmHome";
             this.Text = "Form1";
+            this.Enter += new System.EventHandler(this.frmHome_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);

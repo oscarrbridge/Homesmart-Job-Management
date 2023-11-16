@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Homesmart_Job_Management;
 
 namespace Homesmart_Job_Management
 {
@@ -29,13 +30,6 @@ namespace Homesmart_Job_Management
 
             InitializeComponent();
             getInfo(JobID);
-
-            boxCustomerName.TextChanged += new EventHandler(TextBox_TextChanged);
-            boxCustomerAddress.TextChanged += new EventHandler(TextBox_TextChanged);
-            boxQuoteValue.TextChanged += new EventHandler(TextBox_TextChanged);
-            boxTotalCost.TextChanged += new EventHandler(TextBox_TextChanged);
-            boxProfit.TextChanged += new EventHandler(TextBox_TextChanged);
-            boxMargin.TextChanged += new EventHandler(TextBox_TextChanged);
         }
 
         private void getInfo(int JobID)
@@ -172,39 +166,24 @@ namespace Homesmart_Job_Management
             }
         }
 
-        private void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            TextBox source = (TextBox)sender;
-            txtWarning.Visible = true;
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show($"Is the information correct: " +
-                $"\nCustomer Name: {boxCustomerName.Text}" +
-                $"\nCustomer Address: {boxCustomerAddress.Text}" +
-                $"\nQuote Value: {boxQuoteValue.Text}" +
-                $"\nTotal Cost: {boxTotalCost.Text}",
+            DialogResult dialogResult = MessageBox.Show($"Please double check the information before submiting",
                 "Confirmation", MessageBoxButtons.OKCancel);
 
 
             if (dialogResult == DialogResult.OK)
             {
-                int quoteValue = int.Parse(boxQuoteValue.Text);
-                int totalCost = int.Parse(boxTotalCost.Text);
-
-                int profit = quoteValue - totalCost;
-
-                int margin = profit / quoteValue * 100;
+                int profit = 0;
+                int margin = 0;
 
 
                 DatabaseConnection dbConnection = new DatabaseConnection();
 
                 if (dbConnection.OpenConnection() == true)
                 {
-                    string query = "UPDATE Job SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin WHERE JobID = @JobID";
-
-                    MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
+                    string Query = "UPDATE Job SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin WHERE JobID = @JobID";
+                    MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                     cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
                     cmd.Parameters.AddWithValue("@CustomerAddress", boxCustomerAddress.Text);
@@ -216,8 +195,24 @@ namespace Homesmart_Job_Management
 
                     cmd.ExecuteNonQuery();
 
-                    dbConnection.CloseConnection();
 
+                    for(int i = 0; i <= QuoteControls.Count / 4; i++)
+                    {
+                        Query = "UPDATE ExpenseQuote SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue WHERE JobID = @JobID";
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
+                        cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+                    }
+
+                    cmd.ExecuteNonQuery();
+
+
+
+                    dbConnection.CloseConnection();
                     Close();
                 }
             }
@@ -510,19 +505,16 @@ namespace Homesmart_Job_Management
 
         private void btnAddQuote_Click(object sender, EventArgs e)
         {
-            TextBox_TextChanged(null, null);
             AddQuote();
         }
 
         private void btnAddCharge_Click(object sender, EventArgs e)
         {
-            TextBox_TextChanged(null, null);
             AddCharge();
         }
 
         private void btnAddInv_Click(object sender, EventArgs e)
         {
-            TextBox_TextChanged(null, null);
             AddInv();
         }
     }

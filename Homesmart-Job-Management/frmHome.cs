@@ -149,5 +149,10 @@ namespace Homesmart_Job_Management
                 }
             }
         }
+
+        private void frmHome_Enter(object sender, EventArgs e)
+        {
+            search();
+        }
     }
 }
