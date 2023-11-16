@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imgLogo = new System.Windows.Forms.PictureBox();
             this.txtCustomerAddress = new System.Windows.Forms.Label();
             this.boxCustomerAddress = new System.Windows.Forms.TextBox();
             this.txtCustomerName = new System.Windows.Forms.Label();
@@ -42,50 +42,70 @@
             this.txtProfit = new System.Windows.Forms.Label();
             this.boxProfit = new System.Windows.Forms.TextBox();
             this.txtWarning = new System.Windows.Forms.Label();
-            this.btnSaveCustomer = new System.Windows.Forms.Button();
             this.txtCustomerTitle = new System.Windows.Forms.Label();
             this.pnlCustomerInfo = new System.Windows.Forms.Panel();
-            this.pnlInvoices = new System.Windows.Forms.Panel();
-            this.txtInvoiceTitle = new System.Windows.Forms.Label();
-            this.btnSaveInvoice = new System.Windows.Forms.Button();
-            this.txtSupplier = new System.Windows.Forms.Label();
-            this.boxSupplier = new System.Windows.Forms.TextBox();
-            this.txtInvoiceDate = new System.Windows.Forms.Label();
-            this.boxInvNum = new System.Windows.Forms.TextBox();
-            this.txtInvNum = new System.Windows.Forms.Label();
-            this.pnlInternalCharge = new System.Windows.Forms.Panel();
-            this.txtInternalTitle = new System.Windows.Forms.Label();
-            this.btnSaveInternal = new System.Windows.Forms.Button();
-            this.txtCompanyName = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.txtItem = new System.Windows.Forms.Label();
-            this.boxInternalValue = new System.Windows.Forms.TextBox();
-            this.txtInternalValue = new System.Windows.Forms.Label();
-            this.dteInvoiceDate = new System.Windows.Forms.DateTimePicker();
+            this.pnlInvoicesLbl = new System.Windows.Forms.Panel();
             this.txtReference = new System.Windows.Forms.Label();
-            this.boxReference = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtInvValue = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.txtInvoiceTitle = new System.Windows.Forms.Label();
+            this.txtSupplier = new System.Windows.Forms.Label();
+            this.txtInvoiceDate = new System.Windows.Forms.Label();
+            this.txtInvNum = new System.Windows.Forms.Label();
+            this.boxReference = new System.Windows.Forms.TextBox();
+            this.boxInvValue = new System.Windows.Forms.TextBox();
+            this.dteInvoiceDate = new System.Windows.Forms.DateTimePicker();
+            this.boxSupplier = new System.Windows.Forms.TextBox();
+            this.boxInvNum = new System.Windows.Forms.TextBox();
+            this.pnlInternalChargeLbl = new System.Windows.Forms.Panel();
+            this.txtInternalTitle = new System.Windows.Forms.Label();
+            this.txtCompanyName = new System.Windows.Forms.Label();
+            this.txtItem = new System.Windows.Forms.Label();
+            this.txtInternalValue = new System.Windows.Forms.Label();
+            this.boxCompany = new System.Windows.Forms.TextBox();
+            this.boxSupplierI = new System.Windows.Forms.TextBox();
+            this.boxInternalValue = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlQuoteLbl = new System.Windows.Forms.Panel();
+            this.txtReferenceQ = new System.Windows.Forms.Label();
+            this.txtQuoteValueQ = new System.Windows.Forms.Label();
+            this.txtQuotes = new System.Windows.Forms.Label();
+            this.txtSupplierQ = new System.Windows.Forms.Label();
+            this.txtQuoteDateQ = new System.Windows.Forms.Label();
+            this.boxReferenceQ = new System.Windows.Forms.TextBox();
+            this.boxQuoteValueQ = new System.Windows.Forms.TextBox();
+            this.dteQuoteDate = new System.Windows.Forms.DateTimePicker();
+            this.boxSupplierQ = new System.Windows.Forms.TextBox();
+            this.txtGST = new System.Windows.Forms.Label();
+            this.PnlQuoteIn = new System.Windows.Forms.Panel();
+            this.btnAddQuote = new System.Windows.Forms.Button();
+            this.pnlInternalChargeIn = new System.Windows.Forms.Panel();
+            this.btnAddCharge = new System.Windows.Forms.Button();
+            this.pnlInvoicesIn = new System.Windows.Forms.Panel();
+            this.btnAddInv = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
-            this.pnlInvoices.SuspendLayout();
-            this.pnlInternalCharge.SuspendLayout();
+            this.pnlInvoicesLbl.SuspendLayout();
+            this.pnlInternalChargeLbl.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.pnlQuoteLbl.SuspendLayout();
+            this.PnlQuoteIn.SuspendLayout();
+            this.pnlInternalChargeIn.SuspendLayout();
+            this.pnlInvoicesIn.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // imgLogo
             // 
-            this.pictureBox1.Image = global::Homesmart_Job_Management.Properties.Resources.logo_plaster_home_specialists_w_;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(298, 50);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.imgLogo.Image = global::Homesmart_Job_Management.Properties.Resources.logo_plaster_home_specialists_w_;
+            this.imgLogo.Location = new System.Drawing.Point(12, 12);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(298, 50);
+            this.imgLogo.TabIndex = 5;
+            this.imgLogo.TabStop = false;
             // 
             // txtCustomerAddress
             // 
             this.txtCustomerAddress.AutoSize = true;
-            this.txtCustomerAddress.Location = new System.Drawing.Point(-3, 54);
+            this.txtCustomerAddress.Location = new System.Drawing.Point(181, 28);
             this.txtCustomerAddress.Name = "txtCustomerAddress";
             this.txtCustomerAddress.Size = new System.Drawing.Size(92, 13);
             this.txtCustomerAddress.TabIndex = 19;
@@ -93,15 +113,15 @@
             // 
             // boxCustomerAddress
             // 
-            this.boxCustomerAddress.Location = new System.Drawing.Point(95, 51);
+            this.boxCustomerAddress.Location = new System.Drawing.Point(184, 44);
             this.boxCustomerAddress.Name = "boxCustomerAddress";
-            this.boxCustomerAddress.Size = new System.Drawing.Size(171, 20);
+            this.boxCustomerAddress.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerAddress.TabIndex = 18;
             // 
             // txtCustomerName
             // 
             this.txtCustomerName.AutoSize = true;
-            this.txtCustomerName.Location = new System.Drawing.Point(-3, 27);
+            this.txtCustomerName.Location = new System.Drawing.Point(4, 28);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(82, 13);
             this.txtCustomerName.TabIndex = 17;
@@ -109,15 +129,15 @@
             // 
             // boxCustomerName
             // 
-            this.boxCustomerName.Location = new System.Drawing.Point(95, 24);
+            this.boxCustomerName.Location = new System.Drawing.Point(6, 44);
             this.boxCustomerName.Name = "boxCustomerName";
-            this.boxCustomerName.Size = new System.Drawing.Size(171, 20);
+            this.boxCustomerName.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerName.TabIndex = 16;
             // 
             // txtTotalCost
             // 
             this.txtTotalCost.AutoSize = true;
-            this.txtTotalCost.Location = new System.Drawing.Point(519, 344);
+            this.txtTotalCost.Location = new System.Drawing.Point(3, 14);
             this.txtTotalCost.Name = "txtTotalCost";
             this.txtTotalCost.Size = new System.Drawing.Size(55, 13);
             this.txtTotalCost.TabIndex = 23;
@@ -126,7 +146,7 @@
             // boxTotalCost
             // 
             this.boxTotalCost.Enabled = false;
-            this.boxTotalCost.Location = new System.Drawing.Point(617, 341);
+            this.boxTotalCost.Location = new System.Drawing.Point(101, 11);
             this.boxTotalCost.Name = "boxTotalCost";
             this.boxTotalCost.Size = new System.Drawing.Size(171, 20);
             this.boxTotalCost.TabIndex = 22;
@@ -134,7 +154,7 @@
             // txtQuoteValue
             // 
             this.txtQuoteValue.AutoSize = true;
-            this.txtQuoteValue.Location = new System.Drawing.Point(-3, 82);
+            this.txtQuoteValue.Location = new System.Drawing.Point(626, 28);
             this.txtQuoteValue.Name = "txtQuoteValue";
             this.txtQuoteValue.Size = new System.Drawing.Size(66, 13);
             this.txtQuoteValue.TabIndex = 21;
@@ -142,15 +162,16 @@
             // 
             // boxQuoteValue
             // 
-            this.boxQuoteValue.Location = new System.Drawing.Point(95, 79);
+            this.boxQuoteValue.Location = new System.Drawing.Point(630, 44);
+            this.boxQuoteValue.MaxLength = 7;
             this.boxQuoteValue.Name = "boxQuoteValue";
-            this.boxQuoteValue.Size = new System.Drawing.Size(171, 20);
+            this.boxQuoteValue.Size = new System.Drawing.Size(80, 20);
             this.boxQuoteValue.TabIndex = 20;
             // 
             // txtMargin
             // 
             this.txtMargin.AutoSize = true;
-            this.txtMargin.Location = new System.Drawing.Point(519, 398);
+            this.txtMargin.Location = new System.Drawing.Point(3, 68);
             this.txtMargin.Name = "txtMargin";
             this.txtMargin.Size = new System.Drawing.Size(39, 13);
             this.txtMargin.TabIndex = 27;
@@ -159,7 +180,7 @@
             // boxMargin
             // 
             this.boxMargin.Enabled = false;
-            this.boxMargin.Location = new System.Drawing.Point(617, 395);
+            this.boxMargin.Location = new System.Drawing.Point(101, 65);
             this.boxMargin.Name = "boxMargin";
             this.boxMargin.Size = new System.Drawing.Size(171, 20);
             this.boxMargin.TabIndex = 26;
@@ -167,7 +188,7 @@
             // txtProfit
             // 
             this.txtProfit.AutoSize = true;
-            this.txtProfit.Location = new System.Drawing.Point(519, 371);
+            this.txtProfit.Location = new System.Drawing.Point(3, 41);
             this.txtProfit.Name = "txtProfit";
             this.txtProfit.Size = new System.Drawing.Size(31, 13);
             this.txtProfit.TabIndex = 25;
@@ -176,7 +197,7 @@
             // boxProfit
             // 
             this.boxProfit.Enabled = false;
-            this.boxProfit.Location = new System.Drawing.Point(617, 368);
+            this.boxProfit.Location = new System.Drawing.Point(101, 38);
             this.boxProfit.Name = "boxProfit";
             this.boxProfit.Size = new System.Drawing.Size(171, 20);
             this.boxProfit.TabIndex = 24;
@@ -186,23 +207,12 @@
             this.txtWarning.AutoSize = true;
             this.txtWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWarning.ForeColor = System.Drawing.Color.Red;
-            this.txtWarning.Location = new System.Drawing.Point(32, 82);
+            this.txtWarning.Location = new System.Drawing.Point(316, 22);
             this.txtWarning.Name = "txtWarning";
             this.txtWarning.Size = new System.Drawing.Size(250, 24);
             this.txtWarning.TabIndex = 28;
             this.txtWarning.Text = "*All changes must be saved*";
             this.txtWarning.Visible = false;
-            // 
-            // btnSaveCustomer
-            // 
-            this.btnSaveCustomer.Enabled = false;
-            this.btnSaveCustomer.Location = new System.Drawing.Point(94, 105);
-            this.btnSaveCustomer.Name = "btnSaveCustomer";
-            this.btnSaveCustomer.Size = new System.Drawing.Size(172, 26);
-            this.btnSaveCustomer.TabIndex = 29;
-            this.btnSaveCustomer.Text = "Save Changes";
-            this.btnSaveCustomer.UseVisualStyleBackColor = true;
-            this.btnSaveCustomer.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
             // txtCustomerTitle
             // 
@@ -216,37 +226,50 @@
             // 
             // pnlCustomerInfo
             // 
+            this.pnlCustomerInfo.AutoSize = true;
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerTitle);
-            this.pnlCustomerInfo.Controls.Add(this.btnSaveCustomer);
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerName);
             this.pnlCustomerInfo.Controls.Add(this.boxCustomerName);
             this.pnlCustomerInfo.Controls.Add(this.boxCustomerAddress);
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerAddress);
             this.pnlCustomerInfo.Controls.Add(this.boxQuoteValue);
             this.pnlCustomerInfo.Controls.Add(this.txtQuoteValue);
-            this.pnlCustomerInfo.Location = new System.Drawing.Point(12, 118);
+            this.pnlCustomerInfo.Location = new System.Drawing.Point(12, 68);
             this.pnlCustomerInfo.Name = "pnlCustomerInfo";
-            this.pnlCustomerInfo.Size = new System.Drawing.Size(274, 132);
+            this.pnlCustomerInfo.Size = new System.Drawing.Size(713, 70);
             this.pnlCustomerInfo.TabIndex = 31;
             // 
-            // pnlInvoices
+            // pnlInvoicesLbl
             // 
-            this.pnlInvoices.Controls.Add(this.txtReference);
-            this.pnlInvoices.Controls.Add(this.boxReference);
-            this.pnlInvoices.Controls.Add(this.textBox2);
-            this.pnlInvoices.Controls.Add(this.txtInvValue);
-            this.pnlInvoices.Controls.Add(this.dteInvoiceDate);
-            this.pnlInvoices.Controls.Add(this.txtInvoiceTitle);
-            this.pnlInvoices.Controls.Add(this.btnSaveInvoice);
-            this.pnlInvoices.Controls.Add(this.txtSupplier);
-            this.pnlInvoices.Controls.Add(this.boxSupplier);
-            this.pnlInvoices.Controls.Add(this.txtInvoiceDate);
-            this.pnlInvoices.Controls.Add(this.boxInvNum);
-            this.pnlInvoices.Controls.Add(this.txtInvNum);
-            this.pnlInvoices.Location = new System.Drawing.Point(12, 256);
-            this.pnlInvoices.Name = "pnlInvoices";
-            this.pnlInvoices.Size = new System.Drawing.Size(274, 191);
-            this.pnlInvoices.TabIndex = 32;
+            this.pnlInvoicesLbl.AutoSize = true;
+            this.pnlInvoicesLbl.Controls.Add(this.txtReference);
+            this.pnlInvoicesLbl.Controls.Add(this.txtInvValue);
+            this.pnlInvoicesLbl.Controls.Add(this.txtInvoiceTitle);
+            this.pnlInvoicesLbl.Controls.Add(this.txtSupplier);
+            this.pnlInvoicesLbl.Controls.Add(this.txtInvoiceDate);
+            this.pnlInvoicesLbl.Controls.Add(this.txtInvNum);
+            this.pnlInvoicesLbl.Location = new System.Drawing.Point(12, 354);
+            this.pnlInvoicesLbl.Name = "pnlInvoicesLbl";
+            this.pnlInvoicesLbl.Size = new System.Drawing.Size(707, 33);
+            this.pnlInvoicesLbl.TabIndex = 32;
+            // 
+            // txtReference
+            // 
+            this.txtReference.AutoSize = true;
+            this.txtReference.Location = new System.Drawing.Point(263, 20);
+            this.txtReference.Name = "txtReference";
+            this.txtReference.Size = new System.Drawing.Size(75, 13);
+            this.txtReference.TabIndex = 36;
+            this.txtReference.Text = "Inv Reference";
+            // 
+            // txtInvValue
+            // 
+            this.txtInvValue.AutoSize = true;
+            this.txtInvValue.Location = new System.Drawing.Point(626, 20);
+            this.txtInvValue.Name = "txtInvValue";
+            this.txtInvValue.Size = new System.Drawing.Size(72, 13);
+            this.txtInvValue.TabIndex = 38;
+            this.txtInvValue.Text = "Invoice Value";
             // 
             // txtInvoiceTitle
             // 
@@ -258,71 +281,83 @@
             this.txtInvoiceTitle.TabIndex = 30;
             this.txtInvoiceTitle.Text = "Invoices";
             // 
-            // btnSaveInvoice
-            // 
-            this.btnSaveInvoice.Enabled = false;
-            this.btnSaveInvoice.Location = new System.Drawing.Point(94, 162);
-            this.btnSaveInvoice.Name = "btnSaveInvoice";
-            this.btnSaveInvoice.Size = new System.Drawing.Size(172, 26);
-            this.btnSaveInvoice.TabIndex = 29;
-            this.btnSaveInvoice.Text = "Save Changes";
-            this.btnSaveInvoice.UseVisualStyleBackColor = true;
-            // 
             // txtSupplier
             // 
             this.txtSupplier.AutoSize = true;
-            this.txtSupplier.Location = new System.Drawing.Point(-3, 27);
+            this.txtSupplier.Location = new System.Drawing.Point(-3, 20);
             this.txtSupplier.Name = "txtSupplier";
             this.txtSupplier.Size = new System.Drawing.Size(105, 13);
             this.txtSupplier.TabIndex = 17;
             this.txtSupplier.Text = "Supplier / Contractor";
             // 
-            // boxSupplier
-            // 
-            this.boxSupplier.Location = new System.Drawing.Point(95, 24);
-            this.boxSupplier.Name = "boxSupplier";
-            this.boxSupplier.Size = new System.Drawing.Size(171, 20);
-            this.boxSupplier.TabIndex = 16;
-            // 
             // txtInvoiceDate
             // 
             this.txtInvoiceDate.AutoSize = true;
-            this.txtInvoiceDate.Location = new System.Drawing.Point(-3, 54);
+            this.txtInvoiceDate.Location = new System.Drawing.Point(171, 20);
             this.txtInvoiceDate.Name = "txtInvoiceDate";
             this.txtInvoiceDate.Size = new System.Drawing.Size(68, 13);
             this.txtInvoiceDate.TabIndex = 19;
             this.txtInvoiceDate.Text = "Invoice Date";
             // 
-            // boxInvNum
-            // 
-            this.boxInvNum.Location = new System.Drawing.Point(95, 79);
-            this.boxInvNum.Name = "boxInvNum";
-            this.boxInvNum.Size = new System.Drawing.Size(171, 20);
-            this.boxInvNum.TabIndex = 20;
-            // 
             // txtInvNum
             // 
             this.txtInvNum.AutoSize = true;
-            this.txtInvNum.Location = new System.Drawing.Point(-3, 82);
+            this.txtInvNum.Location = new System.Drawing.Point(440, 20);
             this.txtInvNum.Name = "txtInvNum";
-            this.txtInvNum.Size = new System.Drawing.Size(82, 13);
+            this.txtInvNum.Size = new System.Drawing.Size(62, 13);
             this.txtInvNum.TabIndex = 21;
-            this.txtInvNum.Text = "Invoice Number";
+            this.txtInvNum.Text = "Inv Number";
             // 
-            // pnlInternalCharge
+            // boxReference
             // 
-            this.pnlInternalCharge.Controls.Add(this.txtInternalTitle);
-            this.pnlInternalCharge.Controls.Add(this.btnSaveInternal);
-            this.pnlInternalCharge.Controls.Add(this.txtCompanyName);
-            this.pnlInternalCharge.Controls.Add(this.textBox4);
-            this.pnlInternalCharge.Controls.Add(this.textBox5);
-            this.pnlInternalCharge.Controls.Add(this.txtItem);
-            this.pnlInternalCharge.Controls.Add(this.boxInternalValue);
-            this.pnlInternalCharge.Controls.Add(this.txtInternalValue);
-            this.pnlInternalCharge.Location = new System.Drawing.Point(315, 118);
-            this.pnlInternalCharge.Name = "pnlInternalCharge";
-            this.pnlInternalCharge.Size = new System.Drawing.Size(274, 132);
-            this.pnlInternalCharge.TabIndex = 33;
+            this.boxReference.Location = new System.Drawing.Point(269, 3);
+            this.boxReference.MaxLength = 20;
+            this.boxReference.Name = "boxReference";
+            this.boxReference.Size = new System.Drawing.Size(170, 20);
+            this.boxReference.TabIndex = 35;
+            // 
+            // boxInvValue
+            // 
+            this.boxInvValue.Location = new System.Drawing.Point(630, 3);
+            this.boxInvValue.MaxLength = 7;
+            this.boxInvValue.Name = "boxInvValue";
+            this.boxInvValue.Size = new System.Drawing.Size(80, 20);
+            this.boxInvValue.TabIndex = 37;
+            // 
+            // dteInvoiceDate
+            // 
+            this.dteInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dteInvoiceDate.Location = new System.Drawing.Point(177, 3);
+            this.dteInvoiceDate.Name = "dteInvoiceDate";
+            this.dteInvoiceDate.Size = new System.Drawing.Size(80, 20);
+            this.dteInvoiceDate.TabIndex = 34;
+            // 
+            // boxSupplier
+            // 
+            this.boxSupplier.Location = new System.Drawing.Point(0, 3);
+            this.boxSupplier.Name = "boxSupplier";
+            this.boxSupplier.Size = new System.Drawing.Size(170, 20);
+            this.boxSupplier.TabIndex = 16;
+            // 
+            // boxInvNum
+            // 
+            this.boxInvNum.Location = new System.Drawing.Point(446, 3);
+            this.boxInvNum.MaxLength = 20;
+            this.boxInvNum.Name = "boxInvNum";
+            this.boxInvNum.Size = new System.Drawing.Size(170, 20);
+            this.boxInvNum.TabIndex = 20;
+            // 
+            // pnlInternalChargeLbl
+            // 
+            this.pnlInternalChargeLbl.AutoSize = true;
+            this.pnlInternalChargeLbl.Controls.Add(this.txtInternalTitle);
+            this.pnlInternalChargeLbl.Controls.Add(this.txtCompanyName);
+            this.pnlInternalChargeLbl.Controls.Add(this.txtItem);
+            this.pnlInternalChargeLbl.Controls.Add(this.txtInternalValue);
+            this.pnlInternalChargeLbl.Location = new System.Drawing.Point(12, 242);
+            this.pnlInternalChargeLbl.Name = "pnlInternalChargeLbl";
+            this.pnlInternalChargeLbl.Size = new System.Drawing.Size(710, 33);
+            this.pnlInternalChargeLbl.TabIndex = 33;
             // 
             // txtInternalTitle
             // 
@@ -334,128 +369,273 @@
             this.txtInternalTitle.TabIndex = 30;
             this.txtInternalTitle.Text = "Internal Charge";
             // 
-            // btnSaveInternal
-            // 
-            this.btnSaveInternal.Enabled = false;
-            this.btnSaveInternal.Location = new System.Drawing.Point(94, 105);
-            this.btnSaveInternal.Name = "btnSaveInternal";
-            this.btnSaveInternal.Size = new System.Drawing.Size(172, 26);
-            this.btnSaveInternal.TabIndex = 29;
-            this.btnSaveInternal.Text = "Save Changes";
-            this.btnSaveInternal.UseVisualStyleBackColor = true;
-            // 
             // txtCompanyName
             // 
             this.txtCompanyName.AutoSize = true;
-            this.txtCompanyName.Location = new System.Drawing.Point(-3, 27);
+            this.txtCompanyName.Location = new System.Drawing.Point(-3, 20);
             this.txtCompanyName.Name = "txtCompanyName";
             this.txtCompanyName.Size = new System.Drawing.Size(82, 13);
             this.txtCompanyName.TabIndex = 17;
             this.txtCompanyName.Text = "Company Name";
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(95, 24);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(171, 20);
-            this.textBox4.TabIndex = 16;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(95, 51);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(171, 20);
-            this.textBox5.TabIndex = 18;
-            // 
             // txtItem
             // 
             this.txtItem.AutoSize = true;
-            this.txtItem.Location = new System.Drawing.Point(-3, 54);
+            this.txtItem.Location = new System.Drawing.Point(181, 20);
             this.txtItem.Name = "txtItem";
-            this.txtItem.Size = new System.Drawing.Size(27, 13);
+            this.txtItem.Size = new System.Drawing.Size(105, 13);
             this.txtItem.TabIndex = 19;
-            this.txtItem.Text = "Item";
-            // 
-            // boxInternalValue
-            // 
-            this.boxInternalValue.Location = new System.Drawing.Point(95, 79);
-            this.boxInternalValue.Name = "boxInternalValue";
-            this.boxInternalValue.Size = new System.Drawing.Size(171, 20);
-            this.boxInternalValue.TabIndex = 20;
+            this.txtItem.Text = "Supplier / Contractor";
             // 
             // txtInternalValue
             // 
             this.txtInternalValue.AutoSize = true;
-            this.txtInternalValue.Location = new System.Drawing.Point(-3, 82);
+            this.txtInternalValue.Location = new System.Drawing.Point(626, 20);
             this.txtInternalValue.Name = "txtInternalValue";
             this.txtInternalValue.Size = new System.Drawing.Size(72, 13);
             this.txtInternalValue.TabIndex = 21;
             this.txtInternalValue.Text = "Internal Value";
             // 
-            // dteInvoiceDate
+            // boxCompany
             // 
-            this.dteInvoiceDate.Location = new System.Drawing.Point(95, 48);
-            this.dteInvoiceDate.Name = "dteInvoiceDate";
-            this.dteInvoiceDate.Size = new System.Drawing.Size(171, 20);
-            this.dteInvoiceDate.TabIndex = 34;
+            this.boxCompany.Location = new System.Drawing.Point(3, 3);
+            this.boxCompany.Name = "boxCompany";
+            this.boxCompany.Size = new System.Drawing.Size(170, 20);
+            this.boxCompany.TabIndex = 16;
             // 
-            // txtReference
+            // boxSupplierI
             // 
-            this.txtReference.AutoSize = true;
-            this.txtReference.Location = new System.Drawing.Point(-3, 112);
-            this.txtReference.Name = "txtReference";
-            this.txtReference.Size = new System.Drawing.Size(57, 13);
-            this.txtReference.TabIndex = 36;
-            this.txtReference.Text = "Reference";
+            this.boxSupplierI.Location = new System.Drawing.Point(187, 3);
+            this.boxSupplierI.Name = "boxSupplierI";
+            this.boxSupplierI.Size = new System.Drawing.Size(170, 20);
+            this.boxSupplierI.TabIndex = 18;
             // 
-            // boxReference
+            // boxInternalValue
             // 
-            this.boxReference.Location = new System.Drawing.Point(95, 109);
-            this.boxReference.Name = "boxReference";
-            this.boxReference.Size = new System.Drawing.Size(171, 20);
-            this.boxReference.TabIndex = 35;
+            this.boxInternalValue.Location = new System.Drawing.Point(630, 3);
+            this.boxInternalValue.MaxLength = 7;
+            this.boxInternalValue.Name = "boxInternalValue";
+            this.boxInternalValue.Size = new System.Drawing.Size(80, 20);
+            this.boxInternalValue.TabIndex = 20;
             // 
-            // textBox2
+            // panel1
             // 
-            this.textBox2.Location = new System.Drawing.Point(95, 136);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(171, 20);
-            this.textBox2.TabIndex = 37;
+            this.panel1.Controls.Add(this.txtTotalCost);
+            this.panel1.Controls.Add(this.boxTotalCost);
+            this.panel1.Controls.Add(this.boxProfit);
+            this.panel1.Controls.Add(this.txtProfit);
+            this.panel1.Controls.Add(this.boxMargin);
+            this.panel1.Controls.Add(this.txtMargin);
+            this.panel1.Location = new System.Drawing.Point(495, 793);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(281, 100);
+            this.panel1.TabIndex = 34;
             // 
-            // txtInvValue
+            // pnlQuoteLbl
             // 
-            this.txtInvValue.AutoSize = true;
-            this.txtInvValue.Location = new System.Drawing.Point(-3, 139);
-            this.txtInvValue.Name = "txtInvValue";
-            this.txtInvValue.Size = new System.Drawing.Size(72, 13);
-            this.txtInvValue.TabIndex = 38;
-            this.txtInvValue.Text = "Invoice Value";
+            this.pnlQuoteLbl.AutoSize = true;
+            this.pnlQuoteLbl.Controls.Add(this.txtReferenceQ);
+            this.pnlQuoteLbl.Controls.Add(this.txtQuoteValueQ);
+            this.pnlQuoteLbl.Controls.Add(this.txtQuotes);
+            this.pnlQuoteLbl.Controls.Add(this.txtSupplierQ);
+            this.pnlQuoteLbl.Controls.Add(this.txtQuoteDateQ);
+            this.pnlQuoteLbl.Location = new System.Drawing.Point(12, 144);
+            this.pnlQuoteLbl.Name = "pnlQuoteLbl";
+            this.pnlQuoteLbl.Size = new System.Drawing.Size(710, 33);
+            this.pnlQuoteLbl.TabIndex = 35;
+            // 
+            // txtReferenceQ
+            // 
+            this.txtReferenceQ.AutoSize = true;
+            this.txtReferenceQ.Location = new System.Drawing.Point(269, 20);
+            this.txtReferenceQ.Name = "txtReferenceQ";
+            this.txtReferenceQ.Size = new System.Drawing.Size(89, 13);
+            this.txtReferenceQ.TabIndex = 36;
+            this.txtReferenceQ.Text = "Quote Reference";
+            // 
+            // txtQuoteValueQ
+            // 
+            this.txtQuoteValueQ.AutoSize = true;
+            this.txtQuoteValueQ.Location = new System.Drawing.Point(626, 20);
+            this.txtQuoteValueQ.Name = "txtQuoteValueQ";
+            this.txtQuoteValueQ.Size = new System.Drawing.Size(66, 13);
+            this.txtQuoteValueQ.TabIndex = 38;
+            this.txtQuoteValueQ.Text = "Quote Value";
+            // 
+            // txtQuotes
+            // 
+            this.txtQuotes.AutoSize = true;
+            this.txtQuotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQuotes.Location = new System.Drawing.Point(-4, 0);
+            this.txtQuotes.Name = "txtQuotes";
+            this.txtQuotes.Size = new System.Drawing.Size(67, 20);
+            this.txtQuotes.TabIndex = 30;
+            this.txtQuotes.Text = "Quotes";
+            // 
+            // txtSupplierQ
+            // 
+            this.txtSupplierQ.AutoSize = true;
+            this.txtSupplierQ.Location = new System.Drawing.Point(-3, 20);
+            this.txtSupplierQ.Name = "txtSupplierQ";
+            this.txtSupplierQ.Size = new System.Drawing.Size(105, 13);
+            this.txtSupplierQ.TabIndex = 17;
+            this.txtSupplierQ.Text = "Supplier / Contractor";
+            // 
+            // txtQuoteDateQ
+            // 
+            this.txtQuoteDateQ.AutoSize = true;
+            this.txtQuoteDateQ.Location = new System.Drawing.Point(177, 20);
+            this.txtQuoteDateQ.Name = "txtQuoteDateQ";
+            this.txtQuoteDateQ.Size = new System.Drawing.Size(62, 13);
+            this.txtQuoteDateQ.TabIndex = 19;
+            this.txtQuoteDateQ.Text = "Quote Date";
+            // 
+            // boxReferenceQ
+            // 
+            this.boxReferenceQ.Location = new System.Drawing.Point(270, 3);
+            this.boxReferenceQ.MaxLength = 20;
+            this.boxReferenceQ.Name = "boxReferenceQ";
+            this.boxReferenceQ.Size = new System.Drawing.Size(170, 20);
+            this.boxReferenceQ.TabIndex = 35;
+            // 
+            // boxQuoteValueQ
+            // 
+            this.boxQuoteValueQ.Location = new System.Drawing.Point(630, 3);
+            this.boxQuoteValueQ.MaxLength = 7;
+            this.boxQuoteValueQ.Name = "boxQuoteValueQ";
+            this.boxQuoteValueQ.Size = new System.Drawing.Size(80, 20);
+            this.boxQuoteValueQ.TabIndex = 37;
+            // 
+            // dteQuoteDate
+            // 
+            this.dteQuoteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dteQuoteDate.Location = new System.Drawing.Point(180, 3);
+            this.dteQuoteDate.Name = "dteQuoteDate";
+            this.dteQuoteDate.Size = new System.Drawing.Size(80, 20);
+            this.dteQuoteDate.TabIndex = 34;
+            // 
+            // boxSupplierQ
+            // 
+            this.boxSupplierQ.Location = new System.Drawing.Point(3, 3);
+            this.boxSupplierQ.Name = "boxSupplierQ";
+            this.boxSupplierQ.Size = new System.Drawing.Size(170, 20);
+            this.boxSupplierQ.TabIndex = 16;
+            // 
+            // txtGST
+            // 
+            this.txtGST.AutoSize = true;
+            this.txtGST.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGST.ForeColor = System.Drawing.Color.Black;
+            this.txtGST.Location = new System.Drawing.Point(627, 22);
+            this.txtGST.Name = "txtGST";
+            this.txtGST.Size = new System.Drawing.Size(104, 24);
+            this.txtGST.TabIndex = 37;
+            this.txtGST.Text = "*GST Excl*";
+            // 
+            // PnlQuoteIn
+            // 
+            this.PnlQuoteIn.AutoSize = true;
+            this.PnlQuoteIn.Controls.Add(this.boxSupplierQ);
+            this.PnlQuoteIn.Controls.Add(this.boxReferenceQ);
+            this.PnlQuoteIn.Controls.Add(this.btnAddQuote);
+            this.PnlQuoteIn.Controls.Add(this.dteQuoteDate);
+            this.PnlQuoteIn.Controls.Add(this.boxQuoteValueQ);
+            this.PnlQuoteIn.Location = new System.Drawing.Point(15, 183);
+            this.PnlQuoteIn.Name = "PnlQuoteIn";
+            this.PnlQuoteIn.Size = new System.Drawing.Size(739, 26);
+            this.PnlQuoteIn.TabIndex = 38;
+            // 
+            // btnAddQuote
+            // 
+            this.btnAddQuote.Location = new System.Drawing.Point(716, 3);
+            this.btnAddQuote.Name = "btnAddQuote";
+            this.btnAddQuote.Size = new System.Drawing.Size(20, 20);
+            this.btnAddQuote.TabIndex = 41;
+            this.btnAddQuote.Text = "+";
+            this.btnAddQuote.UseVisualStyleBackColor = true;
+            this.btnAddQuote.Click += new System.EventHandler(this.btnAddQuote_Click);
+            // 
+            // pnlInternalChargeIn
+            // 
+            this.pnlInternalChargeIn.AutoSize = true;
+            this.pnlInternalChargeIn.Controls.Add(this.btnAddCharge);
+            this.pnlInternalChargeIn.Controls.Add(this.boxCompany);
+            this.pnlInternalChargeIn.Controls.Add(this.boxInternalValue);
+            this.pnlInternalChargeIn.Controls.Add(this.boxSupplierI);
+            this.pnlInternalChargeIn.Location = new System.Drawing.Point(12, 281);
+            this.pnlInternalChargeIn.Name = "pnlInternalChargeIn";
+            this.pnlInternalChargeIn.Size = new System.Drawing.Size(742, 26);
+            this.pnlInternalChargeIn.TabIndex = 39;
+            // 
+            // btnAddCharge
+            // 
+            this.btnAddCharge.Location = new System.Drawing.Point(719, 3);
+            this.btnAddCharge.Name = "btnAddCharge";
+            this.btnAddCharge.Size = new System.Drawing.Size(20, 20);
+            this.btnAddCharge.TabIndex = 43;
+            this.btnAddCharge.Text = "+";
+            this.btnAddCharge.UseVisualStyleBackColor = true;
+            this.btnAddCharge.Click += new System.EventHandler(this.btnAddCharge_Click);
+            // 
+            // pnlInvoicesIn
+            // 
+            this.pnlInvoicesIn.AutoSize = true;
+            this.pnlInvoicesIn.Controls.Add(this.btnAddInv);
+            this.pnlInvoicesIn.Controls.Add(this.boxSupplier);
+            this.pnlInvoicesIn.Controls.Add(this.boxReference);
+            this.pnlInvoicesIn.Controls.Add(this.boxInvNum);
+            this.pnlInvoicesIn.Controls.Add(this.boxInvValue);
+            this.pnlInvoicesIn.Controls.Add(this.dteInvoiceDate);
+            this.pnlInvoicesIn.Location = new System.Drawing.Point(12, 393);
+            this.pnlInvoicesIn.Name = "pnlInvoicesIn";
+            this.pnlInvoicesIn.Size = new System.Drawing.Size(742, 26);
+            this.pnlInvoicesIn.TabIndex = 40;
+            // 
+            // btnAddInv
+            // 
+            this.btnAddInv.Location = new System.Drawing.Point(719, 3);
+            this.btnAddInv.Name = "btnAddInv";
+            this.btnAddInv.Size = new System.Drawing.Size(20, 20);
+            this.btnAddInv.TabIndex = 42;
+            this.btnAddInv.Text = "+";
+            this.btnAddInv.UseVisualStyleBackColor = true;
             // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pnlInternalCharge);
-            this.Controls.Add(this.pnlInvoices);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(800, 905);
+            this.Controls.Add(this.pnlInvoicesIn);
+            this.Controls.Add(this.pnlInternalChargeIn);
+            this.Controls.Add(this.PnlQuoteIn);
+            this.Controls.Add(this.txtGST);
+            this.Controls.Add(this.pnlQuoteLbl);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlInternalChargeLbl);
+            this.Controls.Add(this.pnlInvoicesLbl);
             this.Controls.Add(this.pnlCustomerInfo);
             this.Controls.Add(this.txtWarning);
-            this.Controls.Add(this.txtMargin);
-            this.Controls.Add(this.boxMargin);
-            this.Controls.Add(this.txtProfit);
-            this.Controls.Add(this.boxProfit);
-            this.Controls.Add(this.txtTotalCost);
-            this.Controls.Add(this.boxTotalCost);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.imgLogo);
             this.Name = "frmEditEntry";
-            this.Text = "frmEditEntry";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Text = "A";
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.pnlCustomerInfo.ResumeLayout(false);
             this.pnlCustomerInfo.PerformLayout();
-            this.pnlInvoices.ResumeLayout(false);
-            this.pnlInvoices.PerformLayout();
-            this.pnlInternalCharge.ResumeLayout(false);
-            this.pnlInternalCharge.PerformLayout();
+            this.pnlInvoicesLbl.ResumeLayout(false);
+            this.pnlInvoicesLbl.PerformLayout();
+            this.pnlInternalChargeLbl.ResumeLayout(false);
+            this.pnlInternalChargeLbl.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.pnlQuoteLbl.ResumeLayout(false);
+            this.pnlQuoteLbl.PerformLayout();
+            this.PnlQuoteIn.ResumeLayout(false);
+            this.PnlQuoteIn.PerformLayout();
+            this.pnlInternalChargeIn.ResumeLayout(false);
+            this.pnlInternalChargeIn.PerformLayout();
+            this.pnlInvoicesIn.ResumeLayout(false);
+            this.pnlInvoicesIn.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,7 +643,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox imgLogo;
         private System.Windows.Forms.Label txtCustomerAddress;
         private System.Windows.Forms.TextBox boxCustomerAddress;
         private System.Windows.Forms.Label txtCustomerName;
@@ -477,30 +657,45 @@
         private System.Windows.Forms.Label txtProfit;
         private System.Windows.Forms.TextBox boxProfit;
         private System.Windows.Forms.Label txtWarning;
-        private System.Windows.Forms.Button btnSaveCustomer;
         private System.Windows.Forms.Label txtCustomerTitle;
         private System.Windows.Forms.Panel pnlCustomerInfo;
-        private System.Windows.Forms.Panel pnlInvoices;
+        private System.Windows.Forms.Panel pnlInvoicesLbl;
         private System.Windows.Forms.Label txtInvoiceTitle;
-        private System.Windows.Forms.Button btnSaveInvoice;
         private System.Windows.Forms.Label txtSupplier;
         private System.Windows.Forms.TextBox boxSupplier;
         private System.Windows.Forms.Label txtInvoiceDate;
         private System.Windows.Forms.TextBox boxInvNum;
         private System.Windows.Forms.Label txtInvNum;
-        private System.Windows.Forms.Panel pnlInternalCharge;
+        private System.Windows.Forms.Panel pnlInternalChargeLbl;
         private System.Windows.Forms.Label txtInternalTitle;
-        private System.Windows.Forms.Button btnSaveInternal;
         private System.Windows.Forms.Label txtCompanyName;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox boxCompany;
+        private System.Windows.Forms.TextBox boxSupplierI;
         private System.Windows.Forms.Label txtItem;
         private System.Windows.Forms.TextBox boxInternalValue;
         private System.Windows.Forms.Label txtInternalValue;
         private System.Windows.Forms.DateTimePicker dteInvoiceDate;
         private System.Windows.Forms.Label txtReference;
         private System.Windows.Forms.TextBox boxReference;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox boxInvValue;
         private System.Windows.Forms.Label txtInvValue;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlQuoteLbl;
+        private System.Windows.Forms.Label txtReferenceQ;
+        private System.Windows.Forms.TextBox boxReferenceQ;
+        private System.Windows.Forms.TextBox boxQuoteValueQ;
+        private System.Windows.Forms.Label txtQuoteValueQ;
+        private System.Windows.Forms.DateTimePicker dteQuoteDate;
+        private System.Windows.Forms.Label txtQuotes;
+        private System.Windows.Forms.Label txtSupplierQ;
+        private System.Windows.Forms.TextBox boxSupplierQ;
+        private System.Windows.Forms.Label txtQuoteDateQ;
+        private System.Windows.Forms.Label txtGST;
+        private System.Windows.Forms.Panel PnlQuoteIn;
+        private System.Windows.Forms.Panel pnlInternalChargeIn;
+        private System.Windows.Forms.Panel pnlInvoicesIn;
+        private System.Windows.Forms.Button btnAddQuote;
+        private System.Windows.Forms.Button btnAddInv;
+        private System.Windows.Forms.Button btnAddCharge;
     }
 }

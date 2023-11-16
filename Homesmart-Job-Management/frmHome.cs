@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Connections;
+using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows.Forms;
-using Connections;
-using MySql.Data.MySqlClient;
 
 namespace Homesmart_Job_Management
 {

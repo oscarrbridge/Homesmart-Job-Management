@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Connections;
+﻿using Connections;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Pkix;
+using System;
+using System.Windows.Forms;
 
 namespace Homesmart_Job_Management
 {
@@ -49,7 +41,7 @@ namespace Homesmart_Job_Management
 
         private void boxCustomerName_TextChanged(object sender, EventArgs e)
         {
-            if(boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
+            if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
             {
                 btnSubmitNew.Enabled = true;
             }
