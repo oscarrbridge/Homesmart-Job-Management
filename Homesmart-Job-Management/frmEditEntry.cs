@@ -109,14 +109,14 @@ namespace Homesmart_Job_Management
             }
         }
 
-        private void btnAddQuote_Click(object sender, EventArgs e)
+        private void AddQuote()
         {
             int startPosX = 18;
             int startPosY = 216;
 
             // Create new TextBox and Button
             TextBox QSupplier = new TextBox();
-            DateTimePicker QDate= new DateTimePicker();
+            DateTimePicker QDate = new DateTimePicker();
             TextBox QReference = new TextBox();
             TextBox QValue = new TextBox();
             Button button = new Button();
@@ -196,7 +196,7 @@ namespace Homesmart_Job_Management
             countI++;
         }
 
-        private void btnAddCharge_Click(object sender, EventArgs e)
+        private void AddCharge()
         {
             int startPosX = 18;
             int startPosY = 314;
@@ -275,7 +275,7 @@ namespace Homesmart_Job_Management
             countI++;
         }
 
-        private void btnAddInv_Click(object sender, EventArgs e)
+        private void AddInv()
         {
             int startPosX = 18;
             int startPosY = 426;
@@ -365,6 +365,21 @@ namespace Homesmart_Job_Management
 
             // Increment the count
             countI++;
+        }
+
+        private void btnAddQuote_Click(object sender, EventArgs e)
+        {
+            AddQuote();
+        }
+
+        private void btnAddCharge_Click(object sender, EventArgs e)
+        {
+            AddCharge();
+        }
+
+        private void btnAddInv_Click(object sender, EventArgs e)
+        {
+            AddInv();
         }
     }
 }
