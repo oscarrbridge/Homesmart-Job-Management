@@ -153,6 +153,7 @@
             this.boxQuoteValue.Name = "boxQuoteValue";
             this.boxQuoteValue.Size = new System.Drawing.Size(80, 20);
             this.boxQuoteValue.TabIndex = 20;
+            this.boxQuoteValue.TextChanged += new System.EventHandler(this.IValue_TextChanged);
             // 
             // txtMargin
             // 

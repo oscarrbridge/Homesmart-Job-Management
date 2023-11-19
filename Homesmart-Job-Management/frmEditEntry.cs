@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Homesmart_Job_Management;
 using System.Security.Cryptography;
 using Google.Protobuf.WellKnownTypes;
+using System.Collections;
+using System.Data.Common;
 
 namespace Homesmart_Job_Management
 {
@@ -33,6 +35,51 @@ namespace Homesmart_Job_Management
             InitializeComponent();
             getInfo(JobID);
         }
+
+        private void IValue_TextChanged(object sender, EventArgs e)
+        {
+            int TotalCost = 0;
+
+            for (int i = 0; i < InvoiceControls.Count / 6; i++)
+            {
+                int value;
+                if (Int32.TryParse((InvoiceControls["IValue" + $"{i}"] as TextBox).Text, out value))
+                {
+                    TotalCost += value;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid number format in IValue " + $"{i}");
+                }
+            }
+            boxTotalCost.Text = TotalCost.ToString();
+
+            // Calculate Profit
+            int QuoteValue;
+            if (Int32.TryParse(boxQuoteValue.Text, out QuoteValue))
+            {
+                int Profit = QuoteValue - TotalCost;
+                boxProfit.Text = Profit.ToString();
+
+                // Calculate Margin
+                if (QuoteValue != 0)
+                {
+                    double Margin = (double)Profit / QuoteValue * 100;
+                    boxMargin.Text = Margin.ToString("0.00") + "%";
+                }
+                else
+                {
+                    boxMargin.Text = "N/A";
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid number format in boxQuoteValue");
+            }
+        }
+
+
+
 
         private void getInfo(int JobID)
         {
@@ -169,6 +216,8 @@ namespace Homesmart_Job_Management
 
                 dbConnection.CloseConnection();
             }
+
+            IValue_TextChanged(this, null);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -460,6 +509,7 @@ namespace Homesmart_Job_Management
             Button button = new Button();
             TextBox IID = new TextBox();
 
+            IValue.TextChanged += new EventHandler(IValue_TextChanged);
 
             // Set properties
             ISupplier.Name = "ISupplier" + countIL;
