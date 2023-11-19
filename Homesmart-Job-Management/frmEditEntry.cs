@@ -24,6 +24,10 @@ namespace Homesmart_Job_Management
         private int countCL = 0;
         private int countIL = 0;
 
+        private int newQ = 0;
+        private int newC = 0;
+        private int newI = 0;
+
         Dictionary<string, Control> QuoteControls = new Dictionary<string, Control>();
         Dictionary<string, Control> ChargeControls = new Dictionary<string, Control>();
         Dictionary<string, Control> InvoiceControls = new Dictionary<string, Control>();
@@ -38,48 +42,30 @@ namespace Homesmart_Job_Management
 
         private void IValue_TextChanged(object sender, EventArgs e)
         {
-            int TotalCost = 0;
+            decimal TotalCost = 0;
 
             for (int i = 0; i < InvoiceControls.Count / 6; i++)
             {
-                int value;
-                if (Int32.TryParse((InvoiceControls["IValue" + $"{i}"] as TextBox).Text, out value))
-                {
-                    TotalCost += value;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid number format in IValue " + $"{i}");
-                }
+                TotalCost += (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Value;
             }
-            boxTotalCost.Text = TotalCost.ToString();
+            boxTotalCost.Value = TotalCost;
 
             // Calculate Profit
-            int QuoteValue;
-            if (Int32.TryParse(boxQuoteValue.Text, out QuoteValue))
-            {
-                int Profit = QuoteValue - TotalCost;
-                boxProfit.Text = Profit.ToString();
+            decimal QuoteValue = boxQuoteValue.Value;
+            decimal Profit = QuoteValue - TotalCost;
+            boxProfit.Value = Profit;
 
-                // Calculate Margin
-                if (QuoteValue != 0)
-                {
-                    double Margin = (double)Profit / QuoteValue * 100;
-                    boxMargin.Text = Margin.ToString("0.00") + "%";
-                }
-                else
-                {
-                    boxMargin.Text = "N/A";
-                }
+            // Calculate Margin
+            if (QuoteValue != 0)
+            {
+                decimal Margin = Profit / QuoteValue * 100;
+                boxMargin.Value = Margin;
             }
             else
             {
-                Console.WriteLine("Invalid number format in boxQuoteValue");
+                boxMargin.Value = 0;
             }
         }
-
-
-
 
         private void getInfo(int JobID)
         {
@@ -146,7 +132,7 @@ namespace Homesmart_Job_Management
                         }
                         catch { }
                         (QuoteControls["QReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
-                        (QuoteControls["QValue" + $"{i}"] as TextBox).Text = reader["QuoteValue"].ToString();
+                        (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text = reader["QuoteValue"].ToString();
                         (QuoteControls["QID" + $"{i}"] as TextBox).Text = reader["QuoteID"].ToString();
                     }
                 }
@@ -164,7 +150,7 @@ namespace Homesmart_Job_Management
 
                         (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
                         (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
-                        (ChargeControls["CValue" + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                        (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
                         (ChargeControls["CID" + $"{i}"] as TextBox).Text = reader["ChargeID"].ToString();
                     }
                 }
@@ -189,7 +175,7 @@ namespace Homesmart_Job_Management
                         catch (Exception ex){}
                         (InvoiceControls["IReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
                         (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text = reader["InvoiceNo"].ToString();
-                        (InvoiceControls["IValue"     + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                        (InvoiceControls["IValue"     + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
                         (InvoiceControls["IID"        + $"{i}"] as TextBox).Text = reader["InvoiceID"].ToString();
                     }
                 }
@@ -225,18 +211,18 @@ namespace Homesmart_Job_Management
             DialogResult dialogResult = MessageBox.Show($"Please double check the information before submiting",
                 "Confirmation", MessageBoxButtons.OKCancel);
 
-
             if (dialogResult == DialogResult.OK)
             {
                 int profit = 0;
                 int margin = 0;
 
-
                 DatabaseConnection dbConnection = new DatabaseConnection();
 
                 if (dbConnection.OpenConnection() == true)
                 {
-                    string Query = "UPDATE Job SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin WHERE JobID = @JobID";
+                    string Query =  "UPDATE Job " +
+                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
+                                    "WHERE JobID = @JobID";
                     MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                     cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
@@ -251,13 +237,15 @@ namespace Homesmart_Job_Management
 
                     for (int i = 0; i < QuoteControls.Count / 5; i++)
                     {
-                        Query = "UPDATE ExpenseQuote SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue WHERE QuoteID = @QuoteID";
+                        Query = "UPDATE ExpenseQuote " +
+                                "SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue " +
+                                "WHERE QuoteID = @QuoteID";
                         cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                         cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
                         cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
                         cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
                     
                         cmd.ExecuteNonQuery();
@@ -265,12 +253,14 @@ namespace Homesmart_Job_Management
 
                     for (int i = 0; i < ChargeControls.Count / 4; i++)
                     {
-                        Query = "UPDATE InternalCharge SET Company = @Company, SupplierContractor = @SupplierContractor, uValue = @uValue WHERE ChargeID = @ChargeID";
+                        Query = "UPDATE InternalCharge " +
+                                "SET Company = @Company, SupplierContractor = @SupplierContractor, uValue = @uValue " +
+                                "WHERE ChargeID = @ChargeID";
                         cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                         cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text);
                         cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
 
                         cmd.ExecuteNonQuery();
@@ -278,14 +268,16 @@ namespace Homesmart_Job_Management
 
                     for (int i = 0; i < InvoiceControls.Count / 6; i++)
                     {
-                        Query = "UPDATE ExpenseInvoice SET SupplierContractor = @SupplierContractor, InvoiceDate = @InvoiceDate, uReference = @uReference, InvoiceNo = @InvoiceNo, uValue = @uValue WHERE InvoiceID = @InvoiceID";
+                        Query = "UPDATE ExpenseInvoice " +
+                                "SET SupplierContractor = @SupplierContractor, InvoiceDate = @InvoiceDate, uReference = @uReference, InvoiceNo = @InvoiceNo, uValue = @uValue " +
+                                "WHERE InvoiceID = @InvoiceID";
                         cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                         cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@InvoiceDate", (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value);
                         cmd.Parameters.AddWithValue("@uReference", (InvoiceControls["IReference" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@InvoiceNo", (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@uValue", (InvoiceControls["IValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@uValue", (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Text);
                         cmd.Parameters.AddWithValue("@InvoiceID", (InvoiceControls["IID" + $"{i}"] as TextBox).Text);
 
                         cmd.ExecuteNonQuery();
@@ -306,7 +298,7 @@ namespace Homesmart_Job_Management
             TextBox QSupplier = new TextBox();
             DateTimePicker QDate = new DateTimePicker();
             TextBox QReference = new TextBox();
-            TextBox QValue = new TextBox();
+            NumericUpDown QValue = new NumericUpDown();
             Button button = new Button();
             TextBox QID = new TextBox();
 
@@ -327,6 +319,8 @@ namespace Homesmart_Job_Management
             QValue.Name = "QValue" + countQL;
             QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
+            QValue.Maximum = 1000000;
+            QValue.ThousandsSeparator = true;
 
             button.Text = "X";
             button.Name = "button" + countQL;
@@ -409,7 +403,7 @@ namespace Homesmart_Job_Management
             // Create new TextBox and Button
             TextBox CCompany = new TextBox();
             TextBox CSupplier = new TextBox();
-            TextBox CValue = new TextBox();
+            NumericUpDown CValue = new NumericUpDown();
             Button button = new Button();
             TextBox CID = new TextBox();
 
@@ -425,6 +419,8 @@ namespace Homesmart_Job_Management
             CValue.Name = "CValue" + countCL;
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
+            CValue.Maximum = 1000000;
+            CValue.ThousandsSeparator = true;
 
             button.Text = "X";
             button.Name = "button" + countCL;
@@ -505,7 +501,7 @@ namespace Homesmart_Job_Management
             DateTimePicker IDate = new DateTimePicker();
             TextBox IReference = new TextBox();
             TextBox IInvNumber = new TextBox();
-            TextBox IValue = new TextBox();
+            NumericUpDown IValue = new NumericUpDown();
             Button button = new Button();
             TextBox IID = new TextBox();
 
@@ -532,6 +528,8 @@ namespace Homesmart_Job_Management
             IValue.Name = "IValue" + countIL;
             IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
+            IValue.Maximum = 1000000;
+            IValue.ThousandsSeparator = true;
 
             button.Text = "X";
             button.Name = "button" + countIL;
