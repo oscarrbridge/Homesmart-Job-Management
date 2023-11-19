@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Homesmart_Job_Management;
+using System.Security.Cryptography;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Homesmart_Job_Management
 {
@@ -42,9 +44,9 @@ namespace Homesmart_Job_Management
                 int Charge = 0;
                 int Invoice = 0;
 
-                string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, uReference, QuoteValue FROM ExpenseQuote WHERE JobID = @JobID";
-                string ChargeQuery = $"SELECT Company, SupplierContractor, uValue FROM InternalCharge WHERE JobID = @JobID";
-                string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue FROM ExpenseInvoice WHERE JobID = @JobID";
+                string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, uReference, QuoteValue, QuoteID FROM ExpenseQuote WHERE JobID = @JobID";
+                string ChargeQuery = $"SELECT Company, SupplierContractor, uValue, ChargeID FROM InternalCharge WHERE JobID = @JobID";
+                string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue, InvoiceID FROM ExpenseInvoice WHERE JobID = @JobID";
 
                 string QuoteCount = $"SELECT COUNT(*) FROM ExpenseQuote WHERE JobID = @JobID";
                 string ChargeCount = $"SELECT COUNT(*) FROM InternalCharge WHERE JobID = @JobID";
@@ -98,6 +100,7 @@ namespace Homesmart_Job_Management
                         catch { }
                         (QuoteControls["QReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
                         (QuoteControls["QValue" + $"{i}"] as TextBox).Text = reader["QuoteValue"].ToString();
+                        (QuoteControls["QID" + $"{i}"] as TextBox).Text = reader["QuoteID"].ToString();
                     }
                 }
                 reader.Close();
@@ -115,6 +118,7 @@ namespace Homesmart_Job_Management
                         (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
                         (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
                         (ChargeControls["CValue" + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                        (ChargeControls["CID" + $"{i}"] as TextBox).Text = reader["ChargeID"].ToString();
                     }
                 }
                 reader.Close();
@@ -139,6 +143,7 @@ namespace Homesmart_Job_Management
                         (InvoiceControls["IReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
                         (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text = reader["InvoiceNo"].ToString();
                         (InvoiceControls["IValue"     + $"{i}"] as TextBox).Text = reader["uValue"].ToString();
+                        (InvoiceControls["IID"        + $"{i}"] as TextBox).Text = reader["InvoiceID"].ToString();
                     }
                 }
                 reader.Close();
@@ -195,22 +200,47 @@ namespace Homesmart_Job_Management
 
                     cmd.ExecuteNonQuery();
 
-
-                    for(int i = 0; i <= QuoteControls.Count / 4; i++)
+                    for (int i = 0; i < QuoteControls.Count / 5; i++)
                     {
-                        Query = "UPDATE ExpenseQuote SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue WHERE JobID = @JobID";
+                        Query = "UPDATE ExpenseQuote SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue WHERE QuoteID = @QuoteID";
                         cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                         cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
                         cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+                        cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
+                    
+                        cmd.ExecuteNonQuery();
                     }
 
-                    cmd.ExecuteNonQuery();
+                    for (int i = 0; i < ChargeControls.Count / 4; i++)
+                    {
+                        Query = "UPDATE InternalCharge SET Company = @Company, SupplierContractor = @SupplierContractor, uValue = @uValue WHERE ChargeID = @ChargeID";
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
+                        cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
 
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    for (int i = 0; i < InvoiceControls.Count / 6; i++)
+                    {
+                        Query = "UPDATE ExpenseInvoice SET SupplierContractor = @SupplierContractor, InvoiceDate = @InvoiceDate, uReference = @uReference, InvoiceNo = @InvoiceNo, uValue = @uValue WHERE InvoiceID = @InvoiceID";
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@InvoiceDate", (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value);
+                        cmd.Parameters.AddWithValue("@uReference", (InvoiceControls["IReference" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@InvoiceNo", (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@uValue", (InvoiceControls["IValue" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@InvoiceID", (InvoiceControls["IID" + $"{i}"] as TextBox).Text);
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     dbConnection.CloseConnection();
                     Close();
@@ -229,6 +259,7 @@ namespace Homesmart_Job_Management
             TextBox QReference = new TextBox();
             TextBox QValue = new TextBox();
             Button button = new Button();
+            TextBox QID = new TextBox();
 
             // Set properties
             QSupplier.Name = "QSupplier" + countQL;
@@ -253,6 +284,11 @@ namespace Homesmart_Job_Management
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             button.Size = new Size(20, 20);
 
+            // Set properties
+            QID.Name = "QID" + countQL;
+            QID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QID.Size = new Size(30, 20);
+
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
@@ -265,6 +301,7 @@ namespace Homesmart_Job_Management
                     Controls.Remove(QReference);
                     Controls.Remove(QValue);
                     Controls.Remove(button);
+                    Controls.Remove(QID);
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -297,14 +334,15 @@ namespace Homesmart_Job_Management
             QuoteControls.Add(QDate.Name, QDate);
             QuoteControls.Add(QReference.Name, QReference);
             QuoteControls.Add(QValue.Name, QValue);
+            QuoteControls.Add(QID.Name, QID);
 
             // Add the new controls to the form
             Controls.Add(QSupplier);
             Controls.Add(QDate);
             Controls.Add(QReference);
             Controls.Add(QValue);
-
             Controls.Add(button);
+            Controls.Add(QID);
 
             // Increment the count
             countQ++;
@@ -324,6 +362,7 @@ namespace Homesmart_Job_Management
             TextBox CSupplier = new TextBox();
             TextBox CValue = new TextBox();
             Button button = new Button();
+            TextBox CID = new TextBox();
 
             // Set properties
             CCompany.Name = "CCompany" + countCL;
@@ -343,6 +382,10 @@ namespace Homesmart_Job_Management
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             button.Size = new Size(20, 20);
 
+            CID.Name = "CID" + countCL;
+            CID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CID.Size = new Size(30, 20);
+
 
             // Add Click event to the Button
             button.Click += (s, ev) =>
@@ -354,8 +397,9 @@ namespace Homesmart_Job_Management
                     Controls.Remove(CCompany);
                     Controls.Remove(CSupplier);
                     Controls.Remove(CValue);
-
                     Controls.Remove(button);
+                    Controls.Remove(CID);
+
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -386,13 +430,14 @@ namespace Homesmart_Job_Management
             ChargeControls.Add(CCompany.Name, CCompany);
             ChargeControls.Add(CSupplier.Name, CSupplier);
             ChargeControls.Add(CValue.Name, CValue);
+            ChargeControls.Add(CID.Name, CID);
 
             // Add the new controls to the form
             Controls.Add(CCompany);
             Controls.Add(CSupplier);
             Controls.Add(CValue);
-
             Controls.Add(button);
+            Controls.Add(CID);
 
             // Increment the count
             countC++;
@@ -413,6 +458,8 @@ namespace Homesmart_Job_Management
             TextBox IInvNumber = new TextBox();
             TextBox IValue = new TextBox();
             Button button = new Button();
+            TextBox IID = new TextBox();
+
 
             // Set properties
             ISupplier.Name = "ISupplier" + countIL;
@@ -441,6 +488,10 @@ namespace Homesmart_Job_Management
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             button.Size = new Size(20, 20);
 
+            IID.Name = "IID" + countIL;
+            IID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IID.Size = new Size(30, 20);
+
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
@@ -454,8 +505,8 @@ namespace Homesmart_Job_Management
                     Controls.Remove(IReference);
                     Controls.Remove(IInvNumber);
                     Controls.Remove(IValue);
-
                     Controls.Remove(button);
+                    Controls.Remove(IID);
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -487,6 +538,7 @@ namespace Homesmart_Job_Management
             InvoiceControls.Add(IReference.Name, IReference);
             InvoiceControls.Add(IInvNumber.Name, IInvNumber);
             InvoiceControls.Add(IValue.Name, IValue);
+            InvoiceControls.Add(IID.Name, IID);
 
             // Add the new controls to the form
             Controls.Add(ISupplier);
@@ -494,8 +546,8 @@ namespace Homesmart_Job_Management
             Controls.Add(IReference);
             Controls.Add(IInvNumber);
             Controls.Add(IValue);
-
             Controls.Add(button);
+            Controls.Add(IID);
 
             // Increment the count
             countI++;
@@ -519,5 +571,3 @@ namespace Homesmart_Job_Management
         }
     }
 }
-
-//"SELECT JobID CustomerName, CustomerAddress FROM Job WHERE CustomerName = @customerName AND CustomerAddress = @customerAddress";
