@@ -1,8 +1,11 @@
 ﻿using Connections;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Homesmart_Job_Management
@@ -10,6 +13,8 @@ namespace Homesmart_Job_Management
     public partial class frmEditEntry : Form
     {
         private int uJobID;
+
+        private int init = 0;
 
         private int countQ = 0;
         private int countC = 0;
@@ -20,13 +25,15 @@ namespace Homesmart_Job_Management
         private int countIL = 0;
 
         Dictionary<string, Control> QuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> OrigQuoteControls = new Dictionary<string, Control>();
         Dictionary<string, Control> RemQuoteControls = new Dictionary<string, Control>();
 
-
         Dictionary<string, Control> ChargeControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> OrigChargeControls = new Dictionary<string, Control>();
         Dictionary<string, Control> RemChargeControls = new Dictionary<string, Control>();
 
         Dictionary<string, Control> InvoiceControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> OrigInvoiceControls = new Dictionary<string, Control>();
         Dictionary<string, Control> RemInvoiceControls = new Dictionary<string, Control>();
 
         public frmEditEntry(int JobID)
@@ -62,6 +69,13 @@ namespace Homesmart_Job_Management
             {
                 boxMargin.Value = 0;
             }
+        }
+
+        private void copyDict()
+        {
+            OrigQuoteControls = new Dictionary<string, Control>(QuoteControls);
+            OrigChargeControls = new Dictionary<string, Control>(ChargeControls);
+            OrigInvoiceControls = new Dictionary<string, Control>(InvoiceControls);
         }
 
         private void getInfo(int JobID)
@@ -201,7 +215,9 @@ namespace Homesmart_Job_Management
             }
 
             IValue_TextChanged(this, null);
+            copyDict();
 
+            init = 1;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -390,6 +406,23 @@ namespace Homesmart_Job_Management
             QID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QID.Size = new Size(30, 20);
 
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            if (dbConnection.OpenConnection() == true && init != 0)
+            {
+                string Query = "SELECT MAX(QuoteID) AS QuoteID FROM ExpenseQuote";
+
+                MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    QID.Text = $"{(int)reader["QuoteID"] + countQL - 1}";
+                }
+                reader.Close();
+                dbConnection.CloseConnection();
+            }
+
             // Add Click event to the remove Button
             button.Click += (s, ev) =>
             {
@@ -411,7 +444,10 @@ namespace Homesmart_Job_Management
                     QuoteControls.Remove(QValue.Name);
                     QuoteControls.Remove(QID.Name);
 
-                    RemQuoteControls.Add(QID.Name, QID);
+                    if (OrigQuoteControls.ContainsKey(QID.Name))
+                    {
+                        RemQuoteControls.Add(QID.Name, QID);
+                    }
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -499,6 +535,24 @@ namespace Homesmart_Job_Management
             CID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CID.Size = new Size(30, 20);
 
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            if (dbConnection.OpenConnection() == true && init != 0)
+            {
+                string Query = "SELECT MAX(ChargeID) AS ChargeID FROM InternalCharge";
+
+                MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    CID.Text = $"{(int)reader["ChargeID"] + countCL - 1}";
+                }
+
+                reader.Close();
+                dbConnection.CloseConnection();
+            }
+
 
             // Add Click event to the Button
             button.Click += (s, ev) =>
@@ -518,8 +572,10 @@ namespace Homesmart_Job_Management
                     ChargeControls.Remove(CValue.Name);
                     ChargeControls.Remove(CID.Name);
 
-                    RemChargeControls.Add(CID.Name, CID);
-
+                    if (OrigChargeControls.ContainsKey(CID.Name))
+                    {
+                        RemChargeControls.Add(CID.Name, CID);
+                    }
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -615,6 +671,24 @@ namespace Homesmart_Job_Management
             IID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IID.Size = new Size(30, 20);
 
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            if (dbConnection.OpenConnection() == true && init != 0)
+            {
+                string Query = "SELECT MAX(InvoiceID) AS InvoiceID FROM ExpenseInvoice";
+
+                MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    IID.Text = $"{(int)reader["InvoiceID"] + countIL - 1}";
+                }
+
+                reader.Close();
+                dbConnection.CloseConnection();
+            }
+
             // Add Click event to the Button
             button.Click += (s, ev) =>
             {
@@ -637,8 +711,11 @@ namespace Homesmart_Job_Management
                     InvoiceControls.Remove(IInvNumber.Name);
                     InvoiceControls.Remove(IValue.Name);
                     InvoiceControls.Remove(IID.Name);
-                    
-                    RemInvoiceControls.Add(IID.Name, IID);
+
+                    if (OrigInvoiceControls.ContainsKey(IID.Name))
+                    {
+                        RemInvoiceControls.Add(IID.Name, IID);
+                    }
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
