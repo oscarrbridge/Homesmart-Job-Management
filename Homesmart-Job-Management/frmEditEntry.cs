@@ -4,11 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Homesmart_Job_Management;
-using System.Security.Cryptography;
-using Google.Protobuf.WellKnownTypes;
-using System.Collections;
-using System.Data.Common;
 
 namespace Homesmart_Job_Management
 {
@@ -24,13 +19,15 @@ namespace Homesmart_Job_Management
         private int countCL = 0;
         private int countIL = 0;
 
-        private int newQ = 0;
-        private int newC = 0;
-        private int newI = 0;
-
         Dictionary<string, Control> QuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> RemQuoteControls = new Dictionary<string, Control>();
+
+
         Dictionary<string, Control> ChargeControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> RemChargeControls = new Dictionary<string, Control>();
+
         Dictionary<string, Control> InvoiceControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> RemInvoiceControls = new Dictionary<string, Control>();
 
         public frmEditEntry(int JobID)
         {
@@ -92,6 +89,7 @@ namespace Homesmart_Job_Management
                 QuoteCountCmd.Parameters.AddWithValue("@JobID", JobID);
                 ChargeCountCmd.Parameters.AddWithValue("@JobID", JobID);
                 InvoiceCountCmd.Parameters.AddWithValue("@JobID", JobID);
+
 
                 MySqlDataReader reader = QuoteCountCmd.ExecuteReader();
                 while (reader.Read())
@@ -156,7 +154,6 @@ namespace Homesmart_Job_Management
                 }
                 reader.Close();
 
-
                 MySqlCommand InvoiceQueryCmd = new MySqlCommand(InvoiceQuery, dbConnection.GetConnection());
                 InvoiceQueryCmd.Parameters.AddWithValue("@JobID", JobID);
 
@@ -172,11 +169,11 @@ namespace Homesmart_Job_Management
                         {
                             (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value = DateTime.Parse(reader["InvoiceDate"].ToString());
                         }
-                        catch (Exception ex){}
+                        catch (Exception ex) { }
                         (InvoiceControls["IReference" + $"{i}"] as TextBox).Text = reader["uReference"].ToString();
                         (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text = reader["InvoiceNo"].ToString();
-                        (InvoiceControls["IValue"     + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
-                        (InvoiceControls["IID"        + $"{i}"] as TextBox).Text = reader["InvoiceID"].ToString();
+                        (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
+                        (InvoiceControls["IID" + $"{i}"] as TextBox).Text = reader["InvoiceID"].ToString();
                     }
                 }
                 reader.Close();
@@ -204,6 +201,7 @@ namespace Homesmart_Job_Management
             }
 
             IValue_TextChanged(this, null);
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -220,7 +218,7 @@ namespace Homesmart_Job_Management
 
                 if (dbConnection.OpenConnection() == true)
                 {
-                    string Query =  "UPDATE Job " +
+                    string Query = "UPDATE Job " +
                                     "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
                                     "WHERE JobID = @JobID";
                     MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
@@ -240,14 +238,14 @@ namespace Homesmart_Job_Management
                         Query = "UPDATE ExpenseQuote " +
                                 "SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue " +
                                 "WHERE QuoteID = @QuoteID";
-                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection()); //remove from the global control dict
 
                         cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
                         cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
                         cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
-                    
+
                         cmd.ExecuteNonQuery();
                     }
 
@@ -283,6 +281,66 @@ namespace Homesmart_Job_Management
                         cmd.ExecuteNonQuery();
                     }
 
+                    //if (origQ < newQ)
+                    //{
+                    //    for (int i = origQ; i < newQ; i++)
+                    //    {
+                    //        Query = "INSERT INTO ExpenseQuote (SupplierContractor, QuoteDate, uReference, QuoteValue) VALUES (@SupplierContractor, @QuoteDate, @uReference, @QuoteValue)";
+                    //
+                    //        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+                    //
+                    //        cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
+                    //        cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
+                    //        cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
+                    //        cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
+                    //        cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
+                    //
+                    //        cmd.ExecuteNonQuery();
+                    //    }
+                    //}
+
+                    if (RemQuoteControls.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, Control> item in RemQuoteControls)
+                        {
+                            Query = "DELETE FROM ExpenseQuote WHERE QuoteID = @QuoteID;";
+
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                            cmd.Parameters.AddWithValue("@QuoteID", ((TextBox)item.Value).Text);
+                            cmd.ExecuteNonQuery();
+
+                        }
+                    }
+
+                    if (RemChargeControls.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, Control> item in RemChargeControls)
+                        {
+                            Query = "DELETE FROM InternalCharge WHERE ChargeID = @ChargeID;";
+
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                            cmd.Parameters.AddWithValue("@ChargeID", ((TextBox)item.Value).Text);
+                            cmd.ExecuteNonQuery();
+
+                        }
+                    }
+
+                    if (RemInvoiceControls.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, Control> item in RemInvoiceControls)
+                        {
+                            Query = "DELETE FROM ExpenseInvoice WHERE InvoiceId = @InvoiceId;";
+
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                            cmd.Parameters.AddWithValue("@InvoiceId", ((TextBox)item.Value).Text);
+                            cmd.ExecuteNonQuery();
+
+                        }
+                    }
+
                     dbConnection.CloseConnection();
                     Close();
                 }
@@ -302,7 +360,8 @@ namespace Homesmart_Job_Management
             Button button = new Button();
             TextBox QID = new TextBox();
 
-            // Set properties
+
+            //Set properties
             QSupplier.Name = "QSupplier" + countQL;
             QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
@@ -327,12 +386,11 @@ namespace Homesmart_Job_Management
             button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             button.Size = new Size(20, 20);
 
-            // Set properties
             QID.Name = "QID" + countQL;
             QID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QID.Size = new Size(30, 20);
 
-            // Add Click event to the Button
+            // Add Click event to the remove Button
             button.Click += (s, ev) =>
             {
                 DialogResult result = MessageBox.Show("Do you want to remove this item?", "Confirmation", MessageBoxButtons.OKCancel);
@@ -345,6 +403,15 @@ namespace Homesmart_Job_Management
                     Controls.Remove(QValue);
                     Controls.Remove(button);
                     Controls.Remove(QID);
+
+
+                    QuoteControls.Remove(QSupplier.Name);
+                    QuoteControls.Remove(QDate.Name);
+                    QuoteControls.Remove(QReference.Name);
+                    QuoteControls.Remove(QValue.Name);
+                    QuoteControls.Remove(QID.Name);
+
+                    RemQuoteControls.Add(QID.Name, QID);
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
@@ -373,6 +440,7 @@ namespace Homesmart_Job_Management
                 }
             }
 
+            //Add the new control to the dict
             QuoteControls.Add(QSupplier.Name, QSupplier);
             QuoteControls.Add(QDate.Name, QDate);
             QuoteControls.Add(QReference.Name, QReference);
@@ -444,6 +512,13 @@ namespace Homesmart_Job_Management
                     Controls.Remove(CValue);
                     Controls.Remove(button);
                     Controls.Remove(CID);
+
+                    ChargeControls.Remove(CCompany.Name);
+                    ChargeControls.Remove(CSupplier.Name);
+                    ChargeControls.Remove(CValue.Name);
+                    ChargeControls.Remove(CID.Name);
+
+                    RemChargeControls.Add(CID.Name, CID);
 
 
                     // Move up all controls that are below the removed one
@@ -555,6 +630,15 @@ namespace Homesmart_Job_Management
                     Controls.Remove(IValue);
                     Controls.Remove(button);
                     Controls.Remove(IID);
+
+                    InvoiceControls.Remove(ISupplier.Name);
+                    InvoiceControls.Remove(IDate.Name);
+                    InvoiceControls.Remove(IReference.Name);
+                    InvoiceControls.Remove(IInvNumber.Name);
+                    InvoiceControls.Remove(IValue.Name);
+                    InvoiceControls.Remove(IID.Name);
+                    
+                    RemInvoiceControls.Add(IID.Name, IID);
 
                     // Move up all controls that are below the removed one
                     foreach (Control control in Controls)
