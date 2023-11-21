@@ -54,6 +54,9 @@
             this.txtItem = new System.Windows.Forms.Label();
             this.txtInternalValue = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.boxMargin = new System.Windows.Forms.NumericUpDown();
+            this.boxProfit = new System.Windows.Forms.NumericUpDown();
+            this.boxTotalCost = new System.Windows.Forms.NumericUpDown();
             this.pnlQuoteLbl = new System.Windows.Forms.Panel();
             this.txtReferenceQ = new System.Windows.Forms.Label();
             this.txtQuoteValueQ = new System.Windows.Forms.Label();
@@ -68,19 +71,16 @@
             this.pnlInvoicesIn = new System.Windows.Forms.Panel();
             this.btnAddInv = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.boxTotalCost = new System.Windows.Forms.NumericUpDown();
-            this.boxProfit = new System.Windows.Forms.NumericUpDown();
-            this.boxMargin = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxQuoteValue)).BeginInit();
             this.pnlInvoicesLbl.SuspendLayout();
             this.pnlInternalChargeLbl.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.pnlQuoteLbl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxProfit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxProfit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).BeginInit();
+            this.pnlQuoteLbl.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgLogo
@@ -341,6 +341,63 @@
             this.panel1.Size = new System.Drawing.Size(281, 100);
             this.panel1.TabIndex = 34;
             // 
+            // boxMargin
+            // 
+            this.boxMargin.Enabled = false;
+            this.boxMargin.Location = new System.Drawing.Point(124, 66);
+            this.boxMargin.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.boxMargin.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
+            this.boxMargin.Name = "boxMargin";
+            this.boxMargin.Size = new System.Drawing.Size(120, 20);
+            this.boxMargin.TabIndex = 47;
+            this.boxMargin.ThousandsSeparator = true;
+            // 
+            // boxProfit
+            // 
+            this.boxProfit.Enabled = false;
+            this.boxProfit.Location = new System.Drawing.Point(124, 39);
+            this.boxProfit.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.boxProfit.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
+            this.boxProfit.Name = "boxProfit";
+            this.boxProfit.Size = new System.Drawing.Size(120, 20);
+            this.boxProfit.TabIndex = 46;
+            this.boxProfit.ThousandsSeparator = true;
+            // 
+            // boxTotalCost
+            // 
+            this.boxTotalCost.Enabled = false;
+            this.boxTotalCost.Location = new System.Drawing.Point(124, 12);
+            this.boxTotalCost.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.boxTotalCost.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
+            this.boxTotalCost.Name = "boxTotalCost";
+            this.boxTotalCost.Size = new System.Drawing.Size(120, 20);
+            this.boxTotalCost.TabIndex = 45;
+            this.boxTotalCost.ThousandsSeparator = true;
+            // 
             // pnlQuoteLbl
             // 
             this.pnlQuoteLbl.AutoSize = true;
@@ -475,69 +532,12 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // boxTotalCost
-            // 
-            this.boxTotalCost.Enabled = false;
-            this.boxTotalCost.Location = new System.Drawing.Point(124, 12);
-            this.boxTotalCost.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.boxTotalCost.Minimum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            -2147483648});
-            this.boxTotalCost.Name = "boxTotalCost";
-            this.boxTotalCost.Size = new System.Drawing.Size(120, 20);
-            this.boxTotalCost.TabIndex = 45;
-            this.boxTotalCost.ThousandsSeparator = true;
-            // 
-            // boxProfit
-            // 
-            this.boxProfit.Enabled = false;
-            this.boxProfit.Location = new System.Drawing.Point(124, 39);
-            this.boxProfit.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.boxProfit.Minimum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            -2147483648});
-            this.boxProfit.Name = "boxProfit";
-            this.boxProfit.Size = new System.Drawing.Size(120, 20);
-            this.boxProfit.TabIndex = 46;
-            this.boxProfit.ThousandsSeparator = true;
-            // 
-            // boxMargin
-            // 
-            this.boxMargin.Enabled = false;
-            this.boxMargin.Location = new System.Drawing.Point(124, 66);
-            this.boxMargin.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.boxMargin.Minimum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            -2147483648});
-            this.boxMargin.Name = "boxMargin";
-            this.boxMargin.Size = new System.Drawing.Size(120, 20);
-            this.boxMargin.TabIndex = 47;
-            this.boxMargin.ThousandsSeparator = true;
-            // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(800, 905);
+            this.ClientSize = new System.Drawing.Size(823, 905);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAddInv);
             this.Controls.Add(this.btnAddCharge);
@@ -565,11 +565,11 @@
             this.pnlInternalChargeLbl.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxProfit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).EndInit();
             this.pnlQuoteLbl.ResumeLayout(false);
             this.pnlQuoteLbl.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxProfit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxMargin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
