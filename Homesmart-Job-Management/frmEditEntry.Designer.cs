@@ -207,7 +207,6 @@
             this.boxQuoteValue.Name = "boxQuoteValue";
             this.boxQuoteValue.Size = new System.Drawing.Size(80, 20);
             this.boxQuoteValue.TabIndex = 31;
-            this.boxQuoteValue.ThousandsSeparator = true;
             this.boxQuoteValue.ValueChanged += new System.EventHandler(this.IValue_TextChanged);
             // 
             // pnlInvoicesLbl
@@ -554,6 +553,7 @@
             this.Controls.Add(this.txtWarning);
             this.Controls.Add(this.imgLogo);
             this.Name = "frmEditEntry";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Edit Job";
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.pnlCustomerInfo.ResumeLayout(false);

@@ -24,7 +24,7 @@ namespace Homesmart_Job_Management
 
                 if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
                 {
-                    query = "SELECT JobID CustomerName, CustomerAddress FROM Job WHERE CustomerName = @CustomerName AND CustomerAddress = @CustomerAddress";
+                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName = @CustomerName AND CustomerAddress = @CustomerAddress";
                 }
                 else if (boxCustomerName.Text.Length > 0)
                 {
@@ -72,15 +72,6 @@ namespace Homesmart_Job_Management
 
         private void boxCustomerName_TextChanged_1(object sender, EventArgs e)
         {
-            if (boxCustomerName.Text.Length > 0 || boxCustomerAddress.Text.Length > 0)
-            {
-                btnSearch.Enabled = true;
-            }
-            else
-            {
-                btnSearch.Enabled = false;
-            }
-
             if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
             {
                 btnSubmitNew.Enabled = true;
@@ -93,15 +84,6 @@ namespace Homesmart_Job_Management
 
         private void boxCustomerAddress_TextChanged(object sender, EventArgs e)
         {
-            if (boxCustomerName.Text.Length > 0 || boxCustomerAddress.Text.Length > 0)
-            {
-                btnSearch.Enabled = true;
-            }
-            else
-            {
-                btnSearch.Enabled = false;
-            }
-
             if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
             {
                 btnSubmitNew.Enabled = true;
@@ -114,8 +96,10 @@ namespace Homesmart_Job_Management
 
         private void dataGrid_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == -1);
+
             // If the 'Edit' button was clicked.
-            if (dataGrid.Columns[e.ColumnIndex].Name == "btnEdit" && e.RowIndex >= 0)
+            else if (dataGrid.Columns[e.ColumnIndex].Name == "btnEdit" && e.RowIndex >= 0)
             {
                 // Get the job ID from the selected row.
                 int jobId = Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["JobID"].Value);
@@ -147,6 +131,7 @@ namespace Homesmart_Job_Management
 
                     dbConnection.CloseConnection();
                 }
+                search();
             }
         }
 

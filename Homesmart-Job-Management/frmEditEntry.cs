@@ -482,7 +482,6 @@ namespace Homesmart_Job_Management
             QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
             QValue.Maximum = 1000000;
-            QValue.ThousandsSeparator = true;
 
             button.Text = "X";
             button.Name = "button" + countQL;
@@ -617,7 +616,6 @@ namespace Homesmart_Job_Management
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
             CValue.Maximum = 1000000;
-            CValue.ThousandsSeparator = true;
 
             button.Text = "X";
             button.Name = "button" + countCL;
@@ -731,8 +729,6 @@ namespace Homesmart_Job_Management
             Button button = new Button();
             TextBox IID = new TextBox();
 
-            IValue.TextChanged += new EventHandler(IValue_TextChanged);
-
             // Set properties
             ISupplier.Name = "ISupplier" + countIL;
             ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
@@ -755,7 +751,7 @@ namespace Homesmart_Job_Management
             IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
             IValue.Maximum = 1000000;
-            IValue.ThousandsSeparator = true;
+            IValue.ValueChanged += new EventHandler(IValue_TextChanged);
 
             button.Text = "X";
             button.Name = "button" + countIL;

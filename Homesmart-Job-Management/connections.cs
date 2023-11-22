@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿//#include "database_config.h"
+using Homesmart_Job_Management;
+using MySql.Data.MySqlClient;
 using System;
 
 namespace Connections
@@ -6,11 +8,6 @@ namespace Connections
     public class DatabaseConnection
     {
         private MySqlConnection connection;
-        private string server;
-        private string port;
-        private string database;
-        private string uid;
-        private string password;
 
         // Constructor
         public DatabaseConnection()
@@ -22,12 +19,7 @@ namespace Connections
         // Initialize values
         private void Initialize()
         {
-            server = "shieldcoat.ddns.net";
-            port = "3306";
-            database = "homesmart-job-database";
-            uid = "kk";
-            password = "shieldCOAT!";
-            string connectionString = $"SERVER={server};PORT={port};DATABASE={database};USER={uid};PASSWORD={password};";
+            string connectionString = $"SERVER={DbConfig.Server};PORT={DbConfig.Port};DATABASE={DbConfig.Database};USER={DbConfig.Uid};PASSWORD={DbConfig.Password};";
 
             connection = new MySqlConnection(connectionString);
         }
