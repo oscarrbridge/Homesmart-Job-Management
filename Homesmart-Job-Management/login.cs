@@ -8,10 +8,10 @@ namespace Homesmart_Job_Management
 {
     public static class DbConfig
     {
-        public const string Server = "shieldcoat.ddns.net";
-        public const string Port = "3306";
-        public const string Database = "homesmart-job-database";
-        public const string Uid = "kk";
-        public const string Password = "shieldCOAT!";
+        public const string Server = "";
+        public const string Port = "";
+        public const string Database = "";
+        public const string Uid = "";
+        public const string Password = "";
     }
 }
