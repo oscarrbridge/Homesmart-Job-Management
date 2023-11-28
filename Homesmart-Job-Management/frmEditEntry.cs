@@ -13,13 +13,20 @@ namespace Homesmart_Job_Management
 
         private int init = 0;
 
+        private int countD = 0;
         private int countQ = 0;
         private int countC = 0;
         private int countI = 0;
 
+        private int countDL = 0;
         private int countQL = 0;
         private int countCL = 0;
         private int countIL = 0;
+
+        Dictionary<string, Control> CustQuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> OrigCustQuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> RemCustQuoteControls = new Dictionary<string, Control>();
+        Dictionary<string, Control> NewCustQuoteControls = new Dictionary<string, Control>();
 
         Dictionary<string, Control> QuoteControls = new Dictionary<string, Control>();
         Dictionary<string, Control> OrigQuoteControls = new Dictionary<string, Control>();
@@ -55,7 +62,10 @@ namespace Homesmart_Job_Management
             boxTotalCost.Value = TotalCost;
 
             // Calculate Profit
-            decimal QuoteValue = boxQuoteValue.Value;
+
+
+            //decimal QuoteValue = boxQuoteValue.Value;
+            decimal QuoteValue = 1;
             decimal Profit = QuoteValue - TotalCost;
             boxProfit.Value = Profit;
 
@@ -84,28 +94,40 @@ namespace Homesmart_Job_Management
 
             if (dbConnection.OpenConnection() == true)
             {
+                int CustQuote = 0;
                 int Quote = 0;
                 int Charge = 0;
                 int Invoice = 0;
 
+                string CustQuoteQuery = $"SELECT QuoteValue, QuoteOwner, QuoteNumber, CustQuoteID FROM AddCustQuote WHERE JobID = @JobID";
                 string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, uReference, QuoteValue, QuoteID FROM ExpenseQuote WHERE JobID = @JobID";
-                string ChargeQuery = $"SELECT Company, SupplierContractor, uValue, ChargeID FROM InternalCharge WHERE JobID = @JobID";
+                string ChargeQuery = $"SELECT Company, SupplierContractor, uType, uValue, ChargeID FROM InternalCharge WHERE JobID = @JobID";
                 string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue, InvoiceID FROM ExpenseInvoice WHERE JobID = @JobID";
 
+                string CustQuoteCount = $"SELECT COUNT(*) FROM Job WHERE JobID = @JobID";
                 string QuoteCount = $"SELECT COUNT(*) FROM ExpenseQuote WHERE JobID = @JobID";
                 string ChargeCount = $"SELECT COUNT(*) FROM InternalCharge WHERE JobID = @JobID";
                 string InvoiceCount = $"SELECT COUNT(*) FROM ExpenseInvoice WHERE JobID = @JobID";
 
+                MySqlCommand CustQuoteCountCmd = new MySqlCommand(CustQuoteCount, dbConnection.GetConnection());
                 MySqlCommand QuoteCountCmd = new MySqlCommand(QuoteCount, dbConnection.GetConnection());
                 MySqlCommand ChargeCountCmd = new MySqlCommand(ChargeCount, dbConnection.GetConnection());
                 MySqlCommand InvoiceCountCmd = new MySqlCommand(InvoiceCount, dbConnection.GetConnection());
 
+                CustQuoteCountCmd.Parameters.AddWithValue("@JobID", JobID);
                 QuoteCountCmd.Parameters.AddWithValue("@JobID", JobID);
                 ChargeCountCmd.Parameters.AddWithValue("@JobID", JobID);
                 InvoiceCountCmd.Parameters.AddWithValue("@JobID", JobID);
 
 
-                MySqlDataReader reader = QuoteCountCmd.ExecuteReader();
+                MySqlDataReader reader = CustQuoteCountCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    CustQuote = reader.GetInt32(0);
+                }
+                reader.Close();
+
+                reader = QuoteCountCmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Quote = reader.GetInt32(0);
@@ -127,6 +149,28 @@ namespace Homesmart_Job_Management
                 reader.Close();
 
                 // Execute the QuoteQuery and use the result to set the value of the field
+
+                MySqlCommand CustQuoteQueryCmd = new MySqlCommand(CustQuoteQuery, dbConnection.GetConnection());
+                CustQuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
+                
+                reader = CustQuoteQueryCmd.ExecuteReader();
+                for (int i = 0; i < CustQuote; i++)
+                {
+                    if (reader.Read())
+                    {
+                        AddCustQuote();
+                
+                        //(CustQuoteControls["DCustomerName" + $"{i}"] as TextBox).Text = reader["CustomerName"].ToString();
+                        //(CustQuoteControls["DCustomerAddress" + $"{i}"] as TextBox).Text = reader["CustomerAddress"].ToString();
+                        (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text = reader["QuoteOwner"].ToString();
+                        (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text = reader["QuoteNumber"].ToString();
+                        (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text = reader["QuoteValue"].ToString();
+                        (CustQuoteControls["DID" + $"{i}"] as TextBox).Text = reader["CustQuoteID"].ToString();
+                    }
+                }
+                reader.Close();
+
+
                 MySqlCommand QuoteQueryCmd = new MySqlCommand(QuoteQuery, dbConnection.GetConnection());
                 QuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
 
@@ -162,6 +206,7 @@ namespace Homesmart_Job_Management
 
                         (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
                         (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        (ChargeControls["CType" + $"{i}"] as TextBox).Text = reader["uType"].ToString();
                         (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
                         (ChargeControls["CID" + $"{i}"] as TextBox).Text = reader["ChargeID"].ToString();
                     }
@@ -192,19 +237,20 @@ namespace Homesmart_Job_Management
                 }
                 reader.Close();
 
-                string JobQuery = $"SELECT CustomerName, CustomerAddress, QuoteValue, TotalCost, Profit, Margin FROM Job WHERE JobID = @JobID";
-
+                string JobQuery = $"SELECT CustomerName, CustomerAddress, TotalCost, Profit, Margin, Notes FROM Job WHERE JobID = @JobID";
+                
                 MySqlCommand JobQueryCmd = new MySqlCommand(JobQuery, dbConnection.GetConnection());
-
+                
                 JobQueryCmd.Parameters.AddWithValue("@JobID", JobID);
-
+                
                 reader = JobQueryCmd.ExecuteReader();
-
+                
                 while (reader.Read())
                 {
                     boxCustomerName.Text = reader["CustomerName"].ToString();
                     boxCustomerAddress.Text = reader["CustomerAddress"].ToString();
-                    boxQuoteValue.Text = reader["QuoteValue"].ToString();
+                    boxNotes.Text = reader["Notes"].ToString();
+                    //boxQuoteValue.Text = reader["QuoteValue"].ToString();
                     boxTotalCost.Text = reader["TotalCost"].ToString();
                     boxProfit.Text = reader["Profit"].ToString();
                     boxMargin.Text = reader["Margin"].ToString();
@@ -235,19 +281,67 @@ namespace Homesmart_Job_Management
                 if (dbConnection.OpenConnection() == true)
                 {
                     string Query = "UPDATE Job " +
-                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, QuoteValue = @QuoteValue, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
+                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
                                     "WHERE JobID = @JobID";
                     MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                     cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
                     cmd.Parameters.AddWithValue("@CustomerAddress", boxCustomerAddress.Text);
-                    cmd.Parameters.AddWithValue("@QuoteValue", boxQuoteValue.Text);
+                    //cmd.Parameters.AddWithValue("@QuoteValue", boxQuoteValue.Text);
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);
                     cmd.Parameters.AddWithValue("@Profit", profit);
                     cmd.Parameters.AddWithValue("@Margin", margin);
                     cmd.Parameters.AddWithValue("@JobID", uJobID);
 
                     cmd.ExecuteNonQuery();
+
+                    for (int i = 0; i < CustQuoteControls.Count / 4; i++)
+                    {
+                        Query = "UPDATE AddCustQuote " +
+                                "SET QuoteValue = @QuoteValue, QuoteOwner = @QuoteOwner, QuoteNumber = @QuoteNumber " +
+                                "WHERE CustQuoteID = @CustQuoteID";
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection()); //remove from the global control dict
+
+                        cmd.Parameters.AddWithValue("@QuoteValue", (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text);
+                        cmd.Parameters.AddWithValue("@QuoteOwner", (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@QuoteNumber", (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@CustQuoteID", (CustQuoteControls["DID" + $"{i}"] as TextBox).Text);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    int k = 0;
+                    foreach (Control control in NewQuoteControls.Values)
+                    {
+                        if (k % 4 == 0) // Start of a new group of controls
+                        {
+                            Query = "INSERT INTO AddCustQuote (QuoteValue, QuoteOwner, QuoteNumber, JobID) " +
+                                    "VALUES (@QuoteValue, @QuoteOwner, @QuoteNumber, @JobID)";
+
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                            cmd.Parameters.AddWithValue("@JobID", uJobID);
+                        }
+
+                        switch (k % 4)
+                        {
+                            case 0: // SupplierContractor
+                                cmd.Parameters.AddWithValue("@QuoteValue", (control as TextBox).Text);
+                                break;
+                            case 1: // QuoteDate
+                                cmd.Parameters.AddWithValue("@QuoteOwner", (control as DateTimePicker).Value);
+                                break;
+                            case 2: // uReference
+                                cmd.Parameters.AddWithValue("@QuoteNumber", (control as TextBox).Text);
+                                break;
+                            case 4: // QuoteID
+                                //cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);
+                                cmd.ExecuteNonQuery(); // Execute the query after the last control of the group
+                                break;
+                        }
+
+                        k++;
+                    }
+
 
                     for (int i = 0; i < QuoteControls.Count / 5; i++)
                     {
@@ -264,7 +358,7 @@ namespace Homesmart_Job_Management
 
                         cmd.ExecuteNonQuery();
                     }
-                    int k = 0;
+                    k = 0;
                     foreach (Control control in NewQuoteControls.Values)
                     {
                         if (k % 5 == 0) // Start of a new group of controls
@@ -292,7 +386,7 @@ namespace Homesmart_Job_Management
                                 cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Text);
                                 break;
                             case 4: // QuoteID
-                                cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);
+                                //cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);
                                 cmd.ExecuteNonQuery(); // Execute the query after the last control of the group
                                 break;
                         }
@@ -304,12 +398,13 @@ namespace Homesmart_Job_Management
                     for (int i = 0; i < ChargeControls.Count / 4; i++)
                     {
                         Query = "UPDATE InternalCharge " +
-                                "SET Company = @Company, SupplierContractor = @SupplierContractor, uValue = @uValue " +
+                                "SET Company = @Company, SupplierContractor = @SupplierContractor, uType = @uType, uValue = @uValue " +
                                 "WHERE ChargeID = @ChargeID";
                         cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                         cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
+                        cmd.Parameters.AddWithValue("@uType", (ChargeControls["CType" + $"{i}"] as TextBox).Text);
                         cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text);
                         cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
 
@@ -318,17 +413,17 @@ namespace Homesmart_Job_Management
                     k = 0;
                     foreach (Control control in NewChargeControls.Values)
                     {
-                        if (k % 4 == 0) // Start of a new group of controls
+                        if (k % 5 == 0) // Start of a new group of controls
                         {
-                            Query = "INSERT INTO InternalCharge (Company, SupplierContractor, uValue, JobID) " +
-                                    "VALUES (@Company, @SupplierContractor, @uValue, @JobID)";
+                            Query = "INSERT INTO InternalCharge (Company, SupplierContractor, uType, uValue, JobID) " +
+                                    "VALUES (@Company, @SupplierContractor, @uType, @uValue, @JobID)";
 
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                             cmd.Parameters.AddWithValue("@JobID", uJobID);
                         }
 
-                        switch (k % 4)
+                        switch (k % 5)
                         {
                             case 0: // Company
                                 cmd.Parameters.AddWithValue("@Company", (control as TextBox).Text);
@@ -336,10 +431,13 @@ namespace Homesmart_Job_Management
                             case 1: // SupplierContractor
                                 cmd.Parameters.AddWithValue("@SupplierContractor", (control as TextBox).Text); // Adjusted control type
                                 break;
-                            case 2: // uValue
-                                cmd.Parameters.AddWithValue("@uValue", (control as NumericUpDown).Text); // Adjusted control type
+                            case 2: // uType
+                                cmd.Parameters.AddWithValue("@uType", (control as TextBox).Text); // Adjusted control type
                                 break;
-                            case 3: // Execute the query after the last control of the group
+                            case 3: // uValue
+                                cmd.Parameters.AddWithValue("@uValue", (control as NumericUpDown).Value); // Adjusted control type
+                                break;
+                            case 4: // Execute the query after the last control of the group
                                 cmd.ExecuteNonQuery();
                                 break;
                         }
@@ -371,12 +469,12 @@ namespace Homesmart_Job_Management
                         {
                             Query = "INSERT INTO ExpenseInvoice (SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue, JobID) " +
                                     "VALUES (@SupplierContractor, @InvoiceDate, @uReference, @InvoiceNo, @uValue, @JobID)";
-                            
+
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
-                    
+
                             cmd.Parameters.AddWithValue("@JobID", uJobID);
                         }
-                    
+
                         switch (k % 6)
                         {
                             case 0: // SupplierContractor
@@ -398,8 +496,22 @@ namespace Homesmart_Job_Management
                                 cmd.ExecuteNonQuery(); // Execute the query after the last control of the group
                                 break;
                         }
-                    
+
                         k++;
+                    }
+
+                    if (RemCustQuoteControls.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, Control> item in RemCustQuoteControls)
+                        {
+                            Query = "DELETE FROM AddCustQuote WHERE CustQuoteID = @CustQuoteID;";
+
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                            cmd.Parameters.AddWithValue("@CustQuoteID", ((TextBox)item.Value).Text);
+                            cmd.ExecuteNonQuery();
+
+                        }
                     }
 
                     if (RemQuoteControls.Count > 0)
@@ -448,6 +560,158 @@ namespace Homesmart_Job_Management
                     Close();
                 }
             }
+        }
+
+        private void AddCustQuote()
+        {
+            int startPosX = 18;
+            int startPosY = 142;
+
+            // Create new TextBox and Button
+            //TextBox DCustomerName = new TextBox();
+            //TextBox DCustomerAddress = new TextBox();
+            TextBox DQuoteOwner = new TextBox();
+            TextBox DQuoteNumber = new TextBox();
+            NumericUpDown DQuoteValue = new NumericUpDown();
+            Button button = new Button();
+            TextBox DID = new TextBox();
+
+
+            //Set properties
+            //DCustomerName.Name = "DCustomerName" + countDL;
+            //DCustomerName.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            //DCustomerName.Size = new Size(170, 20);
+            //
+            //DCustomerAddress.Name = "DCustomerAddress" + countDL;
+            //DCustomerAddress.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            //DCustomerAddress.Size = new Size(170, 20);
+
+            DQuoteOwner.Name = "DQuoteOwner" + countDL;
+            DQuoteOwner.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteOwner.Size = new Size(170, 20);
+
+            DQuoteNumber.Name = "DQuoteNumber" + countDL;
+            DQuoteNumber.Location = new Point(startPosX + 531, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteNumber.Size = new Size(40, 20);
+
+            DQuoteValue.Name = "DQuoteValue" + countDL;
+            DQuoteValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteValue.Size = new Size(80, 20);
+            DQuoteValue.Maximum = 1000000;
+
+            button.Text = "X";
+            button.Name = "button" + countDL;
+            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            button.Size = new Size(20, 20);
+
+            DID.Name = "DID" + countDL;
+            DID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DID.Size = new Size(30, 20);
+            DID.Visible = false;
+
+            // Add Click event to the remove Button
+            button.Click += (s, ev) =>
+            {
+                DialogResult result = MessageBox.Show("Do you want to remove this item?", "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    // Remove the TextBox and Button
+                    //Controls.Remove(DCustomerName);
+                    //Controls.Remove(DCustomerAddress);
+                    Controls.Remove(DQuoteOwner);
+                    Controls.Remove(DQuoteNumber);
+                    Controls.Remove(DQuoteValue);
+                    Controls.Remove(button);
+                    Controls.Remove(DID);
+
+                    if (CustQuoteControls.ContainsKey(DID.Name))
+                    {
+                        //CustQuoteControls.Remove(DCustomerName.Name);
+                        //CustQuoteControls.Remove(DCustomerAddress.Name);
+                        CustQuoteControls.Remove(DQuoteOwner.Name);
+                        CustQuoteControls.Remove(DQuoteNumber.Name);
+                        CustQuoteControls.Remove(DQuoteValue.Name);
+                        CustQuoteControls.Remove(DID.Name);
+                    }
+                    else if (NewCustQuoteControls.ContainsKey(DID.Name))
+                    {
+                        //NewCustQuoteControls.Remove(DCustomerName.Name);
+                        //NewCustQuoteControls.Remove(DCustomerAddress.Name);
+                        NewCustQuoteControls.Remove(DQuoteOwner.Name);
+                        NewCustQuoteControls.Remove(DQuoteNumber.Name);
+                        NewCustQuoteControls.Remove(DQuoteValue.Name);
+                        NewCustQuoteControls.Remove(DID.Name);
+                    }
+
+                    if (OrigCustQuoteControls.ContainsKey(DID.Name))
+                    {
+                        RemCustQuoteControls.Add(DID.Name, DID);
+                    }
+
+                    // Move up all controls that are below the removed one
+                    foreach (Control control in Controls)
+                    {
+                        if (control.Location.Y > DQuoteOwner.Location.Y)
+                        {
+                            control.Location = new Point(control.Location.X, control.Location.Y - 30);
+                        }
+                    }
+
+                    // Decrement the count
+                    countD--;
+                    countQ--;
+                    countC--;
+                    countI--;
+
+                    countDL--;
+                }
+            };
+
+            // Move down all existing controls that are below the new one
+            foreach (Control control in Controls)
+            {
+                if (control.Location.Y >= DQuoteOwner.Location.Y)
+                {
+                    control.Location = new Point(control.Location.X, control.Location.Y + 30);
+                }
+            }
+
+            //Add the new control to the dict
+            if (init == 0)
+            {
+                //CustQuoteControls.Add(DCustomerName.Name, DCustomerName);
+                //CustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
+                CustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
+                CustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
+                CustQuoteControls.Add(DQuoteValue.Name, DQuoteValue);
+                CustQuoteControls.Add(DID.Name, DID);
+            }
+            else if (init == 1)
+            {
+                //NewCustQuoteControls.Add(DCustomerName.Name, DCustomerName);
+                //NewCustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
+                NewCustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
+                NewCustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
+                NewCustQuoteControls.Add(DQuoteValue.Name, DQuoteValue);
+                NewCustQuoteControls.Add(DID.Name, DID);
+            }
+
+            // Add the new controls to the form
+            //Controls.Add(DCustomerName);
+            //Controls.Add(DCustomerAddress);
+            Controls.Add(DQuoteOwner);
+            Controls.Add(DQuoteNumber);
+            Controls.Add(DQuoteValue);
+            Controls.Add(button);
+            Controls.Add(DID);
+
+            // Increment the count
+            countD++;
+            countQ++;
+            countC++;
+            countI++;
+
+            countDL++;
         }
 
         private void AddQuote()
@@ -599,6 +863,7 @@ namespace Homesmart_Job_Management
             // Create new TextBox and Button
             TextBox CCompany = new TextBox();
             TextBox CSupplier = new TextBox();
+            TextBox CType = new TextBox();
             NumericUpDown CValue = new NumericUpDown();
             Button button = new Button();
             TextBox CID = new TextBox();
@@ -611,6 +876,10 @@ namespace Homesmart_Job_Management
             CSupplier.Name = "CSupplier" + countCL;
             CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
+
+            CType.Name = "CType" + countCL;
+            CType.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CType.Size = new Size(170, 20);
 
             CValue.Name = "CValue" + countCL;
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
@@ -636,6 +905,7 @@ namespace Homesmart_Job_Management
                     // Remove the TextBox and Button
                     Controls.Remove(CCompany);
                     Controls.Remove(CSupplier);
+                    Controls.Remove(CType);
                     Controls.Remove(CValue);
                     Controls.Remove(button);
                     Controls.Remove(CID);
@@ -644,6 +914,7 @@ namespace Homesmart_Job_Management
                     {
                         ChargeControls.Remove(CCompany.Name);
                         ChargeControls.Remove(CSupplier.Name);
+                        ChargeControls.Remove(CType.Name);
                         ChargeControls.Remove(CValue.Name);
                         ChargeControls.Remove(CID.Name);
                     }
@@ -651,6 +922,7 @@ namespace Homesmart_Job_Management
                     {
                         NewChargeControls.Remove(CCompany.Name);
                         NewChargeControls.Remove(CSupplier.Name);
+                        NewChargeControls.Remove(CType.Name);
                         NewChargeControls.Remove(CValue.Name);
                         NewChargeControls.Remove(CID.Name);
                     }
@@ -690,6 +962,7 @@ namespace Homesmart_Job_Management
             {
                 ChargeControls.Add(CCompany.Name, CCompany);
                 ChargeControls.Add(CSupplier.Name, CSupplier);
+                ChargeControls.Add(CType.Name, CType);
                 ChargeControls.Add(CValue.Name, CValue);
                 ChargeControls.Add(CID.Name, CID);
             }
@@ -697,6 +970,7 @@ namespace Homesmart_Job_Management
             {
                 NewChargeControls.Add(CCompany.Name, CCompany);
                 NewChargeControls.Add(CSupplier.Name, CSupplier);
+                NewChargeControls.Add(CType.Name, CType);
                 NewChargeControls.Add(CValue.Name, CValue);
                 NewChargeControls.Add(CID.Name, CID);
             }
@@ -704,6 +978,7 @@ namespace Homesmart_Job_Management
             // Add the new controls to the form
             Controls.Add(CCompany);
             Controls.Add(CSupplier);
+            Controls.Add(CType);
             Controls.Add(CValue);
             Controls.Add(button);
             Controls.Add(CID);
@@ -862,6 +1137,11 @@ namespace Homesmart_Job_Management
             countIL++;
         }
 
+        private void btnAddCustQuote_Click(object sender, EventArgs e)
+        {
+            AddCustQuote();
+        }
+
         private void btnAddQuote_Click(object sender, EventArgs e)
         {
             AddQuote();
@@ -876,5 +1156,7 @@ namespace Homesmart_Job_Management
         {
             AddInv();
         }
+
+
     }
 }

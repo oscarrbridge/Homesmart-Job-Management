@@ -139,5 +139,12 @@ namespace Homesmart_Job_Management
         {
             search();
         }
+
+        private void btnResetSearch_Click(object sender, EventArgs e)
+        {
+            boxCustomerName.Text = "";
+            boxCustomerAddress.Text = "";
+            search();
+        }
     }
 }
