@@ -24,15 +24,15 @@ namespace Homesmart_Job_Management
 
                 if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName = @CustomerName AND CustomerAddress = @CustomerAddress";
+                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName LIKE @CustomerName AND CustomerAddress LIKE @CustomerAddress";
                 }
                 else if (boxCustomerName.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName = @CustomerName";
+                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName LIKE @CustomerName";
                 }
                 else if (boxCustomerAddress.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerAddress = @CustomerAddress";
+                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerAddress LIKE @CustomerAddress";
                 }
                 else if (boxCustomerName.Text.Length == 0 && boxCustomerAddress.Text.Length == 0)
                 {
@@ -41,8 +41,8 @@ namespace Homesmart_Job_Management
 
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
 
-                cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
-                cmd.Parameters.AddWithValue("@CustomerAddress", boxCustomerAddress.Text);
+                cmd.Parameters.AddWithValue("@CustomerName", "%" + boxCustomerName.Text + "%");
+                cmd.Parameters.AddWithValue("@CustomerAddress", "%" + boxCustomerAddress.Text + "%");
 
                 DataTable dt = new DataTable();
 
@@ -51,6 +51,7 @@ namespace Homesmart_Job_Management
 
                 dataGrid.DataSource = dt;
             }
+
             else
             {
                 DialogResult result = MessageBox.Show("Server not found. Contact Admin", "Error", MessageBoxButtons.RetryCancel);
