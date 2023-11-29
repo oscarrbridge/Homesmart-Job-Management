@@ -83,6 +83,7 @@ namespace Homesmart_Job_Management
 
         private void copyDict()
         {
+            OrigCustQuoteControls = new Dictionary<string, Control>(CustQuoteControls);
             OrigQuoteControls = new Dictionary<string, Control>(QuoteControls);
             OrigChargeControls = new Dictionary<string, Control>(ChargeControls);
             OrigInvoiceControls = new Dictionary<string, Control>(InvoiceControls);
@@ -104,7 +105,7 @@ namespace Homesmart_Job_Management
                 string ChargeQuery = $"SELECT Company, SupplierContractor, uType, uValue, ChargeID FROM InternalCharge WHERE JobID = @JobID";
                 string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue, InvoiceID FROM ExpenseInvoice WHERE JobID = @JobID";
 
-                string CustQuoteCount = $"SELECT COUNT(*) FROM Job WHERE JobID = @JobID";
+                string CustQuoteCount = $"SELECT COUNT(*) FROM AddCustQuote WHERE JobID = @JobID";
                 string QuoteCount = $"SELECT COUNT(*) FROM ExpenseQuote WHERE JobID = @JobID";
                 string ChargeCount = $"SELECT COUNT(*) FROM InternalCharge WHERE JobID = @JobID";
                 string InvoiceCount = $"SELECT COUNT(*) FROM ExpenseInvoice WHERE JobID = @JobID";
@@ -281,12 +282,13 @@ namespace Homesmart_Job_Management
                 if (dbConnection.OpenConnection() == true)
                 {
                     string Query = "UPDATE Job " +
-                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
+                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, Notes = @Notes, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
                                     "WHERE JobID = @JobID";
                     MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                     cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
                     cmd.Parameters.AddWithValue("@CustomerAddress", boxCustomerAddress.Text);
+                    cmd.Parameters.AddWithValue("@Notes", boxNotes.Text);
                     //cmd.Parameters.AddWithValue("@QuoteValue", boxQuoteValue.Text);
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);
                     cmd.Parameters.AddWithValue("@Profit", profit);
@@ -310,7 +312,7 @@ namespace Homesmart_Job_Management
                         cmd.ExecuteNonQuery();
                     }
                     int k = 0;
-                    foreach (Control control in NewQuoteControls.Values)
+                    foreach (Control control in NewCustQuoteControls.Values)
                     {
                         if (k % 4 == 0) // Start of a new group of controls
                         {
@@ -325,15 +327,15 @@ namespace Homesmart_Job_Management
                         switch (k % 4)
                         {
                             case 0: // SupplierContractor
-                                cmd.Parameters.AddWithValue("@QuoteValue", (control as TextBox).Text);
+                                cmd.Parameters.AddWithValue("@QuoteOwner", (control as TextBox).Text);
                                 break;
                             case 1: // QuoteDate
-                                cmd.Parameters.AddWithValue("@QuoteOwner", (control as DateTimePicker).Value);
-                                break;
-                            case 2: // uReference
                                 cmd.Parameters.AddWithValue("@QuoteNumber", (control as TextBox).Text);
                                 break;
-                            case 4: // QuoteID
+                            case 2: // uReference
+                                cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Value);
+                                break;
+                            case 3: // QuoteID
                                 //cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);
                                 cmd.ExecuteNonQuery(); // Execute the query after the last control of the group
                                 break;
@@ -383,7 +385,7 @@ namespace Homesmart_Job_Management
                                 cmd.Parameters.AddWithValue("@uReference", (control as TextBox).Text);
                                 break;
                             case 3: // QuoteValue
-                                cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Text);
+                                cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Value);
                                 break;
                             case 4: // QuoteID
                                 //cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);

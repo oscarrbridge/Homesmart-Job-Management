@@ -34,7 +34,6 @@ namespace Homesmart_Job_Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.btnEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtCustomerAddress = new System.Windows.Forms.Label();
             this.boxCustomerAddress = new System.Windows.Forms.TextBox();
@@ -42,6 +41,7 @@ namespace Homesmart_Job_Management
             this.boxCustomerName = new System.Windows.Forms.TextBox();
             this.btnSubmitNew = new System.Windows.Forms.Button();
             this.btnResetSearch = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
@@ -95,15 +95,6 @@ namespace Homesmart_Job_Management
             this.dataGrid.Size = new System.Drawing.Size(776, 324);
             this.dataGrid.TabIndex = 7;
             this.dataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellClick_1);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.HeaderText = "Edit";
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.ReadOnly = true;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.ToolTipText = "Edit";
-            this.btnEdit.Width = 40;
             // 
             // btnSearch
             // 
@@ -171,6 +162,15 @@ namespace Homesmart_Job_Management
             this.btnResetSearch.UseVisualStyleBackColor = true;
             this.btnResetSearch.Click += new System.EventHandler(this.btnResetSearch_Click);
             // 
+            // btnEdit
+            // 
+            this.btnEdit.HeaderText = "Edit";
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.ReadOnly = true;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.ToolTipText = "Edit";
+            this.btnEdit.Width = 40;
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,7 +198,6 @@ namespace Homesmart_Job_Management
         #endregion
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGrid;
-        private System.Windows.Forms.DataGridViewButtonColumn btnEdit;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label txtCustomerAddress;
         private System.Windows.Forms.TextBox boxCustomerAddress;
@@ -206,6 +205,7 @@ namespace Homesmart_Job_Management
         private System.Windows.Forms.TextBox boxCustomerName;
         private System.Windows.Forms.Button btnSubmitNew;
         private System.Windows.Forms.Button btnResetSearch;
+        private System.Windows.Forms.DataGridViewButtonColumn btnEdit;
     }
 }
 

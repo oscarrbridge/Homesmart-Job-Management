@@ -38,6 +38,8 @@
             this.txtWarning = new System.Windows.Forms.Label();
             this.txtCustomerTitle = new System.Windows.Forms.Label();
             this.pnlCustomerInfo = new System.Windows.Forms.Panel();
+            this.txtQuoteOwner = new System.Windows.Forms.Label();
+            this.txtQuoteNumber = new System.Windows.Forms.Label();
             this.pnlInvoicesLbl = new System.Windows.Forms.Panel();
             this.txtReference = new System.Windows.Forms.Label();
             this.txtInvValue = new System.Windows.Forms.Label();
@@ -70,13 +72,11 @@
             this.txtType = new System.Windows.Forms.Label();
             this.pnlCustInfoIn = new System.Windows.Forms.Panel();
             this.pnlQuotesIn = new System.Windows.Forms.Panel();
-            this.txtQuoteOwner = new System.Windows.Forms.Label();
-            this.txtQuoteNumber = new System.Windows.Forms.Label();
             this.btnAddCustQuote = new System.Windows.Forms.Button();
             this.boxCustomerName = new System.Windows.Forms.TextBox();
             this.boxCustomerAddress = new System.Windows.Forms.TextBox();
-            this.boxNotes = new System.Windows.Forms.TextBox();
             this.txtNotes = new System.Windows.Forms.Label();
+            this.boxNotes = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
             this.pnlInvoicesLbl.SuspendLayout();
@@ -185,6 +185,24 @@
             this.pnlCustomerInfo.Name = "pnlCustomerInfo";
             this.pnlCustomerInfo.Size = new System.Drawing.Size(710, 41);
             this.pnlCustomerInfo.TabIndex = 31;
+            // 
+            // txtQuoteOwner
+            // 
+            this.txtQuoteOwner.AutoSize = true;
+            this.txtQuoteOwner.Location = new System.Drawing.Point(358, 28);
+            this.txtQuoteOwner.Name = "txtQuoteOwner";
+            this.txtQuoteOwner.Size = new System.Drawing.Size(70, 13);
+            this.txtQuoteOwner.TabIndex = 31;
+            this.txtQuoteOwner.Text = "Quote Owner";
+            // 
+            // txtQuoteNumber
+            // 
+            this.txtQuoteNumber.AutoSize = true;
+            this.txtQuoteNumber.Location = new System.Drawing.Point(535, 28);
+            this.txtQuoteNumber.Name = "txtQuoteNumber";
+            this.txtQuoteNumber.Size = new System.Drawing.Size(46, 13);
+            this.txtQuoteNumber.TabIndex = 32;
+            this.txtQuoteNumber.Text = "Quote #";
             // 
             // pnlInvoicesLbl
             // 
@@ -526,24 +544,6 @@
             this.pnlQuotesIn.Size = new System.Drawing.Size(19, 26);
             this.pnlQuotesIn.TabIndex = 45;
             // 
-            // txtQuoteOwner
-            // 
-            this.txtQuoteOwner.AutoSize = true;
-            this.txtQuoteOwner.Location = new System.Drawing.Point(358, 28);
-            this.txtQuoteOwner.Name = "txtQuoteOwner";
-            this.txtQuoteOwner.Size = new System.Drawing.Size(70, 13);
-            this.txtQuoteOwner.TabIndex = 31;
-            this.txtQuoteOwner.Text = "Quote Owner";
-            // 
-            // txtQuoteNumber
-            // 
-            this.txtQuoteNumber.AutoSize = true;
-            this.txtQuoteNumber.Location = new System.Drawing.Point(535, 28);
-            this.txtQuoteNumber.Name = "txtQuoteNumber";
-            this.txtQuoteNumber.Size = new System.Drawing.Size(46, 13);
-            this.txtQuoteNumber.TabIndex = 32;
-            this.txtQuoteNumber.Text = "Quote #";
-            // 
             // btnAddCustQuote
             // 
             this.btnAddCustQuote.Location = new System.Drawing.Point(731, 92);
@@ -568,13 +568,6 @@
             this.boxCustomerAddress.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerAddress.TabIndex = 48;
             // 
-            // boxNotes
-            // 
-            this.boxNotes.Location = new System.Drawing.Point(15, 484);
-            this.boxNotes.Name = "boxNotes";
-            this.boxNotes.Size = new System.Drawing.Size(236, 20);
-            this.boxNotes.TabIndex = 49;
-            // 
             // txtNotes
             // 
             this.txtNotes.AutoSize = true;
@@ -584,14 +577,22 @@
             this.txtNotes.TabIndex = 50;
             this.txtNotes.Text = "Notes";
             // 
+            // boxNotes
+            // 
+            this.boxNotes.Location = new System.Drawing.Point(12, 490);
+            this.boxNotes.Name = "boxNotes";
+            this.boxNotes.Size = new System.Drawing.Size(239, 117);
+            this.boxNotes.TabIndex = 51;
+            this.boxNotes.Text = "";
+            // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(823, 905);
-            this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.boxNotes);
+            this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.boxCustomerAddress);
             this.Controls.Add(this.boxCustomerName);
             this.Controls.Add(this.btnAddCustQuote);
@@ -683,7 +684,7 @@
         private System.Windows.Forms.Button btnAddCustQuote;
         private System.Windows.Forms.TextBox boxCustomerName;
         private System.Windows.Forms.TextBox boxCustomerAddress;
-        private System.Windows.Forms.TextBox boxNotes;
         private System.Windows.Forms.Label txtNotes;
+        private System.Windows.Forms.RichTextBox boxNotes;
     }
 }
