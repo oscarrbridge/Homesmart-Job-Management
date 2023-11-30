@@ -54,25 +54,49 @@ namespace Homesmart_Job_Management
         private void IValue_TextChanged(object sender, EventArgs e)
         {
             decimal TotalCost = 0;
-
-            for (int i = 0; i < InvoiceControls.Count / 6; i++)
+            int j = 0;
+            for (int i = 0; i < NewInvoiceControls.Count; i++)
             {
-                TotalCost += (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Value;
+                string key = "IValue" + i.ToString();
+                if (NewInvoiceControls.ContainsKey(key))
+                {
+                    NumericUpDown numControl = NewInvoiceControls[key] as NumericUpDown;
+                    if (numControl != null)
+                    {
+                        TotalCost += numControl.Value;
+                        j++;
+                    }
+                }
             }
             boxTotalCost.Value = TotalCost;
 
+
             // Calculate Profit
+            decimal TotalProfit = 0;
+            int h = 0;
+            for (int i = 0; i < NewCustQuoteControls.Count; i++)
+            {
+                string key = "DQuoteValue" + i.ToString();
+                if (NewCustQuoteControls.ContainsKey(key))
+                {
+                    NumericUpDown numControl = NewCustQuoteControls[key] as NumericUpDown;
+                    if (numControl != null)
+                    {
+                        TotalProfit += numControl.Value;
+                        h++;
+                    }
+                }
+            }
+            boxProfit.Value = TotalProfit;
 
 
-            //decimal QuoteValue = boxQuoteValue.Value;
-            decimal QuoteValue = 1;
-            decimal Profit = QuoteValue - TotalCost;
+            decimal Profit = TotalProfit - TotalCost;
             boxProfit.Value = Profit;
 
             // Calculate Margin
-            if (QuoteValue != 0)
+            if (TotalProfit != 0)
             {
-                decimal Margin = Profit / QuoteValue * 100;
+                decimal Margin = Profit / TotalProfit * 100;
                 boxMargin.Value = Margin;
             }
             else
@@ -261,7 +285,7 @@ namespace Homesmart_Job_Management
                 dbConnection.CloseConnection();
             }
 
-            IValue_TextChanged(this, null);
+            //IValue_TextChanged(this, null);
             copyDict();
 
             init = 1;
@@ -274,9 +298,6 @@ namespace Homesmart_Job_Management
 
             if (dialogResult == DialogResult.OK)
             {
-                int profit = 0;
-                int margin = 0;
-
                 DatabaseConnection dbConnection = new DatabaseConnection();
 
                 if (dbConnection.OpenConnection() == true)
@@ -291,8 +312,8 @@ namespace Homesmart_Job_Management
                     cmd.Parameters.AddWithValue("@Notes", boxNotes.Text);
                     //cmd.Parameters.AddWithValue("@QuoteValue", boxQuoteValue.Text);
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);
-                    cmd.Parameters.AddWithValue("@Profit", profit);
-                    cmd.Parameters.AddWithValue("@Margin", margin);
+                    cmd.Parameters.AddWithValue("@Profit", boxProfit.Text);
+                    cmd.Parameters.AddWithValue("@Margin", boxMargin.Text);
                     cmd.Parameters.AddWithValue("@JobID", uJobID);
 
                     cmd.ExecuteNonQuery();
@@ -600,6 +621,8 @@ namespace Homesmart_Job_Management
             DQuoteValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteValue.Size = new Size(80, 20);
             DQuoteValue.Maximum = 1000000;
+            
+            DQuoteValue.ValueChanged += new EventHandler(IValue_TextChanged);
 
             button.Text = "X";
             button.Name = "button" + countDL;
