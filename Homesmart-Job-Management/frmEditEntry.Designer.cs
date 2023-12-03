@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditEntry));
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.txtCustomerAddress = new System.Windows.Forms.Label();
             this.txtCustomerName = new System.Windows.Forms.Label();
@@ -613,6 +614,7 @@
             this.Controls.Add(this.pnlCustomerInfo);
             this.Controls.Add(this.txtWarning);
             this.Controls.Add(this.imgLogo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Edit Job";

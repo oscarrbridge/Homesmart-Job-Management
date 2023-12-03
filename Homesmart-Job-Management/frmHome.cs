@@ -24,19 +24,19 @@ namespace Homesmart_Job_Management
 
                 if (boxCustomerName.Text.Length > 0 && boxCustomerAddress.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName LIKE @CustomerName AND CustomerAddress LIKE @CustomerAddress";
+                    query = "SELECT Job.JobID, Job.CustomerName, Job.CustomerAddress, AddCustQuote.QuoteOwner FROM Job LEFT JOIN (SELECT JobID, MIN(CustQuoteID) as MinCustQuoteID FROM AddCustQuote GROUP BY JobID) as MinQuotes ON Job.JobID = MinQuotes.JobID LEFT JOIN AddCustQuote ON MinQuotes.JobID = AddCustQuote.JobID AND MinQuotes.MinCustQuoteID = AddCustQuote.CustQuoteID WHERE Job.CustomerName LIKE @CustomerName AND Job.CustomerAddress LIKE @CustomerAddress";
                 }
                 else if (boxCustomerName.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerName LIKE @CustomerName";
+                    query = "SELECT Job.JobID, Job.CustomerName, Job.CustomerAddress, AddCustQuote.QuoteOwner FROM Job LEFT JOIN (SELECT JobID, MIN(CustQuoteID) as MinCustQuoteID FROM AddCustQuote GROUP BY JobID) as MinQuotes ON Job.JobID = MinQuotes.JobID LEFT JOIN AddCustQuote ON MinQuotes.JobID = AddCustQuote.JobID AND MinQuotes.MinCustQuoteID = AddCustQuote.CustQuoteID WHERE Job.CustomerName LIKE @CustomerName";
                 }
                 else if (boxCustomerAddress.Text.Length > 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job WHERE CustomerAddress LIKE @CustomerAddress";
+                    query = "SELECT Job.JobID, Job.CustomerName, Job.CustomerAddress, AddCustQuote.QuoteOwner FROM Job LEFT JOIN (SELECT JobID, MIN(CustQuoteID) as MinCustQuoteID FROM AddCustQuote GROUP BY JobID) as MinQuotes ON Job.JobID = MinQuotes.JobID LEFT JOIN AddCustQuote ON MinQuotes.JobID = AddCustQuote.JobID AND MinQuotes.MinCustQuoteID = AddCustQuote.CustQuoteID WHERE Job.CustomerAddress LIKE @CustomerAddress";
                 }
                 else if (boxCustomerName.Text.Length == 0 && boxCustomerAddress.Text.Length == 0)
                 {
-                    query = "SELECT JobID, CustomerName, CustomerAddress FROM Job";
+                    query = "SELECT Job.JobID, Job.CustomerName, Job.CustomerAddress, AddCustQuote.QuoteOwner FROM Job LEFT JOIN (SELECT JobID, MIN(CustQuoteID) as MinCustQuoteID FROM AddCustQuote GROUP BY JobID) as MinQuotes ON Job.JobID = MinQuotes.JobID LEFT JOIN AddCustQuote ON MinQuotes.JobID = AddCustQuote.JobID AND MinQuotes.MinCustQuoteID = AddCustQuote.CustQuoteID";
                 }
 
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());
@@ -51,6 +51,9 @@ namespace Homesmart_Job_Management
 
                 dataGrid.DataSource = dt;
             }
+
+
+
 
             else
             {

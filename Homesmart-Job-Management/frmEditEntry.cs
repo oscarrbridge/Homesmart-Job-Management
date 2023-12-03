@@ -318,20 +318,25 @@ namespace Homesmart_Job_Management
 
                     cmd.ExecuteNonQuery();
 
-                    for (int i = 0; i < CustQuoteControls.Count / 4; i++)
+                    foreach (KeyValuePair<string, Control> entry in CustQuoteControls)
                     {
-                        Query = "UPDATE AddCustQuote " +
-                                "SET QuoteValue = @QuoteValue, QuoteOwner = @QuoteOwner, QuoteNumber = @QuoteNumber " +
-                                "WHERE CustQuoteID = @CustQuoteID";
-                        cmd = new MySqlCommand(Query, dbConnection.GetConnection()); //remove from the global control dict
+                        if (entry.Key.StartsWith("DQuoteValue"))
+                        {
+                            string i = entry.Key.Substring("DQuoteValue".Length);
+                            Query = "UPDATE AddCustQuote " +
+                                    "SET QuoteValue = @QuoteValue, QuoteOwner = @QuoteOwner, QuoteNumber = @QuoteNumber " +
+                                    "WHERE CustQuoteID = @CustQuoteID";
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                        cmd.Parameters.AddWithValue("@QuoteValue", (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text);
-                        cmd.Parameters.AddWithValue("@QuoteOwner", (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@QuoteNumber", (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@CustQuoteID", (CustQuoteControls["DID" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@QuoteValue", (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text);
+                            cmd.Parameters.AddWithValue("@QuoteOwner", (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@QuoteNumber", (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@CustQuoteID", (CustQuoteControls["DID" + $"{i}"] as TextBox).Text);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+
                     int k = 0;
                     foreach (Control control in NewCustQuoteControls.Values)
                     {
@@ -366,20 +371,24 @@ namespace Homesmart_Job_Management
                     }
 
 
-                    for (int i = 0; i < QuoteControls.Count / 5; i++)
+                    foreach (KeyValuePair<string, Control> entry in QuoteControls)
                     {
-                        Query = "UPDATE ExpenseQuote " +
-                                "SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue " +
-                                "WHERE QuoteID = @QuoteID";
-                        cmd = new MySqlCommand(Query, dbConnection.GetConnection()); //remove from the global control dict
+                        if (entry.Key.StartsWith("QSupplier"))
+                        {
+                            string i = entry.Key.Substring("QSupplier".Length);
+                            Query = "UPDATE ExpenseQuote " +
+                                    "SET SupplierContractor = @SupplierContractor, QuoteDate = @QuoteDate, uReference = @uReference, QuoteValue = @QuoteValue " +
+                                    "WHERE QuoteID = @QuoteID";
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                        cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
-                        cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
-                        cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
+                            cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
+                            cmd.Parameters.AddWithValue("@QuoteID", (QuoteControls["QID" + $"{i}"] as TextBox).Text);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     k = 0;
                     foreach (Control control in NewQuoteControls.Values)
@@ -418,20 +427,24 @@ namespace Homesmart_Job_Management
                     }
 
 
-                    for (int i = 0; i < ChargeControls.Count / 4; i++)
+                    foreach (KeyValuePair<string, Control> entry in ChargeControls)
                     {
-                        Query = "UPDATE InternalCharge " +
-                                "SET Company = @Company, SupplierContractor = @SupplierContractor, uType = @uType, uValue = @uValue " +
-                                "WHERE ChargeID = @ChargeID";
-                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+                        if (entry.Key.StartsWith("CCompany"))
+                        {
+                            string i = entry.Key.Substring("CCompany".Length);
+                            Query = "UPDATE InternalCharge " +
+                                    "SET Company = @Company, SupplierContractor = @SupplierContractor, uType = @uType, uValue = @uValue " +
+                                    "WHERE ChargeID = @ChargeID";
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                        cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@uType", (ChargeControls["CType" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text);
-                        cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@uType", (ChargeControls["CType" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text);
+                            cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     k = 0;
                     foreach (Control control in NewChargeControls.Values)
@@ -469,21 +482,25 @@ namespace Homesmart_Job_Management
                     }
 
 
-                    for (int i = 0; i < InvoiceControls.Count / 6; i++)
+                    foreach (KeyValuePair<string, Control> entry in InvoiceControls)
                     {
-                        Query = "UPDATE ExpenseInvoice " +
-                                "SET SupplierContractor = @SupplierContractor, InvoiceDate = @InvoiceDate, uReference = @uReference, InvoiceNo = @InvoiceNo, uValue = @uValue " +
-                                "WHERE InvoiceID = @InvoiceID";
-                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+                        if (entry.Key.StartsWith("ISupplier"))
+                        {
+                            string i = entry.Key.Substring("ISupplier".Length);
+                            Query = "UPDATE ExpenseInvoice " +
+                                    "SET SupplierContractor = @SupplierContractor, InvoiceDate = @InvoiceDate, uReference = @uReference, InvoiceNo = @InvoiceNo, uValue = @uValue " +
+                                    "WHERE InvoiceID = @InvoiceID";
+                            cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                        cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@InvoiceDate", (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value);
-                        cmd.Parameters.AddWithValue("@uReference", (InvoiceControls["IReference" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@InvoiceNo", (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text);
-                        cmd.Parameters.AddWithValue("@uValue", (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Text);
-                        cmd.Parameters.AddWithValue("@InvoiceID", (InvoiceControls["IID" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@InvoiceDate", (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value);
+                            cmd.Parameters.AddWithValue("@uReference", (InvoiceControls["IReference" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@InvoiceNo", (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@uValue", (InvoiceControls["IValue" + $"{i}"] as NumericUpDown).Text);
+                            cmd.Parameters.AddWithValue("@InvoiceID", (InvoiceControls["IID" + $"{i}"] as TextBox).Text);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     k = 0;
                     foreach (Control control in NewInvoiceControls.Values)
@@ -1181,7 +1198,6 @@ namespace Homesmart_Job_Management
         {
             AddInv();
         }
-
 
     }
 }
