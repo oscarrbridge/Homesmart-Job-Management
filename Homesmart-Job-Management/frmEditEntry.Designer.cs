@@ -199,7 +199,7 @@
             // txtQuoteNumber
             // 
             this.txtQuoteNumber.AutoSize = true;
-            this.txtQuoteNumber.Location = new System.Drawing.Point(535, 28);
+            this.txtQuoteNumber.Location = new System.Drawing.Point(473, 28);
             this.txtQuoteNumber.Name = "txtQuoteNumber";
             this.txtQuoteNumber.Size = new System.Drawing.Size(46, 13);
             this.txtQuoteNumber.TabIndex = 32;
@@ -338,60 +338,60 @@
             // 
             // boxMargin
             // 
+            this.boxMargin.DecimalPlaces = 2;
             this.boxMargin.Enabled = false;
             this.boxMargin.Location = new System.Drawing.Point(124, 66);
             this.boxMargin.Maximum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             0});
             this.boxMargin.Minimum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             -2147483648});
             this.boxMargin.Name = "boxMargin";
             this.boxMargin.Size = new System.Drawing.Size(120, 20);
             this.boxMargin.TabIndex = 47;
-            this.boxMargin.ThousandsSeparator = true;
             // 
             // boxProfit
             // 
+            this.boxProfit.DecimalPlaces = 2;
             this.boxProfit.Enabled = false;
             this.boxProfit.Location = new System.Drawing.Point(124, 39);
             this.boxProfit.Maximum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             0});
             this.boxProfit.Minimum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             -2147483648});
             this.boxProfit.Name = "boxProfit";
             this.boxProfit.Size = new System.Drawing.Size(120, 20);
             this.boxProfit.TabIndex = 46;
-            this.boxProfit.ThousandsSeparator = true;
             // 
             // boxTotalCost
             // 
+            this.boxTotalCost.DecimalPlaces = 2;
             this.boxTotalCost.Enabled = false;
             this.boxTotalCost.Location = new System.Drawing.Point(124, 12);
             this.boxTotalCost.Maximum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             0});
             this.boxTotalCost.Minimum = new decimal(new int[] {
-            10000000,
+            999999999,
             0,
             0,
             -2147483648});
             this.boxTotalCost.Name = "boxTotalCost";
             this.boxTotalCost.Size = new System.Drawing.Size(120, 20);
             this.boxTotalCost.TabIndex = 45;
-            this.boxTotalCost.ThousandsSeparator = true;
             // 
             // pnlQuoteLbl
             // 
@@ -558,6 +558,7 @@
             // boxCustomerName
             // 
             this.boxCustomerName.Location = new System.Drawing.Point(15, 114);
+            this.boxCustomerName.MaxLength = 35;
             this.boxCustomerName.Name = "boxCustomerName";
             this.boxCustomerName.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerName.TabIndex = 47;
@@ -565,6 +566,7 @@
             // boxCustomerAddress
             // 
             this.boxCustomerAddress.Location = new System.Drawing.Point(196, 114);
+            this.boxCustomerAddress.MaxLength = 35;
             this.boxCustomerAddress.Name = "boxCustomerAddress";
             this.boxCustomerAddress.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerAddress.TabIndex = 48;
@@ -581,6 +583,7 @@
             // boxNotes
             // 
             this.boxNotes.Location = new System.Drawing.Point(12, 490);
+            this.boxNotes.MaxLength = 3000;
             this.boxNotes.Name = "boxNotes";
             this.boxNotes.Size = new System.Drawing.Size(239, 117);
             this.boxNotes.TabIndex = 51;

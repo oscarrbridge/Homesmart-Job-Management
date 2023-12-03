@@ -54,56 +54,54 @@ namespace Homesmart_Job_Management
         private void IValue_TextChanged(object sender, EventArgs e)
         {
             decimal TotalCost = 0;
-            int j = 0;
-            for (int i = 0; i < NewInvoiceControls.Count; i++)
+            foreach (KeyValuePair<string, Control> entry in InvoiceControls)
             {
-                string key = "IValue" + i.ToString();
-                if (NewInvoiceControls.ContainsKey(key))
+                if (entry.Key.StartsWith("IValue"))
                 {
-                    NumericUpDown numControl = NewInvoiceControls[key] as NumericUpDown;
+                    NumericUpDown numControl = entry.Value as NumericUpDown;
                     if (numControl != null)
                     {
                         TotalCost += numControl.Value;
-                        j++;
                     }
                 }
             }
-            boxTotalCost.Value = TotalCost;
 
+            foreach (KeyValuePair<string, Control> entry in NewInvoiceControls)
+            {
+                if (entry.Key.StartsWith("IValue"))
+                {
+                    NumericUpDown numControl = entry.Value as NumericUpDown;
+                    if (numControl != null)
+                    {
+                        TotalCost += numControl.Value;
+                    }
+                }
+            }
+
+            boxTotalCost.Value = TotalCost;
 
             // Calculate Profit
             decimal TotalProfit = 0;
-            int h = 0;
-            for (int i = 0; i < NewCustQuoteControls.Count; i++)
+            foreach (KeyValuePair<string, Control> entry in CustQuoteControls)
             {
-                string key = "DQuoteValue" + i.ToString();
-                if (NewCustQuoteControls.ContainsKey(key))
+                if (entry.Key.StartsWith("DQuoteValue"))
                 {
-                    NumericUpDown numControl = NewCustQuoteControls[key] as NumericUpDown;
+                    NumericUpDown numControl = entry.Value as NumericUpDown;
                     if (numControl != null)
                     {
                         TotalProfit += numControl.Value;
-                        h++;
                     }
                 }
             }
             boxProfit.Value = TotalProfit;
 
-
             decimal Profit = TotalProfit - TotalCost;
             boxProfit.Value = Profit;
 
             // Calculate Margin
-            if (TotalProfit != 0)
-            {
-                decimal Margin = Profit / TotalProfit * 100;
-                boxMargin.Value = Margin;
-            }
-            else
-            {
-                boxMargin.Value = 0;
-            }
+            boxMargin.Value = TotalProfit != 0 ? Profit / TotalProfit * 100 : 0;
         }
+
 
         private void copyDict()
         {
@@ -285,7 +283,7 @@ namespace Homesmart_Job_Management
                 dbConnection.CloseConnection();
             }
 
-            //IValue_TextChanged(this, null);
+            IValue_TextChanged(this, null);
             copyDict();
 
             init = 1;
@@ -628,17 +626,19 @@ namespace Homesmart_Job_Management
 
             DQuoteOwner.Name = "DQuoteOwner" + countDL;
             DQuoteOwner.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
-            DQuoteOwner.Size = new Size(170, 20);
+            DQuoteOwner.Size = new Size(90, 20);
+            DQuoteOwner.MaxLength = 10;
 
             DQuoteNumber.Name = "DQuoteNumber" + countDL;
-            DQuoteNumber.Location = new Point(startPosX + 531, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
-            DQuoteNumber.Size = new Size(40, 20);
+            DQuoteNumber.Location = new Point(startPosX + 473, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteNumber.Size = new Size(80, 20);
+            DQuoteNumber.MaxLength = 10;
 
             DQuoteValue.Name = "DQuoteValue" + countDL;
             DQuoteValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteValue.Size = new Size(80, 20);
-            DQuoteValue.Maximum = 1000000;
-            
+            DQuoteValue.Maximum = 9999999;
+            DQuoteValue.DecimalPlaces = 2;
             DQuoteValue.ValueChanged += new EventHandler(IValue_TextChanged);
 
             button.Text = "X";
@@ -774,6 +774,7 @@ namespace Homesmart_Job_Management
             QSupplier.Name = "QSupplier" + countQL;
             QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
+            QSupplier.MaxLength = 25;
 
             QDate.Name = "QDate" + countQL;
             QDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
@@ -783,11 +784,13 @@ namespace Homesmart_Job_Management
             QReference.Name = "QReference" + countQL;
             QReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QReference.Size = new Size(170, 20);
+            QReference.MaxLength = 10;
 
             QValue.Name = "QValue" + countQL;
             QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
-            QValue.Maximum = 1000000;
+            QValue.Maximum = 99999999;
+            QValue.DecimalPlaces = 2;
 
             button.Text = "X";
             button.Name = "button" + countQL;
@@ -914,19 +917,23 @@ namespace Homesmart_Job_Management
             CCompany.Name = "CCompany" + countCL;
             CCompany.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CCompany.Size = new Size(170, 20);
+            CCompany.MaxLength = 25;
 
             CSupplier.Name = "CSupplier" + countCL;
             CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
+            CSupplier.MaxLength = 25;
 
             CType.Name = "CType" + countCL;
             CType.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CType.Size = new Size(170, 20);
+            CType.MaxLength = 25;
 
             CValue.Name = "CValue" + countCL;
             CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
-            CValue.Maximum = 1000000;
+            CValue.Maximum = 99999999;
+            CValue.DecimalPlaces = 2;
 
             button.Text = "X";
             button.Name = "button" + countCL;
@@ -1050,6 +1057,7 @@ namespace Homesmart_Job_Management
             ISupplier.Name = "ISupplier" + countIL;
             ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             ISupplier.Size = new Size(170, 20);
+            ISupplier.MaxLength = 25;
 
             IDate.Name = "IDate" + countIL;
             IDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
@@ -1059,15 +1067,18 @@ namespace Homesmart_Job_Management
             IReference.Name = "IReference" + countIL;
             IReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IReference.Size = new Size(170, 20);
+            IReference.MaxLength = 10;
 
             IInvNumber.Name = "IInvNumber" + countIL;
             IInvNumber.Location = new Point(startPosX + 443, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IInvNumber.Size = new Size(170, 20);
+            IInvNumber.MaxLength = 10;
 
             IValue.Name = "IValue" + countIL;
             IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
-            IValue.Maximum = 1000000;
+            IValue.Maximum = 9999999;
+            IValue.DecimalPlaces = 2;
             IValue.ValueChanged += new EventHandler(IValue_TextChanged);
 
             button.Text = "X";
