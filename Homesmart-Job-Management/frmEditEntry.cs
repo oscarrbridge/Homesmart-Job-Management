@@ -175,14 +175,14 @@ namespace Homesmart_Job_Management
 
                 MySqlCommand CustQuoteQueryCmd = new MySqlCommand(CustQuoteQuery, dbConnection.GetConnection());
                 CustQuoteQueryCmd.Parameters.AddWithValue("@JobID", JobID);
-                
+
                 reader = CustQuoteQueryCmd.ExecuteReader();
                 for (int i = 0; i < CustQuote; i++)
                 {
                     if (reader.Read())
                     {
                         AddCustQuote();
-                
+
                         //(CustQuoteControls["DCustomerName" + $"{i}"] as TextBox).Text = reader["CustomerName"].ToString();
                         //(CustQuoteControls["DCustomerAddress" + $"{i}"] as TextBox).Text = reader["CustomerAddress"].ToString();
                         (CustQuoteControls["DDetails" + $"{i}"] as TextBox).Text = reader["JobDetails"].ToString();
@@ -262,13 +262,13 @@ namespace Homesmart_Job_Management
                 reader.Close();
 
                 string JobQuery = $"SELECT CustomerName, CustomerAddress, TotalCost, Profit, Margin, Notes FROM Job WHERE JobID = @JobID";
-                
+
                 MySqlCommand JobQueryCmd = new MySqlCommand(JobQuery, dbConnection.GetConnection());
-                
+
                 JobQueryCmd.Parameters.AddWithValue("@JobID", JobID);
-                
+
                 reader = JobQueryCmd.ExecuteReader();
-                
+
                 while (reader.Read())
                 {
                     boxCustomerName.Text = reader["CustomerName"].ToString();
@@ -327,7 +327,7 @@ namespace Homesmart_Job_Management
                                     "WHERE CustQuoteID = @CustQuoteID";
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                            cmd.Parameters.AddWithValue("@JobDetails", (CustQuoteControls["DDetails" + $"{i}"] as NumericUpDown).Text);
+                            cmd.Parameters.AddWithValue("@JobDetails", (CustQuoteControls["DDetails" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@QuoteValue", (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text);
                             cmd.Parameters.AddWithValue("@QuoteOwner", (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@QuoteNumber", (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text);
@@ -336,7 +336,6 @@ namespace Homesmart_Job_Management
                             cmd.ExecuteNonQuery();
                         }
                     }
-
                     int k = 0;
                     foreach (Control control in NewCustQuoteControls.Values)
                     {
@@ -608,7 +607,7 @@ namespace Homesmart_Job_Management
         private void AddCustQuote()
         {
             int startPosX = 18;
-            int startPosY = 154;
+            int startPosY = 161;
 
             // Create new TextBox and Button
             //TextBox DCustomerName = new TextBox();
@@ -631,9 +630,9 @@ namespace Homesmart_Job_Management
             //DCustomerAddress.Size = new Size(170, 20);
 
             DDetails.Name = "DDetails" + countDL;
-            DDetails.Location = new Point(startPosX + 150, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DDetails.Location = new Point(startPosX + 176, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DDetails.Size = new Size(170, 20);
-            DDetails.MaxLength = 10;
+            DDetails.MaxLength = 45;
 
             DQuoteOwner.Name = "DQuoteOwner" + countDL;
             DQuoteOwner.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
@@ -641,7 +640,7 @@ namespace Homesmart_Job_Management
             DQuoteOwner.MaxLength = 10;
 
             DQuoteNumber.Name = "DQuoteNumber" + countDL;
-            DQuoteNumber.Location = new Point(startPosX + 473, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteNumber.Location = new Point(startPosX + 454, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteNumber.Size = new Size(80, 20);
             DQuoteNumber.MaxLength = 10;
 
@@ -737,7 +736,7 @@ namespace Homesmart_Job_Management
             {
                 //CustQuoteControls.Add(DCustomerName.Name, DCustomerName);
                 //CustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
-                CustQuoteControls.Add(DDetails.Name, DQuoteOwner);
+                CustQuoteControls.Add(DDetails.Name, DDetails);
                 CustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
                 CustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
                 CustQuoteControls.Add(DQuoteValue.Name, DQuoteValue);
@@ -747,7 +746,7 @@ namespace Homesmart_Job_Management
             {
                 //NewCustQuoteControls.Add(DCustomerName.Name, DCustomerName);
                 //NewCustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
-                NewCustQuoteControls.Add(DDetails.Name, DQuoteOwner);
+                NewCustQuoteControls.Add(DDetails.Name, DDetails);
                 NewCustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
                 NewCustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
                 NewCustQuoteControls.Add(DQuoteValue.Name, DQuoteValue);

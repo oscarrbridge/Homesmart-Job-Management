@@ -79,6 +79,16 @@
             this.txtNotes = new System.Windows.Forms.Label();
             this.boxNotes = new System.Windows.Forms.RichTextBox();
             this.txtDetails = new System.Windows.Forms.Label();
+            this.chkHouseWash = new System.Windows.Forms.CheckBox();
+            this.chkMossTreatment = new System.Windows.Forms.CheckBox();
+            this.chkOther = new System.Windows.Forms.CheckBox();
+            this.dateHouseWash = new System.Windows.Forms.DateTimePicker();
+            this.dateMossTreatment = new System.Windows.Forms.DateTimePicker();
+            this.dateOther = new System.Windows.Forms.DateTimePicker();
+            this.txtReminder = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.boxOtherDescription = new System.Windows.Forms.TextBox();
+            this.txtOtherDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
             this.pnlInvoicesLbl.SuspendLayout();
@@ -88,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxProfit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).BeginInit();
             this.pnlQuoteLbl.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgLogo
@@ -129,7 +140,7 @@
             // txtQuoteValue
             // 
             this.txtQuoteValue.AutoSize = true;
-            this.txtQuoteValue.Location = new System.Drawing.Point(626, 134);
+            this.txtQuoteValue.Location = new System.Drawing.Point(626, 142);
             this.txtQuoteValue.Name = "txtQuoteValue";
             this.txtQuoteValue.Size = new System.Drawing.Size(66, 13);
             this.txtQuoteValue.TabIndex = 21;
@@ -188,7 +199,7 @@
             // txtQuoteOwner
             // 
             this.txtQuoteOwner.AutoSize = true;
-            this.txtQuoteOwner.Location = new System.Drawing.Point(372, 134);
+            this.txtQuoteOwner.Location = new System.Drawing.Point(369, 142);
             this.txtQuoteOwner.Name = "txtQuoteOwner";
             this.txtQuoteOwner.Size = new System.Drawing.Size(70, 13);
             this.txtQuoteOwner.TabIndex = 31;
@@ -197,7 +208,7 @@
             // txtQuoteNumber
             // 
             this.txtQuoteNumber.AutoSize = true;
-            this.txtQuoteNumber.Location = new System.Drawing.Point(473, 134);
+            this.txtQuoteNumber.Location = new System.Drawing.Point(470, 142);
             this.txtQuoteNumber.Name = "txtQuoteNumber";
             this.txtQuoteNumber.Size = new System.Drawing.Size(46, 13);
             this.txtQuoteNumber.TabIndex = 32;
@@ -330,9 +341,10 @@
             this.panel1.Controls.Add(this.txtProfit);
             this.panel1.Controls.Add(this.boxTotalCost);
             this.panel1.Controls.Add(this.txtMargin);
-            this.panel1.Location = new System.Drawing.Point(511, 537);
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Location = new System.Drawing.Point(509, 524);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 100);
+            this.panel1.Size = new System.Drawing.Size(250, 122);
             this.panel1.TabIndex = 34;
             // 
             // boxMargin
@@ -510,7 +522,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(511, 643);
+            this.btnSave.Location = new System.Drawing.Point(6, 94);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(111, 23);
             this.btnSave.TabIndex = 44;
@@ -530,7 +542,7 @@
             // pnlCustInfoIn
             // 
             this.pnlCustInfoIn.AutoSize = true;
-            this.pnlCustInfoIn.Location = new System.Drawing.Point(15, 154);
+            this.pnlCustInfoIn.Location = new System.Drawing.Point(15, 161);
             this.pnlCustInfoIn.Name = "pnlCustInfoIn";
             this.pnlCustInfoIn.Size = new System.Drawing.Size(19, 26);
             this.pnlCustInfoIn.TabIndex = 39;
@@ -546,7 +558,7 @@
             // 
             // btnAddCustQuote
             // 
-            this.btnAddCustQuote.Location = new System.Drawing.Point(731, 127);
+            this.btnAddCustQuote.Location = new System.Drawing.Point(731, 135);
             this.btnAddCustQuote.Name = "btnAddCustQuote";
             this.btnAddCustQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddCustQuote.TabIndex = 46;
@@ -573,7 +585,7 @@
             // txtNotes
             // 
             this.txtNotes.AutoSize = true;
-            this.txtNotes.Location = new System.Drawing.Point(16, 524);
+            this.txtNotes.Location = new System.Drawing.Point(12, 696);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(35, 13);
             this.txtNotes.TabIndex = 50;
@@ -581,7 +593,7 @@
             // 
             // boxNotes
             // 
-            this.boxNotes.Location = new System.Drawing.Point(16, 549);
+            this.boxNotes.Location = new System.Drawing.Point(12, 721);
             this.boxNotes.MaxLength = 3000;
             this.boxNotes.Name = "boxNotes";
             this.boxNotes.Size = new System.Drawing.Size(239, 117);
@@ -591,11 +603,109 @@
             // txtDetails
             // 
             this.txtDetails.AutoSize = true;
-            this.txtDetails.Location = new System.Drawing.Point(262, 134);
+            this.txtDetails.Location = new System.Drawing.Point(193, 142);
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.Size = new System.Drawing.Size(39, 13);
             this.txtDetails.TabIndex = 52;
             this.txtDetails.Text = "Details";
+            // 
+            // chkHouseWash
+            // 
+            this.chkHouseWash.AutoSize = true;
+            this.chkHouseWash.Location = new System.Drawing.Point(3, 32);
+            this.chkHouseWash.Name = "chkHouseWash";
+            this.chkHouseWash.Size = new System.Drawing.Size(88, 17);
+            this.chkHouseWash.TabIndex = 53;
+            this.chkHouseWash.Text = "House Wash";
+            this.chkHouseWash.UseVisualStyleBackColor = true;
+            // 
+            // chkMossTreatment
+            // 
+            this.chkMossTreatment.AutoSize = true;
+            this.chkMossTreatment.Location = new System.Drawing.Point(3, 64);
+            this.chkMossTreatment.Name = "chkMossTreatment";
+            this.chkMossTreatment.Size = new System.Drawing.Size(105, 17);
+            this.chkMossTreatment.TabIndex = 54;
+            this.chkMossTreatment.Text = "Moss Treatment ";
+            this.chkMossTreatment.UseVisualStyleBackColor = true;
+            // 
+            // chkOther
+            // 
+            this.chkOther.AutoSize = true;
+            this.chkOther.Location = new System.Drawing.Point(3, 96);
+            this.chkOther.Name = "chkOther";
+            this.chkOther.Size = new System.Drawing.Size(52, 17);
+            this.chkOther.TabIndex = 55;
+            this.chkOther.Text = "Other";
+            this.chkOther.UseVisualStyleBackColor = true;
+            // 
+            // dateHouseWash
+            // 
+            this.dateHouseWash.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateHouseWash.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dateHouseWash.Location = new System.Drawing.Point(129, 27);
+            this.dateHouseWash.Name = "dateHouseWash";
+            this.dateHouseWash.Size = new System.Drawing.Size(110, 20);
+            this.dateHouseWash.TabIndex = 56;
+            // 
+            // dateMossTreatment
+            // 
+            this.dateMossTreatment.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateMossTreatment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dateMossTreatment.Location = new System.Drawing.Point(129, 59);
+            this.dateMossTreatment.Name = "dateMossTreatment";
+            this.dateMossTreatment.Size = new System.Drawing.Size(110, 20);
+            this.dateMossTreatment.TabIndex = 57;
+            // 
+            // dateOther
+            // 
+            this.dateOther.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateOther.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dateOther.Location = new System.Drawing.Point(129, 91);
+            this.dateOther.Name = "dateOther";
+            this.dateOther.Size = new System.Drawing.Size(110, 20);
+            this.dateOther.TabIndex = 58;
+            // 
+            // txtReminder
+            // 
+            this.txtReminder.AutoSize = true;
+            this.txtReminder.Location = new System.Drawing.Point(129, 8);
+            this.txtReminder.Name = "txtReminder";
+            this.txtReminder.Size = new System.Drawing.Size(78, 13);
+            this.txtReminder.TabIndex = 59;
+            this.txtReminder.Text = "Reminder Date";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.txtOtherDescription);
+            this.panel2.Controls.Add(this.boxOtherDescription);
+            this.panel2.Controls.Add(this.chkHouseWash);
+            this.panel2.Controls.Add(this.txtReminder);
+            this.panel2.Controls.Add(this.chkMossTreatment);
+            this.panel2.Controls.Add(this.dateOther);
+            this.panel2.Controls.Add(this.chkOther);
+            this.panel2.Controls.Add(this.dateMossTreatment);
+            this.panel2.Controls.Add(this.dateHouseWash);
+            this.panel2.Location = new System.Drawing.Point(15, 507);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(393, 116);
+            this.panel2.TabIndex = 60;
+            // 
+            // boxOtherDescription
+            // 
+            this.boxOtherDescription.Location = new System.Drawing.Point(255, 91);
+            this.boxOtherDescription.Name = "boxOtherDescription";
+            this.boxOtherDescription.Size = new System.Drawing.Size(135, 20);
+            this.boxOtherDescription.TabIndex = 60;
+            // 
+            // txtOtherDescription
+            // 
+            this.txtOtherDescription.AutoSize = true;
+            this.txtOtherDescription.Location = new System.Drawing.Point(252, 75);
+            this.txtOtherDescription.Name = "txtOtherDescription";
+            this.txtOtherDescription.Size = new System.Drawing.Size(60, 13);
+            this.txtOtherDescription.TabIndex = 61;
+            this.txtOtherDescription.Text = "Description";
             // 
             // frmEditEntry
             // 
@@ -603,6 +713,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(823, 905);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.txtDetails);
             this.Controls.Add(this.txtQuoteNumber);
             this.Controls.Add(this.txtQuoteOwner);
@@ -614,7 +725,6 @@
             this.Controls.Add(this.btnAddCustQuote);
             this.Controls.Add(this.pnlCustInfoIn);
             this.Controls.Add(this.pnlQuotesIn);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAddInv);
             this.Controls.Add(this.btnAddCharge);
             this.Controls.Add(this.btnAddQuote);
@@ -646,6 +756,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxTotalCost)).EndInit();
             this.pnlQuoteLbl.ResumeLayout(false);
             this.pnlQuoteLbl.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -703,5 +815,15 @@
         private System.Windows.Forms.Label txtNotes;
         private System.Windows.Forms.RichTextBox boxNotes;
         private System.Windows.Forms.Label txtDetails;
+        private System.Windows.Forms.CheckBox chkHouseWash;
+        private System.Windows.Forms.CheckBox chkMossTreatment;
+        private System.Windows.Forms.CheckBox chkOther;
+        private System.Windows.Forms.DateTimePicker dateHouseWash;
+        private System.Windows.Forms.DateTimePicker dateMossTreatment;
+        private System.Windows.Forms.DateTimePicker dateOther;
+        private System.Windows.Forms.Label txtReminder;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label txtOtherDescription;
+        private System.Windows.Forms.TextBox boxOtherDescription;
     }
 }
