@@ -32,6 +32,9 @@ namespace Homesmart_Job_Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHome));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
@@ -43,8 +46,11 @@ namespace Homesmart_Job_Management
             this.boxCustomerName = new System.Windows.Forms.TextBox();
             this.btnSubmitNew = new System.Windows.Forms.Button();
             this.btnResetSearch = new System.Windows.Forms.Button();
+            this.dataGrid1 = new System.Windows.Forms.DataGridView();
+            this.btnEdit1 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -93,7 +99,8 @@ namespace Homesmart_Job_Management
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGrid.Size = new System.Drawing.Size(776, 324);
+            this.dataGrid.RowHeadersVisible = false;
+            this.dataGrid.Size = new System.Drawing.Size(383, 324);
             this.dataGrid.TabIndex = 7;
             this.dataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellClick_1);
             // 
@@ -172,11 +179,63 @@ namespace Homesmart_Job_Management
             this.btnResetSearch.UseVisualStyleBackColor = true;
             this.btnResetSearch.Click += new System.EventHandler(this.btnResetSearch_Click);
             // 
+            // dataGrid1
+            // 
+            this.dataGrid1.AllowUserToAddRows = false;
+            this.dataGrid1.AllowUserToDeleteRows = false;
+            this.dataGrid1.AllowUserToResizeColumns = false;
+            this.dataGrid1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.btnEdit1});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGrid1.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGrid1.Location = new System.Drawing.Point(405, 107);
+            this.dataGrid1.MultiSelect = false;
+            this.dataGrid1.Name = "dataGrid1";
+            this.dataGrid1.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGrid1.RowHeadersVisible = false;
+            this.dataGrid1.Size = new System.Drawing.Size(383, 324);
+            this.dataGrid1.TabIndex = 16;
+            this.dataGrid1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid1_CellClick);
+            // 
+            // btnEdit1
+            // 
+            this.btnEdit1.HeaderText = "Edit";
+            this.btnEdit1.Name = "btnEdit1";
+            this.btnEdit1.ReadOnly = true;
+            this.btnEdit1.Text = "Edit";
+            this.btnEdit1.ToolTipText = "Edit";
+            this.btnEdit1.Width = 40;
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGrid1);
             this.Controls.Add(this.btnResetSearch);
             this.Controls.Add(this.btnSubmitNew);
             this.Controls.Add(this.btnSearch);
@@ -192,6 +251,7 @@ namespace Homesmart_Job_Management
             this.Enter += new System.EventHandler(this.frmHome_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,6 +268,8 @@ namespace Homesmart_Job_Management
         private System.Windows.Forms.Button btnSubmitNew;
         private System.Windows.Forms.Button btnResetSearch;
         private System.Windows.Forms.DataGridViewButtonColumn btnEdit;
+        private System.Windows.Forms.DataGridView dataGrid1;
+        private System.Windows.Forms.DataGridViewButtonColumn btnEdit1;
     }
 }
 

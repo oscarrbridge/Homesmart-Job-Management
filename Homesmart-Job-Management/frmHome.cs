@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Homesmart_Job_Management
@@ -11,7 +12,12 @@ namespace Homesmart_Job_Management
         public frmHome()
         {
             InitializeComponent();
+
             search();
+
+            dataGrid.Columns[1].Width = 40;
+            dataGrid1.Columns[2].Width = 40;
+
         }
 
         private void search()
@@ -50,11 +56,43 @@ namespace Homesmart_Job_Management
                 da.Fill(dt);
 
                 dataGrid.DataSource = dt;
+
+
+
+                string houseWashQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.HouseWashDate as Date, 'House Wash' as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.HouseWash = 1";
+                string mossTreatmentQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.MossTreatmentDate as Date, 'Moss Treatment' as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.MossTreatment = 1";
+                string otherQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.OtherDate as Date, FollowUp.OtherDesc as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.Other = 1";
+
+                MySqlCommand houseWashCmd = new MySqlCommand(houseWashQuery, dbConnection.GetConnection());
+                MySqlCommand mossTreatmentCmd = new MySqlCommand(mossTreatmentQuery, dbConnection.GetConnection());
+                MySqlCommand otherCmd = new MySqlCommand(otherQuery, dbConnection.GetConnection());
+
+                DataTable dt1 = new DataTable();
+                DataTable dt2 = new DataTable();
+                DataTable dt3 = new DataTable();
+
+                MySqlDataAdapter da1 = new MySqlDataAdapter(houseWashCmd);
+                MySqlDataAdapter da2 = new MySqlDataAdapter(mossTreatmentCmd);
+                MySqlDataAdapter da3 = new MySqlDataAdapter(otherCmd);
+
+                da1.Fill(dt1);
+                da2.Fill(dt2);
+                da3.Fill(dt3);
+
+                // Combine all DataTables into one
+                dt1.Merge(dt2);
+                dt1.Merge(dt3);
+
+                // Convert the DataTable to an enumerable collection and sort by date
+                var orderedRows = from row in dt1.AsEnumerable()
+                                  orderby row.Field<DateTime>("Date")
+                                  select row;
+
+                // Convert the sorted collection back to a DataTable
+                DataTable sortedTable = orderedRows.CopyToDataTable();
+
+                dataGrid1.DataSource = sortedTable;
             }
-
-
-
-
             else
             {
                 DialogResult result = MessageBox.Show("Server not found. Contact Admin", "Error", MessageBoxButtons.RetryCancel);
@@ -67,6 +105,7 @@ namespace Homesmart_Job_Management
                     this.Close();
                 }
             }
+            dbConnection.CloseConnection();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -112,6 +151,20 @@ namespace Homesmart_Job_Management
                 newEditJob.Show();
             }
         }
+        private void dataGrid1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == -1);
+
+            // If the 'Edit' button was clicked.
+            else if (dataGrid1.Columns[e.ColumnIndex].Name == "btnEdit1" && e.RowIndex >= 0)
+            {
+                // Get the job ID from the selected row.
+                int jobId = Convert.ToInt32(dataGrid1.Rows[e.RowIndex].Cells["JobID"].Value);
+
+                frmEditEntry newEditJob = new frmEditEntry(jobId);
+                newEditJob.Show();
+            }
+        }
 
         private void btnSubmitNew_Click(object sender, EventArgs e)
         {
@@ -150,5 +203,6 @@ namespace Homesmart_Job_Management
             boxCustomerAddress.Text = "";
             search();
         }
+
     }
 }
