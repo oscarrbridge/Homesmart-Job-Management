@@ -618,6 +618,7 @@
             this.chkHouseWash.TabIndex = 53;
             this.chkHouseWash.Text = "House Wash";
             this.chkHouseWash.UseVisualStyleBackColor = true;
+            this.chkHouseWash.CheckedChanged += new System.EventHandler(this.chkHouseWash_CheckedChanged);
             // 
             // chkMossTreatment
             // 
@@ -628,6 +629,7 @@
             this.chkMossTreatment.TabIndex = 54;
             this.chkMossTreatment.Text = "Moss Treatment ";
             this.chkMossTreatment.UseVisualStyleBackColor = true;
+            this.chkMossTreatment.CheckedChanged += new System.EventHandler(this.chkMossTreatment_CheckedChanged);
             // 
             // chkOther
             // 
@@ -638,9 +640,11 @@
             this.chkOther.TabIndex = 55;
             this.chkOther.Text = "Other";
             this.chkOther.UseVisualStyleBackColor = true;
+            this.chkOther.CheckedChanged += new System.EventHandler(this.chkOther_CheckedChanged);
             // 
             // dateHouseWash
             // 
+            this.dateHouseWash.Enabled = false;
             this.dateHouseWash.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateHouseWash.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dateHouseWash.Location = new System.Drawing.Point(129, 27);
@@ -650,6 +654,7 @@
             // 
             // dateMossTreatment
             // 
+            this.dateMossTreatment.Enabled = false;
             this.dateMossTreatment.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateMossTreatment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dateMossTreatment.Location = new System.Drawing.Point(129, 59);
@@ -659,6 +664,7 @@
             // 
             // dateOther
             // 
+            this.dateOther.Enabled = false;
             this.dateOther.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateOther.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dateOther.Location = new System.Drawing.Point(129, 91);
@@ -693,7 +699,9 @@
             // 
             // boxOtherDescription
             // 
+            this.boxOtherDescription.Enabled = false;
             this.boxOtherDescription.Location = new System.Drawing.Point(255, 91);
+            this.boxOtherDescription.MaxLength = 45;
             this.boxOtherDescription.Name = "boxOtherDescription";
             this.boxOtherDescription.Size = new System.Drawing.Size(135, 20);
             this.boxOtherDescription.TabIndex = 60;

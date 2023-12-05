@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace Homesmart_Job_Management
@@ -279,6 +280,30 @@ namespace Homesmart_Job_Management
                     boxProfit.Text = reader["Profit"].ToString();
                     boxMargin.Text = reader["Margin"].ToString();
                 }
+                reader.Close();
+
+                string FollowUpQuery = $"SELECT HouseWash, MossTreatment, Other, HouseWashDate, MossTreatmentDate, OtherDate, OtherDesc " +
+                    $"FROM FollowUp " +
+                    $"WHERE JobID = @JobID";
+
+                MySqlCommand FollowUpCmd = new MySqlCommand(FollowUpQuery, dbConnection.GetConnection());
+
+                FollowUpCmd.Parameters.AddWithValue("@JobID", JobID);
+
+                reader = FollowUpCmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    chkHouseWash.Checked = reader["HouseWash"].ToString() == "1";
+                    chkMossTreatment.Checked = reader["MossTreatment"].ToString() == "1";
+                    chkOther.Checked = reader["Other"].ToString() == "1";
+                    dateHouseWash.Text = Convert.ToDateTime(reader["HouseWashDate"]).ToString("dd-MM-yyyy");
+                    dateMossTreatment.Text = Convert.ToDateTime(reader["MossTreatmentDate"]).ToString("dd-MM-yyyy");
+                    dateOther.Text = Convert.ToDateTime(reader["OtherDate"]).ToString("dd-MM-yyyy");
+                    boxOtherDescription.Text = reader["OtherDesc"].ToString();
+                }
+
+
                 reader.Close();
 
                 dbConnection.CloseConnection();
@@ -596,6 +621,85 @@ namespace Homesmart_Job_Management
                             cmd.ExecuteNonQuery();
 
                         }
+                    }
+
+                    if (chkHouseWash.Checked == true)
+                    {
+                        Query = "UPDATE FollowUp " +
+                            "SET HouseWash = 1, HouseWashDate = @HouseWashDate " +
+                            "WHERE JobID = @JobID";
+
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@HouseWashDate", dateHouseWash.Value);
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        Query = "UPDATE FollowUp " +
+                            "SET HouseWash = 0 " +
+                            "WHERE JobID = @JobID";
+
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    if (chkMossTreatment.Checked == true)
+                    {
+                        Query = "UPDATE FollowUp " +
+                                "SET MossTreatment = 1, MossTreatmentDate = @MossTreatmentDate " +
+                                "WHERE JobID = @JobID";
+
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@MossTreatmentDate", dateMossTreatment.Value);
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        Query = "UPDATE FollowUp " +
+                                "SET MossTreatment = 0 " +
+                                "WHERE JobID = @JobID";
+
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    if (chkOther.Checked == true)
+                    {
+                        Query = "UPDATE FollowUp " +
+                                "SET Other = 1, OtherDate = @OtherDate, OtherDesc = @OtherDesc " +
+                                "WHERE JobID = @JobID";
+                    
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+                    
+                        cmd.Parameters.AddWithValue("@OtherDate", dateOther.Value);
+                        cmd.Parameters.AddWithValue("@OtherDesc", boxOtherDescription.Text);
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+                    
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        Query = "UPDATE FollowUp " +
+                                "SET Other = 0, OtherDesc = NULL " +
+                                "WHERE JobID = @JobID";
+
+                        cmd = new MySqlCommand(Query, dbConnection.GetConnection());
+
+                        cmd.Parameters.AddWithValue("@JobID", uJobID);
+
+                        cmd.ExecuteNonQuery();
                     }
 
                     dbConnection.CloseConnection();
@@ -1226,5 +1330,42 @@ namespace Homesmart_Job_Management
             AddInv();
         }
 
+        private void chkHouseWash_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkHouseWash.Checked == true)
+            {
+                dateHouseWash.Enabled = true;
+            }
+            else
+            {
+                dateHouseWash.Enabled = false;
+            }
+        }
+
+        private void chkMossTreatment_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkMossTreatment.Checked == true)
+            {
+                dateMossTreatment.Enabled = true;
+            }
+            else
+            {
+                dateMossTreatment.Enabled = false;
+            }
+        }
+
+        private void chkOther_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkOther.Checked == true)
+            {
+                dateOther.Enabled = true;
+                boxOtherDescription.Enabled = true;
+            }
+            else
+            {
+                dateOther.Enabled = false;
+                boxOtherDescription.Enabled = false;
+            }
+        }
     }
 }
