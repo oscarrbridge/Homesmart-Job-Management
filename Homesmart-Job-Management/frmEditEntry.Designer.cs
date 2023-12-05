@@ -78,6 +78,7 @@
             this.boxCustomerAddress = new System.Windows.Forms.TextBox();
             this.txtNotes = new System.Windows.Forms.Label();
             this.boxNotes = new System.Windows.Forms.RichTextBox();
+            this.txtDetails = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlCustomerInfo.SuspendLayout();
             this.pnlInvoicesLbl.SuspendLayout();
@@ -128,7 +129,7 @@
             // txtQuoteValue
             // 
             this.txtQuoteValue.AutoSize = true;
-            this.txtQuoteValue.Location = new System.Drawing.Point(626, 28);
+            this.txtQuoteValue.Location = new System.Drawing.Point(626, 134);
             this.txtQuoteValue.Name = "txtQuoteValue";
             this.txtQuoteValue.Size = new System.Drawing.Size(66, 13);
             this.txtQuoteValue.TabIndex = 21;
@@ -176,12 +177,9 @@
             // pnlCustomerInfo
             // 
             this.pnlCustomerInfo.AutoSize = true;
-            this.pnlCustomerInfo.Controls.Add(this.txtQuoteOwner);
-            this.pnlCustomerInfo.Controls.Add(this.txtQuoteNumber);
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerTitle);
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerName);
             this.pnlCustomerInfo.Controls.Add(this.txtCustomerAddress);
-            this.pnlCustomerInfo.Controls.Add(this.txtQuoteValue);
             this.pnlCustomerInfo.Location = new System.Drawing.Point(12, 68);
             this.pnlCustomerInfo.Name = "pnlCustomerInfo";
             this.pnlCustomerInfo.Size = new System.Drawing.Size(710, 41);
@@ -190,7 +188,7 @@
             // txtQuoteOwner
             // 
             this.txtQuoteOwner.AutoSize = true;
-            this.txtQuoteOwner.Location = new System.Drawing.Point(358, 28);
+            this.txtQuoteOwner.Location = new System.Drawing.Point(372, 134);
             this.txtQuoteOwner.Name = "txtQuoteOwner";
             this.txtQuoteOwner.Size = new System.Drawing.Size(70, 13);
             this.txtQuoteOwner.TabIndex = 31;
@@ -199,7 +197,7 @@
             // txtQuoteNumber
             // 
             this.txtQuoteNumber.AutoSize = true;
-            this.txtQuoteNumber.Location = new System.Drawing.Point(473, 28);
+            this.txtQuoteNumber.Location = new System.Drawing.Point(473, 134);
             this.txtQuoteNumber.Name = "txtQuoteNumber";
             this.txtQuoteNumber.Size = new System.Drawing.Size(46, 13);
             this.txtQuoteNumber.TabIndex = 32;
@@ -214,7 +212,7 @@
             this.pnlInvoicesLbl.Controls.Add(this.txtSupplier);
             this.pnlInvoicesLbl.Controls.Add(this.txtInvoiceDate);
             this.pnlInvoicesLbl.Controls.Add(this.txtInvNum);
-            this.pnlInvoicesLbl.Location = new System.Drawing.Point(12, 354);
+            this.pnlInvoicesLbl.Location = new System.Drawing.Point(12, 415);
             this.pnlInvoicesLbl.Name = "pnlInvoicesLbl";
             this.pnlInvoicesLbl.Size = new System.Drawing.Size(707, 33);
             this.pnlInvoicesLbl.TabIndex = 32;
@@ -281,7 +279,8 @@
             this.pnlInternalChargeLbl.Controls.Add(this.txtCompanyName);
             this.pnlInternalChargeLbl.Controls.Add(this.txtItem);
             this.pnlInternalChargeLbl.Controls.Add(this.txtInternalValue);
-            this.pnlInternalChargeLbl.Location = new System.Drawing.Point(12, 242);
+            this.pnlInternalChargeLbl.Controls.Add(this.txtType);
+            this.pnlInternalChargeLbl.Location = new System.Drawing.Point(12, 303);
             this.pnlInternalChargeLbl.Name = "pnlInternalChargeLbl";
             this.pnlInternalChargeLbl.Size = new System.Drawing.Size(710, 33);
             this.pnlInternalChargeLbl.TabIndex = 33;
@@ -331,7 +330,7 @@
             this.panel1.Controls.Add(this.txtProfit);
             this.panel1.Controls.Add(this.boxTotalCost);
             this.panel1.Controls.Add(this.txtMargin);
-            this.panel1.Location = new System.Drawing.Point(507, 478);
+            this.panel1.Location = new System.Drawing.Point(511, 537);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 100);
             this.panel1.TabIndex = 34;
@@ -401,7 +400,7 @@
             this.pnlQuoteLbl.Controls.Add(this.txtQuotes);
             this.pnlQuoteLbl.Controls.Add(this.txtSupplierQ);
             this.pnlQuoteLbl.Controls.Add(this.txtQuoteDateQ);
-            this.pnlQuoteLbl.Location = new System.Drawing.Point(12, 144);
+            this.pnlQuoteLbl.Location = new System.Drawing.Point(12, 205);
             this.pnlQuoteLbl.Name = "pnlQuoteLbl";
             this.pnlQuoteLbl.Size = new System.Drawing.Size(710, 33);
             this.pnlQuoteLbl.TabIndex = 35;
@@ -465,7 +464,7 @@
             // 
             // btnAddQuote
             // 
-            this.btnAddQuote.Location = new System.Drawing.Point(731, 160);
+            this.btnAddQuote.Location = new System.Drawing.Point(731, 218);
             this.btnAddQuote.Name = "btnAddQuote";
             this.btnAddQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddQuote.TabIndex = 41;
@@ -476,14 +475,14 @@
             // pnlInternalChargeIn
             // 
             this.pnlInternalChargeIn.AutoSize = true;
-            this.pnlInternalChargeIn.Location = new System.Drawing.Point(15, 281);
+            this.pnlInternalChargeIn.Location = new System.Drawing.Point(15, 342);
             this.pnlInternalChargeIn.Name = "pnlInternalChargeIn";
             this.pnlInternalChargeIn.Size = new System.Drawing.Size(19, 26);
             this.pnlInternalChargeIn.TabIndex = 39;
             // 
             // btnAddCharge
             // 
-            this.btnAddCharge.Location = new System.Drawing.Point(731, 255);
+            this.btnAddCharge.Location = new System.Drawing.Point(731, 316);
             this.btnAddCharge.Name = "btnAddCharge";
             this.btnAddCharge.Size = new System.Drawing.Size(20, 20);
             this.btnAddCharge.TabIndex = 43;
@@ -494,14 +493,14 @@
             // pnlInvoicesIn
             // 
             this.pnlInvoicesIn.AutoSize = true;
-            this.pnlInvoicesIn.Location = new System.Drawing.Point(15, 393);
+            this.pnlInvoicesIn.Location = new System.Drawing.Point(15, 454);
             this.pnlInvoicesIn.Name = "pnlInvoicesIn";
             this.pnlInvoicesIn.Size = new System.Drawing.Size(19, 26);
             this.pnlInvoicesIn.TabIndex = 40;
             // 
             // btnAddInv
             // 
-            this.btnAddInv.Location = new System.Drawing.Point(731, 367);
+            this.btnAddInv.Location = new System.Drawing.Point(731, 428);
             this.btnAddInv.Name = "btnAddInv";
             this.btnAddInv.Size = new System.Drawing.Size(20, 20);
             this.btnAddInv.TabIndex = 42;
@@ -511,7 +510,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(507, 584);
+            this.btnSave.Location = new System.Drawing.Point(511, 643);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(111, 23);
             this.btnSave.TabIndex = 44;
@@ -522,7 +521,7 @@
             // txtType
             // 
             this.txtType.AutoSize = true;
-            this.txtType.Location = new System.Drawing.Point(365, 262);
+            this.txtType.Location = new System.Drawing.Point(365, 20);
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(31, 13);
             this.txtType.TabIndex = 31;
@@ -531,7 +530,7 @@
             // pnlCustInfoIn
             // 
             this.pnlCustInfoIn.AutoSize = true;
-            this.pnlCustInfoIn.Location = new System.Drawing.Point(15, 112);
+            this.pnlCustInfoIn.Location = new System.Drawing.Point(15, 154);
             this.pnlCustInfoIn.Name = "pnlCustInfoIn";
             this.pnlCustInfoIn.Size = new System.Drawing.Size(19, 26);
             this.pnlCustInfoIn.TabIndex = 39;
@@ -540,14 +539,14 @@
             // pnlQuotesIn
             // 
             this.pnlQuotesIn.AutoSize = true;
-            this.pnlQuotesIn.Location = new System.Drawing.Point(15, 183);
+            this.pnlQuotesIn.Location = new System.Drawing.Point(15, 244);
             this.pnlQuotesIn.Name = "pnlQuotesIn";
             this.pnlQuotesIn.Size = new System.Drawing.Size(19, 26);
             this.pnlQuotesIn.TabIndex = 45;
             // 
             // btnAddCustQuote
             // 
-            this.btnAddCustQuote.Location = new System.Drawing.Point(731, 92);
+            this.btnAddCustQuote.Location = new System.Drawing.Point(731, 127);
             this.btnAddCustQuote.Name = "btnAddCustQuote";
             this.btnAddCustQuote.Size = new System.Drawing.Size(20, 20);
             this.btnAddCustQuote.TabIndex = 46;
@@ -574,7 +573,7 @@
             // txtNotes
             // 
             this.txtNotes.AutoSize = true;
-            this.txtNotes.Location = new System.Drawing.Point(12, 465);
+            this.txtNotes.Location = new System.Drawing.Point(16, 524);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(35, 13);
             this.txtNotes.TabIndex = 50;
@@ -582,12 +581,21 @@
             // 
             // boxNotes
             // 
-            this.boxNotes.Location = new System.Drawing.Point(12, 490);
+            this.boxNotes.Location = new System.Drawing.Point(16, 549);
             this.boxNotes.MaxLength = 3000;
             this.boxNotes.Name = "boxNotes";
             this.boxNotes.Size = new System.Drawing.Size(239, 117);
             this.boxNotes.TabIndex = 51;
             this.boxNotes.Text = "";
+            // 
+            // txtDetails
+            // 
+            this.txtDetails.AutoSize = true;
+            this.txtDetails.Location = new System.Drawing.Point(262, 134);
+            this.txtDetails.Name = "txtDetails";
+            this.txtDetails.Size = new System.Drawing.Size(39, 13);
+            this.txtDetails.TabIndex = 52;
+            this.txtDetails.Text = "Details";
             // 
             // frmEditEntry
             // 
@@ -595,14 +603,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(823, 905);
+            this.Controls.Add(this.txtDetails);
+            this.Controls.Add(this.txtQuoteNumber);
+            this.Controls.Add(this.txtQuoteOwner);
             this.Controls.Add(this.boxNotes);
+            this.Controls.Add(this.txtQuoteValue);
             this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.boxCustomerAddress);
             this.Controls.Add(this.boxCustomerName);
             this.Controls.Add(this.btnAddCustQuote);
             this.Controls.Add(this.pnlCustInfoIn);
             this.Controls.Add(this.pnlQuotesIn);
-            this.Controls.Add(this.txtType);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnAddInv);
             this.Controls.Add(this.btnAddCharge);
@@ -691,5 +702,6 @@
         private System.Windows.Forms.TextBox boxCustomerAddress;
         private System.Windows.Forms.Label txtNotes;
         private System.Windows.Forms.RichTextBox boxNotes;
+        private System.Windows.Forms.Label txtDetails;
     }
 }
