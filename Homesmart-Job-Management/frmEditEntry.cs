@@ -710,8 +710,8 @@ namespace Homesmart_Job_Management
 
         private void AddCustQuote()
         {
-            int startPosX = 18;
-            int startPosY = 161;
+            int startPosX = 3;
+            int startPosY = txtDetails.Top + 20;
 
             // Create new TextBox and Button
             //TextBox DCustomerName = new TextBox();
@@ -734,22 +734,22 @@ namespace Homesmart_Job_Management
             //DCustomerAddress.Size = new Size(170, 20);
 
             DDetails.Name = "DDetails" + countDL;
-            DDetails.Location = new Point(startPosX + 176, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DDetails.Location = new Point(startPosX + txtDetails.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DDetails.Size = new Size(170, 20);
             DDetails.MaxLength = 45;
 
             DQuoteOwner.Name = "DQuoteOwner" + countDL;
-            DQuoteOwner.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteOwner.Location = new Point(startPosX + txtQuoteOwner.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteOwner.Size = new Size(90, 20);
             DQuoteOwner.MaxLength = 10;
 
             DQuoteNumber.Name = "DQuoteNumber" + countDL;
-            DQuoteNumber.Location = new Point(startPosX + 454, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteNumber.Location = new Point(startPosX + txtQuoteNumber.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteNumber.Size = new Size(80, 20);
             DQuoteNumber.MaxLength = 10;
 
             DQuoteValue.Name = "DQuoteValue" + countDL;
-            DQuoteValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DQuoteValue.Location = new Point(startPosX + txtQuoteValue.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DQuoteValue.Size = new Size(80, 20);
             DQuoteValue.Maximum = 9999999;
             DQuoteValue.DecimalPlaces = 2;
@@ -757,11 +757,11 @@ namespace Homesmart_Job_Management
 
             button.Text = "X";
             button.Name = "button" + countDL;
-            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            button.Location = new Point(btnAddCustQuote.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             button.Size = new Size(20, 20);
 
             DID.Name = "DID" + countDL;
-            DID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DID.Location = new Point(btnAddCustQuote.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             DID.Size = new Size(30, 20);
             DID.Visible = false;
 
@@ -878,8 +878,8 @@ namespace Homesmart_Job_Management
 
         private void AddQuote()
         {
-            int startPosX = 18;
-            int startPosY = 244;
+            int startPosX = 3;
+            int startPosY = 207+20;
 
             // Create new TextBox and Button
             TextBox QSupplier = new TextBox();
@@ -892,33 +892,33 @@ namespace Homesmart_Job_Management
 
             //Set properties
             QSupplier.Name = "QSupplier" + countQL;
-            QSupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QSupplier.Location = new Point(startPosX + txtSupplierQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
             QSupplier.MaxLength = 25;
 
             QDate.Name = "QDate" + countQL;
-            QDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QDate.Location = new Point(startPosX + txtQuoteDateQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QDate.Size = new Size(80, 20);
             QDate.Format = DateTimePickerFormat.Short;
 
             QReference.Name = "QReference" + countQL;
-            QReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QReference.Location = new Point(startPosX + txtReferenceQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QReference.Size = new Size(170, 20);
             QReference.MaxLength = 10;
 
             QValue.Name = "QValue" + countQL;
-            QValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QValue.Location = new Point(startPosX + txtQuoteValueQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QValue.Size = new Size(80, 20);
             QValue.Maximum = 99999999;
             QValue.DecimalPlaces = 2;
 
             button.Text = "X";
             button.Name = "button" + countQL;
-            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            button.Location = new Point(btnAddQuote.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             button.Size = new Size(20, 20);
 
             QID.Name = "QID" + countQL;
-            QID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
+            QID.Location = new Point(btnAddQuote.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QID.Size = new Size(30, 20);
             QID.Visible = false;
 
@@ -1022,8 +1022,8 @@ namespace Homesmart_Job_Management
 
         private void AddCharge()
         {
-            int startPosX = 18;
-            int startPosY = 342;
+            int startPosX = 3;
+            int startPosY = 321;
 
             // Create new TextBox and Button
             TextBox CCompany = new TextBox();
@@ -1035,33 +1035,33 @@ namespace Homesmart_Job_Management
 
             // Set properties
             CCompany.Name = "CCompany" + countCL;
-            CCompany.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
-            CCompany.Size = new Size(170, 20);
-            CCompany.MaxLength = 25;
+            CCompany.Location = new Point(startPosX + txtCompanyName.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CCompany.Size = new Size(80, 20);
+            CCompany.MaxLength = 6;
 
             CSupplier.Name = "CSupplier" + countCL;
-            CSupplier.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CSupplier.Location = new Point(startPosX + txtItem.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
             CSupplier.MaxLength = 25;
 
             CType.Name = "CType" + countCL;
-            CType.Location = new Point(startPosX + 354, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CType.Location = new Point(startPosX + txtType.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CType.Size = new Size(170, 20);
             CType.MaxLength = 25;
 
             CValue.Name = "CValue" + countCL;
-            CValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CValue.Location = new Point(startPosX + txtInternalValue.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CValue.Size = new Size(80, 20);
             CValue.Maximum = 99999999;
             CValue.DecimalPlaces = 2;
 
             button.Text = "X";
             button.Name = "button" + countCL;
-            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            button.Location = new Point(btnAddCharge.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             button.Size = new Size(20, 20);
 
             CID.Name = "CID" + countCL;
-            CID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
+            CID.Location = new Point(btnAddCharge.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CID.Size = new Size(30, 20);
             CID.Visible = false;
 
@@ -1161,8 +1161,8 @@ namespace Homesmart_Job_Management
 
         private void AddInv()
         {
-            int startPosX = 18;
-            int startPosY = 454;
+            int startPosX = 3;
+            int startPosY = 414;
 
             // Create new TextBox and Button
             TextBox ISupplier = new TextBox();
@@ -1175,27 +1175,27 @@ namespace Homesmart_Job_Management
 
             // Set properties
             ISupplier.Name = "ISupplier" + countIL;
-            ISupplier.Location = new Point(startPosX, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            ISupplier.Location = new Point(startPosX + txtSupplier.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             ISupplier.Size = new Size(170, 20);
             ISupplier.MaxLength = 25;
 
             IDate.Name = "IDate" + countIL;
-            IDate.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IDate.Location = new Point(startPosX + txtInvoiceDate.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IDate.Size = new Size(80, 20);
             IDate.Format = DateTimePickerFormat.Short;
 
             IReference.Name = "IReference" + countIL;
-            IReference.Location = new Point(startPosX + 267, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IReference.Location = new Point(startPosX + txtReference.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IReference.Size = new Size(170, 20);
-            IReference.MaxLength = 10;
+            IReference.MaxLength = 20;
 
             IInvNumber.Name = "IInvNumber" + countIL;
-            IInvNumber.Location = new Point(startPosX + 443, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IInvNumber.Location = new Point(startPosX + txtInvNum.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IInvNumber.Size = new Size(170, 20);
             IInvNumber.MaxLength = 10;
 
             IValue.Name = "IValue" + countIL;
-            IValue.Location = new Point(startPosX + 627, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IValue.Location = new Point(startPosX + txtInvValue.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IValue.Size = new Size(80, 20);
             IValue.Maximum = 9999999;
             IValue.DecimalPlaces = 2;
@@ -1203,11 +1203,11 @@ namespace Homesmart_Job_Management
 
             button.Text = "X";
             button.Name = "button" + countIL;
-            button.Location = new Point(startPosX + 713, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            button.Location = new Point(btnAddInv.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             button.Size = new Size(20, 20);
 
             IID.Name = "IID" + countIL;
-            IID.Location = new Point(startPosX + 743, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
+            IID.Location = new Point(btnAddInv.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             IID.Size = new Size(30, 20);
             IID.Visible = false;
 
