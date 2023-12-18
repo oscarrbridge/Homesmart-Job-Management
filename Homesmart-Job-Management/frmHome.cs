@@ -16,7 +16,11 @@ namespace Homesmart_Job_Management
             search();
 
             dataGrid.Columns[1].Width = 40;
-            dataGrid1.Columns[2].Width = 40;
+            dataGrid.Columns[4].Width = 83;
+            
+            dataGrid1.Columns[2].Width = 50;
+            dataGrid1.Columns[3].Width = 70;
+            dataGrid1.Columns[4].Width = 102;
 
         }
 

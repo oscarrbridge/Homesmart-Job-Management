@@ -126,7 +126,7 @@ namespace Homesmart_Job_Management
                 int Charge = 0;
                 int Invoice = 0;
 
-                string CustQuoteQuery = $"SELECT JobDetails, QuoteValue, QuoteOwner, QuoteNumber, CustQuoteID FROM AddCustQuote WHERE JobID = @JobID";
+                string CustQuoteQuery = $"SELECT SalesPerson, JobDetails, QuoteValue, QuoteOwner, QuoteNumber, CustQuoteID FROM AddCustQuote WHERE JobID = @JobID";
                 string QuoteQuery = $"SELECT SupplierContractor, QuoteDate, uReference, QuoteValue, QuoteID FROM ExpenseQuote WHERE JobID = @JobID";
                 string ChargeQuery = $"SELECT Company, SupplierContractor, uType, uValue, ChargeID FROM InternalCharge WHERE JobID = @JobID";
                 string InvoiceQuery = $"SELECT SupplierContractor, InvoiceDate, uReference, InvoiceNo, uValue, InvoiceID FROM ExpenseInvoice WHERE JobID = @JobID";
@@ -189,6 +189,7 @@ namespace Homesmart_Job_Management
 
                         //(CustQuoteControls["DCustomerName" + $"{i}"] as TextBox).Text = reader["CustomerName"].ToString();
                         //(CustQuoteControls["DCustomerAddress" + $"{i}"] as TextBox).Text = reader["CustomerAddress"].ToString();
+                        (CustQuoteControls["DSalesPerson" + $"{i}"] as TextBox).Text = reader["SalesPerson"].ToString();
                         (CustQuoteControls["DDetails" + $"{i}"] as TextBox).Text = reader["JobDetails"].ToString();
                         (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text = reader["QuoteOwner"].ToString();
                         (CustQuoteControls["DQuoteNumber" + $"{i}"] as TextBox).Text = reader["QuoteNumber"].ToString();
@@ -232,7 +233,7 @@ namespace Homesmart_Job_Management
                     {
                         AddCharge();
 
-                        (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
+                        (ChargeControls["CCompany" + $"{i}"] as ComboBox).Text = reader["Company"].ToString();
                         (ChargeControls["CSupplier" + $"{i}"] as ComboBox).Text = reader["SupplierContractor"].ToString();
                         (ChargeControls["CType" + $"{i}"] as TextBox).Text = reader["uType"].ToString();
                         (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
@@ -353,10 +354,11 @@ namespace Homesmart_Job_Management
                         {
                             string i = entry.Key.Substring("DQuoteValue".Length);
                             Query = "UPDATE AddCustQuote " +
-                                    "SET JobDetails = @JobDetails, QuoteValue = @QuoteValue, QuoteOwner = @QuoteOwner, QuoteNumber = @QuoteNumber " +
+                                    "SET SalesPerson = @SalesPerson, JobDetails = @JobDetails, QuoteValue = @QuoteValue, QuoteOwner = @QuoteOwner, QuoteNumber = @QuoteNumber " +
                                     "WHERE CustQuoteID = @CustQuoteID";
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
+                            cmd.Parameters.AddWithValue("@SalesPerson", (CustQuoteControls["DSalesPerson" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@JobDetails", (CustQuoteControls["DDetails" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@QuoteValue", (CustQuoteControls["DQuoteValue" + $"{i}"] as NumericUpDown).Text);
                             cmd.Parameters.AddWithValue("@QuoteOwner", (CustQuoteControls["DQuoteOwner" + $"{i}"] as TextBox).Text);
@@ -369,31 +371,35 @@ namespace Homesmart_Job_Management
                     int k = 0;
                     foreach (Control control in NewCustQuoteControls.Values)
                     {
-                        if (k % 5 == 0) // Start of a new group of controls
+                        if (k % 6 == 0) // Start of a new group of controls
                         {
-                            Query = "INSERT INTO AddCustQuote (JobDetails, QuoteValue, QuoteOwner, QuoteNumber, JobID) " +
-                                    "VALUES (@JobDetails, @QuoteValue, @QuoteOwner, @QuoteNumber, @JobID)";
+                            Query = "INSERT INTO AddCustQuote (SalesPerson, JobDetails, QuoteValue, QuoteOwner, QuoteNumber, JobID) " +
+                                    "VALUES (@SalesPerson, @JobDetails, @QuoteValue, @QuoteOwner, @QuoteNumber, @JobID)";
 
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                             cmd.Parameters.AddWithValue("@JobID", uJobID);
                         }
 
-                        switch (k % 5)
+                        switch (k % 6)
                         {
                             case 0: // SupplierContractor
-                                cmd.Parameters.AddWithValue("@JobDetails", (control as TextBox).Text);
+                                cmd.Parameters.AddWithValue("@SalesPerson", (control as TextBox).Text);
                                 break;
                             case 1: // QuoteDate
-                                cmd.Parameters.AddWithValue("@QuoteOwner", (control as TextBox).Text);
+                                cmd.Parameters.AddWithValue("@JobDetails", (control as TextBox).Text);
                                 break;
                             case 2: // uReference
-                                cmd.Parameters.AddWithValue("@QuoteNumber", (control as TextBox).Text);
+                                cmd.Parameters.AddWithValue("@QuoteOwner", (control as TextBox).Text);
                                 break;
                             case 3: // QuoteID
-                                cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Value);
+                                cmd.Parameters.AddWithValue("@QuoteNumber", (control as TextBox).Text);
                                 break;
                             case 4:
+                                cmd.Parameters.AddWithValue("@QuoteValue", (control as NumericUpDown).Value);
+                                
+                                break;
+                            case 5:
                                 //cmd.Parameters.AddWithValue("@QuoteID", (control as TextBox).Text);
                                 cmd.ExecuteNonQuery(); // Execute the query after the last control of the group
                                 break;
@@ -413,7 +419,7 @@ namespace Homesmart_Job_Management
                                     "WHERE QuoteID = @QuoteID";
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                            cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (QuoteControls["QSupplier" + $"{i}"] as ComboBox).Text);
                             cmd.Parameters.AddWithValue("@QuoteDate", (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value);
                             cmd.Parameters.AddWithValue("@uReference", (QuoteControls["QReference" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@QuoteValue", (QuoteControls["QValue" + $"{i}"] as NumericUpDown).Text);
@@ -469,8 +475,8 @@ namespace Homesmart_Job_Management
                                     "WHERE ChargeID = @ChargeID";
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                            cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as TextBox).Text);
-                            cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@Company", (ChargeControls["CCompany" + $"{i}"] as ComboBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (ChargeControls["CSupplier" + $"{i}"] as ComboBox).Text);
                             cmd.Parameters.AddWithValue("@uType", (ChargeControls["CType" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@uValue", (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text);
                             cmd.Parameters.AddWithValue("@ChargeID", (ChargeControls["CID" + $"{i}"] as TextBox).Text);
@@ -524,7 +530,7 @@ namespace Homesmart_Job_Management
                                     "WHERE InvoiceID = @InvoiceID";
                             cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
-                            cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text);
+                            cmd.Parameters.AddWithValue("@SupplierContractor", (InvoiceControls["ISupplier" + $"{i}"] as ComboBox).Text);
                             cmd.Parameters.AddWithValue("@InvoiceDate", (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value);
                             cmd.Parameters.AddWithValue("@uReference", (InvoiceControls["IReference" + $"{i}"] as TextBox).Text);
                             cmd.Parameters.AddWithValue("@InvoiceNo", (InvoiceControls["IInvNumber" + $"{i}"] as TextBox).Text);
@@ -550,7 +556,7 @@ namespace Homesmart_Job_Management
                         switch (k % 6)
                         {
                             case 0: // SupplierContractor
-                                cmd.Parameters.AddWithValue("@SupplierContractor", (control as TextBox).Text);
+                                cmd.Parameters.AddWithValue("@SupplierContractor", (control as ComboBox).Text);
                                 break;
                             case 1: // InvoiceDate
                                 cmd.Parameters.AddWithValue("@InvoiceDate", (control as DateTimePicker).Value);
@@ -721,6 +727,7 @@ namespace Homesmart_Job_Management
             // Create new TextBox and Button
             //TextBox DCustomerName = new TextBox();
             //TextBox DCustomerAddress = new TextBox();
+            TextBox DSalesPerson = new TextBox();
             TextBox DDetails = new TextBox();
             TextBox DQuoteOwner = new TextBox();
             TextBox DQuoteNumber = new TextBox();
@@ -737,6 +744,11 @@ namespace Homesmart_Job_Management
             //DCustomerAddress.Name = "DCustomerAddress" + countDL;
             //DCustomerAddress.Location = new Point(startPosX + 177, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
             //DCustomerAddress.Size = new Size(170, 20);
+
+            DSalesPerson.Name = "DSalesPerson" + countDL;
+            DSalesPerson.Location = new Point(startPosX + txtSalesPerson.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
+            DSalesPerson.Size = new Size(170, 20);
+            DSalesPerson.MaxLength = 25;
 
             DDetails.Name = "DDetails" + countDL;
             DDetails.Location = new Point(startPosX + txtDetails.Left, this.AutoScrollPosition.Y + (30 * countD) + startPosY);
@@ -779,6 +791,7 @@ namespace Homesmart_Job_Management
                     // Remove the TextBox and Button
                     //Controls.Remove(DCustomerName);
                     //Controls.Remove(DCustomerAddress);
+                    Controls.Remove(DSalesPerson);
                     Controls.Remove(DDetails);
                     Controls.Remove(DQuoteOwner);
                     Controls.Remove(DQuoteNumber);
@@ -790,6 +803,7 @@ namespace Homesmart_Job_Management
                     {
                         //CustQuoteControls.Remove(DCustomerName.Name);
                         //CustQuoteControls.Remove(DCustomerAddress.Name);
+                        CustQuoteControls.Remove(DSalesPerson.Name);
                         CustQuoteControls.Remove(DDetails.Name);
                         CustQuoteControls.Remove(DQuoteOwner.Name);
                         CustQuoteControls.Remove(DQuoteNumber.Name);
@@ -800,6 +814,7 @@ namespace Homesmart_Job_Management
                     {
                         //NewCustQuoteControls.Remove(DCustomerName.Name);
                         //NewCustQuoteControls.Remove(DCustomerAddress.Name);
+                        NewCustQuoteControls.Remove(DSalesPerson.Name);
                         NewCustQuoteControls.Remove(DDetails.Name);
                         NewCustQuoteControls.Remove(DQuoteOwner.Name);
                         NewCustQuoteControls.Remove(DQuoteNumber.Name);
@@ -845,6 +860,7 @@ namespace Homesmart_Job_Management
             {
                 //CustQuoteControls.Add(DCustomerName.Name, DCustomerName);
                 //CustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
+                CustQuoteControls.Add(DSalesPerson.Name, DSalesPerson);
                 CustQuoteControls.Add(DDetails.Name, DDetails);
                 CustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
                 CustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
@@ -855,6 +871,7 @@ namespace Homesmart_Job_Management
             {
                 //NewCustQuoteControls.Add(DCustomerName.Name, DCustomerName);
                 //NewCustQuoteControls.Add(DCustomerAddress.Name, DCustomerAddress);
+                NewCustQuoteControls.Add(DSalesPerson.Name, DSalesPerson);
                 NewCustQuoteControls.Add(DDetails.Name, DDetails);
                 NewCustQuoteControls.Add(DQuoteOwner.Name, DQuoteOwner);
                 NewCustQuoteControls.Add(DQuoteNumber.Name, DQuoteNumber);
@@ -865,6 +882,7 @@ namespace Homesmart_Job_Management
             // Add the new controls to the form
             //Controls.Add(DCustomerName);
             //Controls.Add(DCustomerAddress);
+            Controls.Add(DSalesPerson);
             Controls.Add(DDetails);
             Controls.Add(DQuoteOwner);
             Controls.Add(DQuoteNumber);
@@ -1034,7 +1052,7 @@ namespace Homesmart_Job_Management
             int startPosY = 321;
 
             // Create new TextBox and Button
-            TextBox CCompany = new TextBox();
+            ComboBox CCompany = new ComboBox();
             ComboBox CSupplier = new ComboBox();
             TextBox CType = new TextBox();
             NumericUpDown CValue = new NumericUpDown();

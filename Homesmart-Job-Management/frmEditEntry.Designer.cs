@@ -84,6 +84,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtCustomerEmail = new System.Windows.Forms.Label();
             this.boxCustomerEmail = new System.Windows.Forms.TextBox();
+            this.txtSalesPerson = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxMargin)).BeginInit();
@@ -650,12 +651,22 @@
             this.boxCustomerEmail.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerEmail.TabIndex = 63;
             // 
+            // txtSalesPerson
+            // 
+            this.txtSalesPerson.AutoSize = true;
+            this.txtSalesPerson.Location = new System.Drawing.Point(12, 142);
+            this.txtSalesPerson.Name = "txtSalesPerson";
+            this.txtSalesPerson.Size = new System.Drawing.Size(69, 13);
+            this.txtSalesPerson.TabIndex = 64;
+            this.txtSalesPerson.Text = "Sales Person";
+            // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(823, 905);
+            this.Controls.Add(this.txtSalesPerson);
             this.Controls.Add(this.txtCustomerEmail);
             this.Controls.Add(this.boxCustomerEmail);
             this.Controls.Add(this.panel2);
@@ -769,5 +780,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label txtCustomerEmail;
         private System.Windows.Forms.TextBox boxCustomerEmail;
+        private System.Windows.Forms.Label txtSalesPerson;
     }
 }
