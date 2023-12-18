@@ -1,6 +1,7 @@
 ﻿using Connections;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq.Expressions;
@@ -43,6 +44,8 @@ namespace Homesmart_Job_Management
         Dictionary<string, Control> OrigInvoiceControls = new Dictionary<string, Control>();
         Dictionary<string, Control> RemInvoiceControls = new Dictionary<string, Control>();
         Dictionary<string, Control> NewInvoiceControls = new Dictionary<string, Control>();
+
+        List<string> SuppliersContractors = new List<string>() { "HSR", "HSM" };
 
         public frmEditEntry(int JobID)
         {
@@ -206,7 +209,7 @@ namespace Homesmart_Job_Management
                     {
                         AddQuote();
 
-                        (QuoteControls["QSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        (QuoteControls["QSupplier" + $"{i}"] as ComboBox).Text = reader["SupplierContractor"].ToString();
                         try
                         {
                             (QuoteControls["QDate" + $"{i}"] as DateTimePicker).Value = DateTime.Parse(reader["QuoteDate"].ToString());
@@ -230,7 +233,7 @@ namespace Homesmart_Job_Management
                         AddCharge();
 
                         (ChargeControls["CCompany" + $"{i}"] as TextBox).Text = reader["Company"].ToString();
-                        (ChargeControls["CSupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        (ChargeControls["CSupplier" + $"{i}"] as ComboBox).Text = reader["SupplierContractor"].ToString();
                         (ChargeControls["CType" + $"{i}"] as TextBox).Text = reader["uType"].ToString();
                         (ChargeControls["CValue" + $"{i}"] as NumericUpDown).Text = reader["uValue"].ToString();
                         (ChargeControls["CID" + $"{i}"] as TextBox).Text = reader["ChargeID"].ToString();
@@ -248,7 +251,7 @@ namespace Homesmart_Job_Management
                     {
                         AddInv();
 
-                        (InvoiceControls["ISupplier" + $"{i}"] as TextBox).Text = reader["SupplierContractor"].ToString();
+                        (InvoiceControls["ISupplier" + $"{i}"] as ComboBox).Text = reader["SupplierContractor"].ToString();
                         try
                         {
                             (InvoiceControls["IDate" + $"{i}"] as DateTimePicker).Value = DateTime.Parse(reader["InvoiceDate"].ToString());
@@ -884,7 +887,7 @@ namespace Homesmart_Job_Management
             int startPosY = 207+20;
 
             // Create new TextBox and Button
-            TextBox QSupplier = new TextBox();
+            ComboBox QSupplier = new ComboBox();
             DateTimePicker QDate = new DateTimePicker();
             TextBox QReference = new TextBox();
             NumericUpDown QValue = new NumericUpDown();
@@ -896,7 +899,10 @@ namespace Homesmart_Job_Management
             QSupplier.Name = "QSupplier" + countQL;
             QSupplier.Location = new Point(startPosX + txtSupplierQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
             QSupplier.Size = new Size(170, 20);
-            QSupplier.MaxLength = 25;
+            foreach (var item in SuppliersContractors)
+            {
+                QSupplier.Items.Add(item);
+            }
 
             QDate.Name = "QDate" + countQL;
             QDate.Location = new Point(startPosX + txtQuoteDateQ.Left, this.AutoScrollPosition.Y + (30 * countQ) + startPosY);
@@ -1029,7 +1035,7 @@ namespace Homesmart_Job_Management
 
             // Create new TextBox and Button
             TextBox CCompany = new TextBox();
-            TextBox CSupplier = new TextBox();
+            ComboBox CSupplier = new ComboBox();
             TextBox CType = new TextBox();
             NumericUpDown CValue = new NumericUpDown();
             Button button = new Button();
@@ -1044,7 +1050,11 @@ namespace Homesmart_Job_Management
             CSupplier.Name = "CSupplier" + countCL;
             CSupplier.Location = new Point(startPosX + txtItem.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CSupplier.Size = new Size(170, 20);
-            CSupplier.MaxLength = 25;
+            foreach (var item in SuppliersContractors)
+            {
+                CSupplier.Items.Add(item);
+            }
+
 
             CType.Name = "CType" + countCL;
             CType.Location = new Point(startPosX + txtType.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
@@ -1167,7 +1177,7 @@ namespace Homesmart_Job_Management
             int startPosY = 414;
 
             // Create new TextBox and Button
-            TextBox ISupplier = new TextBox();
+            ComboBox ISupplier = new ComboBox();
             DateTimePicker IDate = new DateTimePicker();
             TextBox IReference = new TextBox();
             TextBox IInvNumber = new TextBox();
@@ -1179,7 +1189,10 @@ namespace Homesmart_Job_Management
             ISupplier.Name = "ISupplier" + countIL;
             ISupplier.Location = new Point(startPosX + txtSupplier.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);
             ISupplier.Size = new Size(170, 20);
-            ISupplier.MaxLength = 25;
+            foreach (var item in SuppliersContractors)
+            {
+                ISupplier.Items.Add(item);
+            }
 
             IDate.Name = "IDate" + countIL;
             IDate.Location = new Point(startPosX + txtInvoiceDate.Left, this.AutoScrollPosition.Y + (30 * countI) + startPosY);

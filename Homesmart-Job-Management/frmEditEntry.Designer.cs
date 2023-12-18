@@ -645,7 +645,7 @@
             // boxCustomerEmail
             // 
             this.boxCustomerEmail.Location = new System.Drawing.Point(376, 114);
-            this.boxCustomerEmail.MaxLength = 35;
+            this.boxCustomerEmail.MaxLength = 45;
             this.boxCustomerEmail.Name = "boxCustomerEmail";
             this.boxCustomerEmail.Size = new System.Drawing.Size(170, 20);
             this.boxCustomerEmail.TabIndex = 63;
