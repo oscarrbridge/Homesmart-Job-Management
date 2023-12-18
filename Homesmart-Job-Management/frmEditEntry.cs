@@ -262,7 +262,7 @@ namespace Homesmart_Job_Management
                 }
                 reader.Close();
 
-                string JobQuery = $"SELECT CustomerName, CustomerAddress, TotalCost, Profit, Margin, Notes FROM Job WHERE JobID = @JobID";
+                string JobQuery = $"SELECT CustomerName, CustomerAddress, CustomerEmail, TotalCost, Profit, Margin, Notes FROM Job WHERE JobID = @JobID";
 
                 MySqlCommand JobQueryCmd = new MySqlCommand(JobQuery, dbConnection.GetConnection());
 
@@ -274,6 +274,7 @@ namespace Homesmart_Job_Management
                 {
                     boxCustomerName.Text = reader["CustomerName"].ToString();
                     boxCustomerAddress.Text = reader["CustomerAddress"].ToString();
+                    boxCustomerEmail.Text = reader["CustomerEmail"].ToString();
                     boxNotes.Text = reader["Notes"].ToString();
                     //boxQuoteValue.Text = reader["QuoteValue"].ToString();
                     boxTotalCost.Text = reader["TotalCost"].ToString();
@@ -327,12 +328,13 @@ namespace Homesmart_Job_Management
                 if (dbConnection.OpenConnection() == true)
                 {
                     string Query = "UPDATE Job " +
-                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, Notes = @Notes, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
+                                    "SET CustomerName = @CustomerName, CustomerAddress = @CustomerAddress, CustomerEmail = @CustomerEmail, Notes = @Notes, TotalCost = @TotalCost, Profit = @Profit, Margin = @Margin " +
                                     "WHERE JobID = @JobID";
                     MySqlCommand cmd = new MySqlCommand(Query, dbConnection.GetConnection());
 
                     cmd.Parameters.AddWithValue("@CustomerName", boxCustomerName.Text);
                     cmd.Parameters.AddWithValue("@CustomerAddress", boxCustomerAddress.Text);
+                    cmd.Parameters.AddWithValue("@CustomerEmail", boxCustomerEmail.Text);
                     cmd.Parameters.AddWithValue("@Notes", boxNotes.Text);
                     //cmd.Parameters.AddWithValue("@QuoteValue", boxQuoteValue.Text);
                     cmd.Parameters.AddWithValue("@TotalCost", boxTotalCost.Text);

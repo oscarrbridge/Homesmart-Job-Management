@@ -82,6 +82,8 @@
             this.txtOtherDescription = new System.Windows.Forms.Label();
             this.boxOtherDescription = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtCustomerEmail = new System.Windows.Forms.Label();
+            this.boxCustomerEmail = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxMargin)).BeginInit();
@@ -254,9 +256,9 @@
             this.txtInternalTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInternalTitle.Location = new System.Drawing.Point(11, 273);
             this.txtInternalTitle.Name = "txtInternalTitle";
-            this.txtInternalTitle.Size = new System.Drawing.Size(134, 20);
+            this.txtInternalTitle.Size = new System.Drawing.Size(199, 20);
             this.txtInternalTitle.TabIndex = 30;
-            this.txtInternalTitle.Text = "Internal Charge";
+            this.txtInternalTitle.Text = "Inter-Company Charges";
             // 
             // txtCompanyName
             // 
@@ -631,12 +633,31 @@
             this.panel2.Size = new System.Drawing.Size(245, 136);
             this.panel2.TabIndex = 61;
             // 
+            // txtCustomerEmail
+            // 
+            this.txtCustomerEmail.AutoSize = true;
+            this.txtCustomerEmail.Location = new System.Drawing.Point(373, 98);
+            this.txtCustomerEmail.Name = "txtCustomerEmail";
+            this.txtCustomerEmail.Size = new System.Drawing.Size(79, 13);
+            this.txtCustomerEmail.TabIndex = 62;
+            this.txtCustomerEmail.Text = "Customer Email";
+            // 
+            // boxCustomerEmail
+            // 
+            this.boxCustomerEmail.Location = new System.Drawing.Point(376, 114);
+            this.boxCustomerEmail.MaxLength = 35;
+            this.boxCustomerEmail.Name = "boxCustomerEmail";
+            this.boxCustomerEmail.Size = new System.Drawing.Size(170, 20);
+            this.boxCustomerEmail.TabIndex = 63;
+            // 
             // frmEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(823, 905);
+            this.Controls.Add(this.txtCustomerEmail);
+            this.Controls.Add(this.boxCustomerEmail);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.txtInvValue);
             this.Controls.Add(this.txtReference);
@@ -746,5 +767,7 @@
         private System.Windows.Forms.Label txtOtherDescription;
         private System.Windows.Forms.TextBox boxOtherDescription;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label txtCustomerEmail;
+        private System.Windows.Forms.TextBox boxCustomerEmail;
     }
 }
