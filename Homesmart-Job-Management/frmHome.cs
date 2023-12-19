@@ -61,8 +61,6 @@ namespace Homesmart_Job_Management
 
                 dataGrid.DataSource = dt;
 
-
-
                 string houseWashQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.HouseWashDate as Date, 'House Wash' as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.HouseWash = 1";
                 string mossTreatmentQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.MossTreatmentDate as Date, 'Moss Treatment' as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.MossTreatment = 1";
                 string otherQuery = "SELECT Job.CustomerAddress, Job.JobID, FollowUp.OtherDate as Date, FollowUp.OtherDesc as Description FROM FollowUp INNER JOIN Job ON FollowUp.JobID = Job.JobID WHERE FollowUp.Other = 1";

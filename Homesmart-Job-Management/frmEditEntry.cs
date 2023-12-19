@@ -1063,7 +1063,10 @@ namespace Homesmart_Job_Management
             CCompany.Name = "CCompany" + countCL;
             CCompany.Location = new Point(startPosX + txtCompanyName.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
             CCompany.Size = new Size(80, 20);
-            CCompany.MaxLength = 6;
+            foreach (var item in SuppliersContractors)
+            {
+                CCompany.Items.Add(item);
+            }
 
             CSupplier.Name = "CSupplier" + countCL;
             CSupplier.Location = new Point(startPosX + txtItem.Left, this.AutoScrollPosition.Y + (30 * countC) + startPosY);
