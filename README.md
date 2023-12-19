@@ -9,7 +9,7 @@ This software is designed to manage jobs and customer relationships for Homesmar
 - **Job Tracking**: Track the status of jobs, assign tasks to team members, and monitor progress.
 - **Customer Relationship Management (CRM)**: Manage customer information, track customer interactions, and improve customer service.
 
-##Requirements
+## Requirements
 
  -https://www.nuget.org/packages/MySql.Data/
  -dotnet add package MySql.Data --version 8.2.0
