@@ -106,7 +106,6 @@ namespace Homesmart_Job_Management
             boxMargin.Value = TotalProfit != 0 ? Profit / TotalProfit * 100 : 0;
         }
 
-
         private void copyDict()
         {
             OrigCustQuoteControls = new Dictionary<string, Control>(CustQuoteControls);
@@ -348,6 +347,7 @@ namespace Homesmart_Job_Management
 
                     cmd.ExecuteNonQuery();
 
+
                     foreach (KeyValuePair<string, Control> entry in CustQuoteControls)
                     {
                         if (entry.Key.StartsWith("DQuoteValue"))
@@ -578,6 +578,8 @@ namespace Homesmart_Job_Management
                         k++;
                     }
 
+
+
                     if (RemCustQuoteControls.Count > 0)
                     {
                         foreach (KeyValuePair<string, Control> item in RemCustQuoteControls)
@@ -633,6 +635,8 @@ namespace Homesmart_Job_Management
 
                         }
                     }
+
+
 
                     if (chkHouseWash.Checked == true)
                     {
@@ -718,6 +722,10 @@ namespace Homesmart_Job_Management
                 }
             }
         }
+
+
+
+
 
         private void AddCustQuote()
         {
@@ -1346,6 +1354,9 @@ namespace Homesmart_Job_Management
             countIL++;
         }
 
+
+
+
         private void btnAddCustQuote_Click(object sender, EventArgs e)
         {
             AddCustQuote();
@@ -1365,6 +1376,9 @@ namespace Homesmart_Job_Management
         {
             AddInv();
         }
+
+
+
 
         private void chkHouseWash_CheckedChanged(object sender, EventArgs e)
         {

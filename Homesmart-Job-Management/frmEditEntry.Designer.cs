@@ -299,6 +299,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.boxMargin);
             this.panel1.Controls.Add(this.txtTotalCost);
             this.panel1.Controls.Add(this.boxProfit);
@@ -308,7 +309,7 @@
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Location = new System.Drawing.Point(501, 464);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(250, 122);
+            this.panel1.Size = new System.Drawing.Size(247, 120);
             this.panel1.TabIndex = 34;
             // 
             // boxMargin
@@ -592,6 +593,7 @@
             // 
             // Reminders
             // 
+            this.Reminders.AutoSize = true;
             this.Reminders.Controls.Add(this.txtOtherDescription);
             this.Reminders.Controls.Add(this.boxOtherDescription);
             this.Reminders.Controls.Add(this.chkHouseWash);
