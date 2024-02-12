@@ -12,7 +12,7 @@ This software is designed to manage jobs and customer relationships for Homesmar
 ## Requirements
 
  -https://www.nuget.org/packages/MySql.Data/
- -dotnet add package MySql.Data --version 8.2.0
+ NuGet\Install-Package MySql.Data -Version 8.3.0
 
 ## 📫 Contact Me
 
